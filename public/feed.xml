@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[Test CMS]]></title>
+        <description><![CDATA[Test CMS]]></description>
+        <link>http://localhost</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Fri, 03 Mar 2023 14:21:19 GMT</lastBuildDate>
+        <atom:link href="http://localhost/feed.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Fri, 03 Mar 2023 14:21:19 GMT</pubDate>
+        <copyright><![CDATA[2023 Test CMS]]></copyright>
+        <language><![CDATA[en]]></language>
+        <item>
+            <title><![CDATA[Hello world!]]></title>
+            <description><![CDATA[add_filter(&#8216;pre_post_link&#8217;, &#8216;se332921_pre_post_link&#8217;, 20, 3); add_filter(&#8216;post_rewrite_rules&#8217;, &#8216;se332921_post_rewrite_rules&#8217;); /** * @param string $permalink The site&#8217;s permalink structure. * @param WP_Post $post The post in question. * @param bool $leavename Whether to keep the post name. */ function se332921_pre_post_link($permalink, $post, $leavename) { if ( $post instanceof WP_Post &amp;&amp; $post->post_type == &#8216;post&#8217;) $permalink = &#8216;/posts&#8217;.$permalink; return $permalink; } /** [&hellip;]
+]]></description>
+            <link>http://localhost/posts/hello-world</link>
+            <guid isPermaLink="false">http://localhost/posts/hello-world</guid>
+            <category><![CDATA[Uncategorized]]></category>
+            <dc:creator><![CDATA[admin]]></dc:creator>
+            <pubDate>Thu, 23 Feb 2023 12:09:10 GMT</pubDate>
+        </item>
+    </channel>
+</rss>
