@@ -1,0 +1,16 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/404": "pages/404.js",
+  "/500": "pages/500.js",
+  "/[slugParent]/[[...slugChild]]": "pages/[slugParent]/[[...slugChild]].js",
+  "/authors/[slug]": "pages/authors/[slug].js",
+  "/categories/[slug]": "pages/categories/[slug].js",
+  "/categories": "pages/categories.js",
+  "/": "pages/index.js",
+  "/posts": "pages/posts.js",
+  "/posts/page/[page]": "pages/posts/page/[page].js",
+  "/posts/[slug]": "pages/posts/[slug].js",
+  "/service/[slug]": "pages/service/[slug].js"
+}
