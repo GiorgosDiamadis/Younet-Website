@@ -19,14 +19,14 @@ export default function Portfolio({projects}) {
 
                     <div
 
-                        style={{"--bg-image": `url('${project.backgroundImage.sourceUrl}')`}}
+                        style={{"--bg-image": `url('${project.backgroundImage?.sourceUrl}')`}}
                         className="portfolio-item-details lg:group-hover:rotate-y-minus35  p-5">
 
                         <div className="flex flex-col relative  group w-full h-full items-end ">
                             <div
                                 className="lg:absolute left-0 bottom-0 lg:group-hover:-translate-y-32 transition-all duration-500 w-full lg:w-auto text-center">
                                 <img className={" text-white relative  text-5xl font-bold "}
-                                     src={project.companyLogo.sourceUrl}/>
+                                     src={project.companyLogo?.sourceUrl}/>
 
                                 <h1 className={"text-white relative  text-3xl font-bold mt-3 text-center lg:text-left "}>
                                     {project.title}
@@ -48,7 +48,7 @@ export default function Portfolio({projects}) {
                         </div>
                     </div>
                     <div className="angled-image  1150px:w-auto">
-                        <Image src={project.onHover.sourceUrl} width={250} height={300} alt={'alt'} loading={"lazy"}/>
+                        <Image src={project.onHover?.sourceUrl} width={250} height={300} alt={'alt'} loading={"lazy"}/>
                     </div>
                 </div>
 
