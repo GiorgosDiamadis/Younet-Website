@@ -262,7 +262,7 @@
   }
 
   section {
-    @apply min-h-[70vh]  w-[80%] m-auto mt-32 mb-32 max-w-[90%];
+    @apply min-h-[70vh]  w-[1500px] m-auto mt-32 mb-32 max-w-[90%];
     height: fit-content;
   }
 
@@ -426,7 +426,7 @@ select:focus ~ label {
 
 
 * {
-  font-family: 'YounetFont', "Open Sans";
+  font-family: HGF;
   box-sizing: border-box;
 }
 
