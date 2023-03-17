@@ -23,6 +23,7 @@ export default function Portfolio({initial}) {
     return <Section>
         <SectionTitle title={'Featured Web Design Launches'}/>
 
+
         <div className="portfolio-container mt-10 1150px:w-full w-3/4 m-auto">
 
             <div className="portfolio-item group relative  ">
