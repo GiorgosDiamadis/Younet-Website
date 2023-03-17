@@ -7,7 +7,7 @@ export default function Services({services}) {
     return <div className="bg-dark_blue ">
 
 
-        <div className="hidden lg:flex services-description h-[85vh]  flex-col">
+        <div  className="hidden lg:flex services-description h-[85vh]  flex-col">
             <div className="relative  flex-1 overflow-hidden">
                 <div className="hidden lg:block">
                     {services && services.map((service, i) => (

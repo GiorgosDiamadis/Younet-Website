@@ -56,10 +56,10 @@ export async function getStaticProps() {
     const {brands} = await getBrands()
 
     return {
+        revalidate: 5,
         props: {
             services,
             brands,
-            revalidate: 5
         },
     };
 }

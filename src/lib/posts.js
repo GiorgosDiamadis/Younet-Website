@@ -141,6 +141,7 @@ export async function getAllPosts(options = {}) {
 
     const posts = data?.data.posts.edges.map(({node = {}}) => node);
 
+
     return {
         posts: Array.isArray(posts) && posts.map(mapPostData),
     };

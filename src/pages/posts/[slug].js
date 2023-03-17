@@ -97,10 +97,14 @@ export default function Post({post, socialImage, related}) {
                             isSticky={isSticky}
                         />
                         <div
+                            className={"wp-content"}
                             dangerouslySetInnerHTML={{
                                 __html: content,
                             }}
-                        />
+
+                        >
+
+                        </div>
                     </Container>
                 </Section>
             </Content>
@@ -138,7 +142,6 @@ export async function getStaticProps({params = {}} = {}) {
             },
         };
     }
-
     return {
         props,
         revalidate: 5,
@@ -159,6 +162,7 @@ export async function getStaticPaths() {
                 slug,
             },
         }));
+
 
     return {
         paths,
