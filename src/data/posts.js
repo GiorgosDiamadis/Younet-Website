@@ -87,6 +87,42 @@ query AllServices {
 }
 
 `
+export const QUERY_ALL_PROJECTS = gql`
+query ProjectsQuery {
+  projects(where: {}) {
+    nodes {
+      projects {
+        fieldGroupName
+        projectBackgroundImage {
+          id
+          slug
+          srcSet
+          sourceUrl
+          title
+        }
+        projectCompanyLogo {
+          id
+          sourceUrl
+          srcSet
+          slug
+          title
+        }
+        projectShortDescription
+        projectOnHoverImage {
+          id
+          srcSet
+          sourceUrl
+          slug
+          title
+        }
+      }
+      title
+    }
+  }
+}
+
+`
+
 
 export const QUERY_ALL_BRANDS_HOME = gql`
 query AllBrands {

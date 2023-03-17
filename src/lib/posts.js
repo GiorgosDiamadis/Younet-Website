@@ -15,7 +15,7 @@ import {
     QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE,
     QUERY_POSTS_BY_CATEGORY_ID,
     QUERY_POST_SEO_BY_SLUG,
-    QUERY_POST_PER_PAGE, QUERY_ALL_SERVICES_HOME, QUERY_ALL_BRANDS_HOME,
+    QUERY_POST_PER_PAGE, QUERY_ALL_SERVICES_HOME, QUERY_ALL_BRANDS_HOME, QUERY_ALL_PROJECTS,
 } from 'data/posts';
 
 /**
@@ -495,6 +495,38 @@ export async function getBrands() {
 
 
     return {brands}
+}
+
+
+async function getAllProjects() {
+
+    const apolloClient = getApolloClient();
+
+    const data = await apolloClient.query({
+        query: QUERY_ALL_PROJECTS,
+    });
+
+    const queriedProjects = []
+
+
+    data.data.projects.nodes.forEach((project) => {
+        queriedProjects.push({
+            title: project.title,
+            backgroundImage: project.projects.projectBackgroundImage,
+            companyLogo: project.projects.projectCompanyLogo,
+            description: project.projects.projectShortDescription,
+            onHover: project.projects.projectOnHoverImage
+        })
+    })
+    return {
+        projects: queriedProjects,
+    };
+}
+
+export async function getProjects() {
+    const {projects} = await getAllProjects()
+
+    return {projects}
 }
 
 

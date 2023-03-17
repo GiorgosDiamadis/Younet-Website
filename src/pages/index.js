@@ -1,5 +1,5 @@
 import useSite from 'hooks/use-site';
-import {getBrands, getServices} from 'lib/posts';
+import {getBrands, getProjects, getServices} from 'lib/posts';
 import {WebsiteJsonLd} from 'lib/json-ld';
 import dynamic from 'next/dynamic'
 import Layout from 'components/Layout';
@@ -23,7 +23,7 @@ const DynamicNewsletter = dynamic(() => import("../components/Younet/NewsLetter"
 })
 
 
-export default function Home({services, brands}) {
+export default function Home({services, brands, projects}) {
     const {metadata = {}} = useSite();
     const {title, description} = metadata;
 
@@ -43,7 +43,7 @@ export default function Home({services, brands}) {
                 </div>
             </Header>
             <DynamicServices services={services}/>
-            <DynamicPortfolio projects={[]}/>
+            <DynamicPortfolio projects={projects}/>
             <DynamicBrands brands={brands}/>
             <DynamicNewsletter/>
         </Layout>
@@ -55,11 +55,15 @@ export async function getStaticProps() {
     const {services} = await getServices()
     const {brands} = await getBrands()
 
+    const {projects} = await getProjects()
+
+
     return {
         revalidate: 5,
         props: {
             services,
             brands,
+            projects
         },
     };
 }
