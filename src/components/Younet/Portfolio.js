@@ -2,7 +2,7 @@ import SectionTitle from "../SectionTitle";
 import Image from "next/image";
 import portfolioimg from "public/portfolioimage.png";
 import Section from "../Section";
-import {CSSProperties, useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 
 
 export default function Portfolio({initial}) {

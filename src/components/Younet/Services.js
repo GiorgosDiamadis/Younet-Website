@@ -1,4 +1,3 @@
-import Section from "../Section";
 import SectionTitle from "../SectionTitle";
 import Image from "next/image";
 
