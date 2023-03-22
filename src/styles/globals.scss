@@ -387,8 +387,45 @@
 }
 
 .portfolio-item-details:hover {
-  transform: rotateY(-35deg);
+  //transform: rotateY(-35deg);
 
+}
+
+.portfolio-item:hover .portfolio-item-details::after {
+  background-color: rgb(1 19 67 / 60%);
+}
+
+.portfolio-item-perspective {
+  will-change: transform;
+  position: absolute;
+  overflow: hidden;
+  background-image: var(--bg-image);
+  width: 12px;
+  transform-origin: 100% 50%;
+  transition: all 0.5s ease-in-out;
+  height: 100%;
+  left: -12px;
+  opacity: 0;
+}
+
+.portfolio-item-perspective::after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: block;
+  content: '';
+  background-color: rgb(1 19 67 / 60%);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+
+.portfolio-item:hover .portfolio-item-perspective {
+  -webkit-transform: perspective(300px) rotateY(-40deg);
+  transform: perspective(300px) rotateY(-40deg);
+  opacity: 1;
 }
 
 .portfolio-item-details::after {
@@ -401,7 +438,8 @@
   bottom: 0;
   right: 0;
 
-  background-color: rgba(0, 0, 0, 0.50  );
+  background-color: rgba(0, 0, 0, 0.50);
+  transition: background-color 500ms ease-in-out;
 
 }
 
