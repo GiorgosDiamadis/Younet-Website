@@ -515,7 +515,8 @@ async function getAllProjects() {
             backgroundImage: project.projects.projectBackgroundImage,
             companyLogo: project.projects.projectCompanyLogo,
             description: project.projects.projectShortDescription,
-            onHover: project.projects.projectOnHoverImage
+            onHover: project.projects.projectOnHoverImage,
+            url: project.projects.websiteUrl
         })
     })
     return {

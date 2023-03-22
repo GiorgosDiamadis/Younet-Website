@@ -57,7 +57,6 @@ export async function getStaticProps() {
 
     const {projects} = await getProjects()
 
-    console.log(projects)
 
 
     return {

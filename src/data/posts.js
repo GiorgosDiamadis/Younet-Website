@@ -115,6 +115,7 @@ query ProjectsQuery {
           slug
           title
         }
+        websiteUrl
       }
       title
     }
