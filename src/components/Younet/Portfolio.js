@@ -24,7 +24,7 @@ export default function Portfolio({projects}) {
                     </div>
 
                     <div className="flex flex-col relative  group w-full h-full items-end ">
-                        <div className="lg:absolute left-3 bottom-3 w-[90%]">
+                        <div className="lg:absolute left-3 bottom-12 w-[90%]">
 
                             <div
                                 className={`lg:absolute left-0 bottom-0 lg:group-hover:bottom-full transition-all duration-500 w-full lg:w-auto text-center`}>

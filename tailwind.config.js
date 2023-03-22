@@ -5,7 +5,8 @@ const rotateY = plugin(function ({addUtilities}) {
 
     addUtilities({
         '.rotate-y-minus35': {
-            transform: 'rotateY(-30deg)'
+            transform: 'perspective(265px) rotateY(2deg)',
+
         }
     })
 })
