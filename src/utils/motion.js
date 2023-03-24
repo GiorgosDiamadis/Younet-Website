@@ -68,7 +68,7 @@ export const textContainer = {
     },
     show: (i = 1) => ({
         opacity: 1,
-        transition: { staggerChildren: 0.1, delayChildren: i * 0.1 }
+        transition: { staggerChildren: 0.02, delayChildren: i * 0.02 }
     })
 }
 
@@ -82,7 +82,7 @@ export const textVariant2 = {
         y: 0,
         transition: {
             type: 'tween',
-            ease: 'easeIn'
+            ease: 'easeIn',
         }
     }
 }
