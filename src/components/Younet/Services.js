@@ -6,13 +6,13 @@ import Link from "next/link";
 export default function Services({services}) {
     return <div className="bg-dark_blue ">
 
-
-        <div  className="hidden lg:flex services-description h-[85vh]  flex-col">
+        <div className="hidden lg:flex services-description h-[700px]  flex-col">
             <div className="relative  flex-1 overflow-hidden">
                 <div className="hidden lg:block">
                     {services && services.map((service, i) => (
                         <div className={"images " + (i > 0 ? "opacity-0" : "")}>
-                            <Image src={service.serviceBgImage.sourceUrl} alt={service.serviceBgImage.altText} loading={"lazy"} objectFit={"cover"}
+                            <Image src={service.serviceBgImage.sourceUrl} alt={service.serviceBgImage.altText}
+                                   loading={"lazy"} objectFit={"cover"}
                                    layout={"fill"}
                                    objectPosition={"center"}/>
                         </div>
@@ -36,20 +36,22 @@ export default function Services({services}) {
                                 })
                                 document.querySelector(`.images:nth-child(${i + 1})`).classList.add('active')
                             }} className={'group service'}>
+                                <div className="relative d-flex flex-col justify-end">
+                                    <div id={`heading-${service.id}`} className={"service-heading "}>
+                                        <span className={"text-highlighted text-5xl font-bold"}>0{i + 1}</span>
+                                        <p className={' inline-block lg:text-2xl text-3xl font-bold'}>
+                                            {service.title}
+                                        </p>
+                                    </div>
+                                    <div className="opacity-0 service-description">
+                                        <p className={'mt-0 text-lg'}>
+                                            {service.serviceFrontShortDescription}
+                                        </p>
 
-                                <div id={`heading-${service.id}`} className={"service-heading "}>
-                                    <span className={"text-highlighted text-5xl font-bold"}>0{i + 1}</span>
-                                    <p className={' inline-block lg:text-2xl text-3xl font-bold'}>
-                                        {service.title}
-                                    </p>
+                                        <p className="text-lg font-bold">{service.frontButtonText}</p>
+                                    </div>
                                 </div>
-                                <div className={'opacity-0 service-description'}>
-                                    <p className={'mt-0 text-lg'}>
-                                        {service.serviceFrontShortDescription}
-                                    </p>
 
-                                    <p className="text-lg font-bold">{service.frontButtonText}</p>
-                                </div>
 
                             </a>
                         </Link>
@@ -89,7 +91,8 @@ export default function Services({services}) {
                              style={{maxHeight: 0}}>
 
                             <div className={'service-description w-100 relative'}>
-                                <Image width={1920} height={400} alt={service.serviceBgImage.altText} src={service.serviceBgImage.sourceUrl} loading={"lazy"}
+                                <Image width={1920} height={400} alt={service.serviceBgImage.altText}
+                                       src={service.serviceBgImage.sourceUrl} loading={"lazy"}
                                        objectFit={"cover"}/>
                                 <p className={'mt-0 text-lg'}>
                                     {service.serviceFrontShortDescription}
