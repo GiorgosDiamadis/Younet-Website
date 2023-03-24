@@ -30,8 +30,6 @@ const Nav = () => {
     const navigation = findMenuByLocation(menus, navigationLocation);
 
 
-
-
     useEffect(() => {
         if (searchVisibility === SEARCH_HIDDEN) {
             removeDocumentOnClick();
@@ -54,7 +52,7 @@ const Nav = () => {
     }, [searchVisibility]);
 
     useEffect(() => {
-            if (window.location.pathname === '/'){
+            if (window.location.pathname === '/') {
                 if (scrollPosition >= 120) {
 
                     if (menuRef.current) {
@@ -66,7 +64,7 @@ const Nav = () => {
 
                     }
                 }
-            }else{
+            } else {
                 menuRef.current.classList.add('nav-scrolled')
 
             }
@@ -187,6 +185,7 @@ const Nav = () => {
 
         <>
             <nav data-menu-transition ref={menuRef} className={'p-[1rem] main-nav pt-2  m-0 fixed w-full z-50'}>
+                <div className="gradient-01 h-[239px] absolute w-[152px]"/>
                 <div className={'site-navigation'}>
                     <p className={styles.navName + ' z-50'}>
                         <Link legacyBehavior href="/">
