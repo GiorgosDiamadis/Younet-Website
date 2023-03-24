@@ -1,55 +1,57 @@
-import {useCallback, useEffect, useRef, useState} from 'react';
-import Link from 'next/link';
+import { useCallback, useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 import Image from 'next/image'
-import useSite from 'hooks/use-site';
-import logo from "../../../public/YouNet-LogoW.webp"
-import {findMenuByLocation, MENU_LOCATION_NAVIGATION_DEFAULT} from 'lib/menus';
+import useSite from 'hooks/use-site'
+import logo from '../../../public/YouNet-LogoW.webp'
+import { findMenuByLocation, MENU_LOCATION_NAVIGATION_DEFAULT } from 'lib/menus'
+import { motion } from 'framer-motion'
 
-import styles from './Nav.module.scss';
-import NavListItem from 'components/NavListItem';
-import useScrollPosition from "../../hooks/useScrollPosition";
-import CallToAction from "../CallToAction";
-import Burger from "./Burger";
+import styles from './Nav.module.scss'
+import useScrollPosition from '../../hooks/useScrollPosition'
+import CallToAction from '../CallToAction'
+import Burger from './Burger'
+import { navVariants, staggerContainer } from '../../utils/motion'
+import NavListItem from '../NavListItem'
 
-const SEARCH_VISIBLE = 'visible';
-const SEARCH_HIDDEN = 'hidden';
+const SEARCH_VISIBLE = 'visible'
+const SEARCH_HIDDEN = 'hidden'
 
 const Nav = () => {
-    const formRef = useRef();
-    const menuRef = useRef();
+    const formRef = useRef()
+    const menuRef = useRef()
     const scrollPosition = useScrollPosition()
 
-    const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN);
+    const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN)
 
-    const {metadata = {}, menus} = useSite();
+    const { metadata = {}, menus } = useSite()
 
-    const {title} = metadata;
+    const { title } = metadata
 
-    const navigationLocation = process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || MENU_LOCATION_NAVIGATION_DEFAULT;
+    const navigationLocation = process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || MENU_LOCATION_NAVIGATION_DEFAULT
 
-    const navigation = findMenuByLocation(menus, navigationLocation);
+    const navigation = findMenuByLocation(menus, navigationLocation)
 
 
     useEffect(() => {
         if (searchVisibility === SEARCH_HIDDEN) {
-            removeDocumentOnClick();
-            return;
+            removeDocumentOnClick()
+            return
         }
 
-        addDocumentOnClick();
-        addResultsRoving();
+        addDocumentOnClick()
+        addResultsRoving()
 
 
-        const searchInput = Array.from(formRef.current.elements).find((input) => input.type === 'search');
+        const searchInput = Array.from(formRef.current.elements).find((input) => input.type === 'search')
 
-        searchInput.focus();
+        searchInput.focus()
 
         return () => {
-            removeResultsRoving();
-            removeDocumentOnClick();
-        };
+            removeResultsRoving()
+            removeDocumentOnClick()
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchVisibility]);
+    }, [searchVisibility])
 
     useEffect(() => {
             if (window.location.pathname === '/') {
@@ -78,7 +80,7 @@ const Nav = () => {
      */
 
     function addDocumentOnClick() {
-        document.body.addEventListener('click', handleOnDocumentClick, true);
+        document.body.addEventListener('click', handleOnDocumentClick, true)
     }
 
     /**
@@ -86,7 +88,7 @@ const Nav = () => {
      */
 
     function removeDocumentOnClick() {
-        document.body.removeEventListener('click', handleOnDocumentClick, true);
+        document.body.removeEventListener('click', handleOnDocumentClick, true)
     }
 
     /**
@@ -95,7 +97,7 @@ const Nav = () => {
 
     function handleOnDocumentClick(e) {
         if (!e.composedPath().includes(formRef.current)) {
-            setSearchVisibility(SEARCH_HIDDEN);
+            setSearchVisibility(SEARCH_HIDDEN)
         }
     }
 
@@ -103,7 +105,7 @@ const Nav = () => {
      * handleOnSearch
      */
 
-    function handleOnSearch({currentTarget}) {
+    function handleOnSearch({ currentTarget }) {
     }
 
     /**
@@ -111,7 +113,7 @@ const Nav = () => {
      */
 
     function handleOnToggleSearch() {
-        setSearchVisibility(SEARCH_VISIBLE);
+        setSearchVisibility(SEARCH_VISIBLE)
     }
 
     /**
@@ -119,7 +121,7 @@ const Nav = () => {
      */
 
     function addResultsRoving() {
-        document.body.addEventListener('keydown', handleResultsRoving);
+        document.body.addEventListener('keydown', handleResultsRoving)
     }
 
     /**
@@ -127,7 +129,7 @@ const Nav = () => {
      */
 
     function removeResultsRoving() {
-        document.body.removeEventListener('keydown', handleResultsRoving);
+        document.body.removeEventListener('keydown', handleResultsRoving)
     }
 
     /**
@@ -135,104 +137,105 @@ const Nav = () => {
      */
 
     function handleResultsRoving(e) {
-        const focusElement = document.activeElement;
+        const focusElement = document.activeElement
 
         if (e.key === 'ArrowDown') {
-            e.preventDefault();
+            e.preventDefault()
             if (focusElement.nodeName === 'INPUT' && focusElement.nextSibling.children[0].nodeName !== 'P') {
-                focusElement.nextSibling.children[0].firstChild.firstChild.focus();
+                focusElement.nextSibling.children[0].firstChild.firstChild.focus()
             } else if (focusElement.parentElement.nextSibling) {
-                focusElement.parentElement.nextSibling.firstChild.focus();
+                focusElement.parentElement.nextSibling.firstChild.focus()
             } else {
-                focusElement.parentElement.parentElement.firstChild.firstChild.focus();
+                focusElement.parentElement.parentElement.firstChild.firstChild.focus()
             }
         }
 
         if (e.key === 'ArrowUp') {
-            e.preventDefault();
+            e.preventDefault()
             if (focusElement.nodeName === 'A' && focusElement.parentElement.previousSibling) {
-                focusElement.parentElement.previousSibling.firstChild.focus();
+                focusElement.parentElement.previousSibling.firstChild.focus()
             } else {
-                focusElement.parentElement.parentElement.lastChild.firstChild.focus();
+                focusElement.parentElement.parentElement.lastChild.firstChild.focus()
             }
         }
     }
 
-    /**
-     * escFunction
-     */
-
-        // pressing esc while search is focused will close it
 
     const escFunction = useCallback((event) => {
-            if (event.keyCode === 27) {
-                setSearchVisibility(SEARCH_HIDDEN);
-            }
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, []);
+        if (event.keyCode === 27) {
+            setSearchVisibility(SEARCH_HIDDEN)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
 
-        document.addEventListener('keydown', escFunction, false);
+        document.addEventListener('keydown', escFunction, false)
 
         return () => {
-            document.removeEventListener('keydown', escFunction, false);
-        };
+            document.removeEventListener('keydown', escFunction, false)
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [])
 
     return (
 
-        <>
-            <nav data-menu-transition ref={menuRef} className={'p-[1rem] main-nav pt-2  m-0 fixed w-full z-50'}>
-                <div className="gradient-01 h-[239px] absolute w-[152px]"/>
-                <div className={'site-navigation'}>
-                    <p className={styles.navName + ' z-50'}>
-                        <Link legacyBehavior href="/">
-                            <a className={"text-4xl text-white p-0 m-0"}>
-                                <Image src={logo} alt="me" width={'90'} height={'51'} loading={'lazy'}/>
+        <
+        >
+            <div>
+                <nav data-menu-transition ref={menuRef}
+                     className={'p-[1rem] main-nav pt-2  m-0 fixed w-full z-50'}>
+                    <div className='gradient-01 h-[239px] absolute w-[152px]' />
+                    <motion.div variants={staggerContainer}
+                                initial={'hidden'}
+                                whileInView={'show'}
+                                viewport={{ once: false, amount: 0.25 }} className={'site-navigation'}>
+                        <motion.p variants={navVariants} className={styles.navName + ' z-50'}>
+                            <Link legacyBehavior href='/'>
+                                <a className={'text-4xl text-white p-0 m-0'}>
+                                    <Image src={logo} alt='me' width={'90'} height={'51'} loading={'lazy'} />
 
-                            </a>
-                        </Link>
-                    </p>
-                    <div className={'flex gap-6'}>
-                        <button aria-label={'Ζητήστε τιμή'} type={'button'} className={"burger-container"}>
-                            <CallToAction>
-                                <div data-menu-transition className={'request-quote hidden md:block'}>Ζητηστε τιμη
+                                </a>
+                            </Link>
+                        </motion.p>
+                        <motion.div variants={navVariants} className={'flex gap-6'}>
+                            <button aria-label={'Ζητήστε τιμή'} type={'button'} className={'burger-container'}>
+                                <CallToAction>
+                                    <div data-menu-transition className={'request-quote hidden md:block'}>Ζητηστε τιμη
+                                    </div>
+                                </CallToAction>
+                            </button>
+                            <button aria-label={'Μενού'} type={'button'} className={'burger-container'} onClick={() => {
+                                const lines = [...document.querySelectorAll('[data-menu-transition]')]
+                                lines.forEach((line) => {
+                                    line.classList.toggle('menu-open')
+                                })
+                            }}>
+                                <div id={'nav-burger'} className={'flex gap-2 relative'}>
+                                    <Burger data-menu-transition />
+                                    <h1 data-menu-transition className={'menu-text hidden md:block'}>menu</h1>
                                 </div>
-                            </CallToAction>
+                            </button>
+                        </motion.div>
+                    </motion.div>
+                </nav>
+                <div data-menu-transition className='menu'>
+                    <div className='menu-scaling-bg bg-gradient'>
 
-
-                        </button>
-                        <button aria-label={'Μενού'} type={'button'} className={'burger-container'} onClick={() => {
-                            const lines = [...document.querySelectorAll('[data-menu-transition]')]
-                            lines.forEach((line) => {
-                                line.classList.toggle('menu-open')
-                            })
-                        }}>
-                            <div id={"nav-burger"} className={'flex gap-2 relative'}>
-                                <Burger data-menu-transition/>
-                                <h1 data-menu-transition className={'menu-text hidden md:block'}>menu</h1>
-                            </div>
-                        </button>
                     </div>
-                </div>
-            </nav>
-            <div data-menu-transition className="menu">
-                <div className="menu-scaling-bg bg-gradient">
 
+                    <ul className={styles.navMenu + ' nav-menu'}>
+                        {navigation?.map((listItem) => {
+                            return <NavListItem key={listItem.id} className={styles.navSubMenu} item={listItem} />
+                        })}
+                    </ul>
                 </div>
-
-                <ul className={styles.navMenu + ' nav-menu'}>
-                    {navigation?.map((listItem) => {
-                        return <NavListItem key={listItem.id} className={styles.navSubMenu} item={listItem}/>;
-                    })}
-                </ul>
             </div>
+
         </>
 
 
-    );
-};
+    )
+}
 
-export default Nav;
+export default Nav
