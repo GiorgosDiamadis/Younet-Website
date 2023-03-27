@@ -13,10 +13,7 @@ export function ArticleJsonLd({ post = {}, siteTitle = '' }) {
   const datePublished = !!date && new Date(date);
   const dateModified = !!modified && new Date(modified);
 
-  /** TODO - As image is a recommended field would be interesting to have a
-   * default image in case there is no featuredImage comming from WP,
-   * like the open graph social image
-   * */
+
 
   const jsonLd = {
     '@context': 'https://schema.org',

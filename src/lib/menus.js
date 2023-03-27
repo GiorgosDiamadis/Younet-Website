@@ -4,9 +4,7 @@ import { QUERY_ALL_MENUS } from 'data/menus';
 
 export const MENU_LOCATION_NAVIGATION_DEFAULT = 'DEFAULT_NAVIGATION';
 
-/**
- * getAllMenus
- */
+
 
 export async function getAllMenus() {
   const apolloClient = getApolloClient();
@@ -34,9 +32,6 @@ export async function getAllMenus() {
   };
 }
 
-/**
- * mapMenuData
- */
 
 export function mapMenuData(menu = {}) {
   const { node } = menu;
@@ -49,9 +44,7 @@ export function mapMenuData(menu = {}) {
   return data;
 }
 
-/**
- * mapPagesToMenuItems
- */
+
 
 export function mapPagesToMenuItems(pages) {
   return pages.map(({ id, uri, title }) => {
@@ -63,9 +56,6 @@ export function mapPagesToMenuItems(pages) {
   });
 }
 
-/**
- * createMenuFromPages
- */
 
 export function createMenuFromPages({ locations, pages }) {
   return {
@@ -74,9 +64,7 @@ export function createMenuFromPages({ locations, pages }) {
   };
 }
 
-/**
- * parseHierarchicalMenu
- */
+
 export const parseHierarchicalMenu = (
   data = [],
   { idKey = 'id', parentKey = 'parentId', childrenKey = 'children' } = {}
@@ -93,10 +81,6 @@ export const parseHierarchicalMenu = (
   });
   return tree;
 };
-
-/**
- * findMenuByLocation
- */
 
 export function findMenuByLocation(menus, location) {
   if (typeof location !== 'string') {

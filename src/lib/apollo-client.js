@@ -4,9 +4,7 @@ import {removeLastTrailingSlash} from 'lib/util';
 
 let client;
 
-/**
- * getApolloClient
- */
+
 
 export function getApolloClient() {
     if (!client) {
@@ -16,9 +14,6 @@ export function getApolloClient() {
     return client;
 }
 
-/**
- * createApolloClient
- */
 
 export function _createApolloClient() {
     return new ApolloClient({

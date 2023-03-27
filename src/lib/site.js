@@ -4,9 +4,6 @@ import { decodeHtmlEntities, removeExtraSpaces } from 'lib/util';
 
 import { QUERY_SITE_DATA, QUERY_SEO_DATA } from 'data/site';
 
-/**
- * getSiteMetadata
- */
 
 export async function getSiteMetadata() {
   const apolloClient = getApolloClient();
@@ -32,11 +29,7 @@ export async function getSiteMetadata() {
     description,
   };
 
-  // It looks like the value of `language` when US English is set
-  // in WordPress is empty or "", meaning, we have to infer that
-  // if there's no value, it's English. On the other hand, if there
-  // is a code, we need to grab the 2char version of it to use ofr
-  // the HTML lang attribute
+
 
   if (!language || language === '') {
     settings.language = 'en';
@@ -44,8 +37,6 @@ export async function getSiteMetadata() {
     settings.language = language.split('_')[0];
   }
 
-  // If the SEO plugin is enabled, look up the data
-  // and apply it to the default settings
 
   if (process.env.WORDPRESS_PLUGIN_SEO === true) {
     try {
@@ -96,9 +87,6 @@ export async function getSiteMetadata() {
   return settings;
 }
 
-/**
- * constructHelmetData
- */
 
 export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, options = {}) {
   const { router = {}, homepage = '' } = options;
@@ -116,8 +104,6 @@ export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, o
     twitter: {},
   };
 
-  // Static Properties
-  // Loop through top level metadata properties that rely on a non-object value
 
   const staticProperties = ['description', 'language', 'title'];
 
@@ -129,8 +115,7 @@ export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, o
     metadata[property] = value;
   });
 
-  // Open Graph Properties
-  // Loop through Open Graph properties that rely on a non-object value
+
 
   if (pageMetadata.og) {
     const ogProperties = ['description', 'imageUrl', 'imageHeight', 'imageSecureUrl', 'imageWidth', 'title', 'type'];
@@ -148,8 +133,7 @@ export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, o
     });
   }
 
-  // Twitter Properties
-  // Loop through Twitter properties that rely on a non-object value
+
 
   if (pageMetadata.twitter) {
     const twitterProperties = ['cardType', 'description', 'imageUrl', 'title', 'username'];
@@ -165,8 +149,6 @@ export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, o
     });
   }
 
-  // Article Properties
-  // Loop through article properties that rely on a non-object value
 
   if (metadata.og.type === 'article' && pageMetadata.article) {
     metadata.article = {};
@@ -185,9 +167,6 @@ export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, o
   return metadata;
 }
 
-/**
- * helmetSettingsFromMetadata
- */
 
 export function helmetSettingsFromMetadata(metadata = {}, options = {}) {
   const { link = [], meta = [], setTitle = true } = options;

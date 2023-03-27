@@ -2,17 +2,12 @@ import { getApolloClient } from 'lib/apollo-client';
 
 import { QUERY_ALL_CATEGORIES, QUERY_CATEGORY_BY_SLUG, QUERY_CATEGORY_SEO_BY_SLUG } from 'data/categories';
 
-/**
- * categoryPathBySlug
- */
+
 
 export function categoryPathBySlug(slug) {
   return `/categories/${slug}`;
 }
 
-/**
- * getAllCategories
- */
 
 export async function getAllCategories() {
   const apolloClient = getApolloClient();
@@ -28,9 +23,6 @@ export async function getAllCategories() {
   };
 }
 
-/**
- * getCategoryBySlug
- */
 
 export async function getCategoryBySlug(slug) {
   const apolloClient = getApolloClient();
@@ -55,8 +47,6 @@ export async function getCategoryBySlug(slug) {
 
   const category = mapCategoryData(categoryData?.data.category);
 
-  // If the SEO plugin is enabled, look up the data
-  // and apply it to the default settings
 
   if (process.env.WORDPRESS_PLUGIN_SEO === true) {
     try {
@@ -76,11 +66,6 @@ export async function getCategoryBySlug(slug) {
 
     category.title = seo.title;
     category.description = seo.metaDesc;
-
-    // The SEO plugin by default includes a canonical link, but we don't want to use that
-    // because it includes the WordPress host, not the site host. We manage the canonical
-    // link along with the other metadata, but explicitly check if there's a custom one
-    // in here by looking for the API's host in the provided canonical link
 
     if (seo.canonical && !seo.canonical.includes(apiHost)) {
       category.canonical = seo.canonical;
@@ -121,10 +106,6 @@ export async function getCategoryBySlug(slug) {
   };
 }
 
-/**
- * getCategories
- */
-
 export async function getCategories({ count } = {}) {
   const { categories } = await getAllCategories();
   return {
@@ -132,9 +113,6 @@ export async function getCategories({ count } = {}) {
   };
 }
 
-/**
- * mapCategoryData
- */
 
 export function mapCategoryData(category = {}) {
   const data = { ...category };

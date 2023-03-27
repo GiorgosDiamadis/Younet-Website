@@ -22,12 +22,14 @@ const DynamicNewsletter = dynamic(() => import('../components/Younet/NewsLetter'
     loading: () => 'Loading'
 })
 
+const DynamicLatestPosts = dynamic(() => import('../components/LatestPosts'), {
+    loading: () => 'Loading'
+})
+
 
 export default function Home({ services, brands, projects, posts }) {
     const { metadata = {} } = useSite()
     const { title, description } = metadata
-    console.log(posts)
-
 
     return (
         <Layout classes={'bg-gradient-body'}>
@@ -47,7 +49,7 @@ export default function Home({ services, brands, projects, posts }) {
 
             <DynamicPortfolio projects={projects} />
             <DynamicBrands brands={brands} />
-            <LatestPosts />
+            <DynamicLatestPosts posts={posts} />
             <DynamicNewsletter />
         </Layout>
     )

@@ -18,17 +18,12 @@ import {
     QUERY_POST_PER_PAGE, QUERY_ALL_SERVICES_HOME, QUERY_ALL_BRANDS_HOME, QUERY_ALL_PROJECTS,
 } from 'data/posts';
 
-/**
- * postPathBySlug
- */
+
 
 export function postPathBySlug(slug) {
     return `/posts/${slug}`;
 }
 
-/**
- * getPostBySlug
- */
 
 export async function getPostBySlug(slug) {
     const apolloClient = getApolloClient();
@@ -53,8 +48,6 @@ export async function getPostBySlug(slug) {
 
     const post = [postData?.data.post].map(mapPostData)[0];
 
-    // If the SEO plugin is enabled, look up the data
-    // and apply it to the default settings
 
     if (process.env.WORDPRESS_PLUGIN_SEO === true) {
         try {
@@ -76,10 +69,7 @@ export async function getPostBySlug(slug) {
         post.metaDescription = seo.metaDesc;
         post.readingTime = seo.readingTime;
 
-        // The SEO plugin by default includes a canonical link, but we don't want to use that
-        // because it includes the WordPress host, not the site host. We manage the canonical
-        // link along with the other metadata, but explicitly check if there's a custom one
-        // in here by looking for the API's host in the provided canonical link
+
 
         if (seo.canonical && !seo.canonical.includes(apiHost)) {
             post.canonical = seo.canonical;
@@ -120,9 +110,6 @@ export async function getPostBySlug(slug) {
     };
 }
 
-/**
- * getAllPosts
- */
 
 const allPostsIncludesTypes = {
     all: QUERY_ALL_POSTS,
@@ -149,9 +136,7 @@ export async function getAllPosts(options = {}) {
     };
 }
 
-/**
- * getPostsByAuthorSlug
- */
+
 
 const postsByAuthorSlugIncludesTypes = {
     all: QUERY_POSTS_BY_AUTHOR_SLUG,
@@ -185,9 +170,7 @@ export async function getPostsByAuthorSlug({slug, ...options}) {
     };
 }
 
-/**
- * getPostsByCategoryId
- */
+
 
 const postsByCategoryIdIncludesTypes = {
     all: QUERY_POSTS_BY_CATEGORY_ID,
@@ -221,9 +204,7 @@ export async function getPostsByCategoryId({categoryId, ...options}) {
     };
 }
 
-/**
- * getRecentPosts
- */
+
 
 export async function getRecentPosts({count, ...options}) {
     const {posts} = await getAllPosts(options);
@@ -233,10 +214,6 @@ export async function getRecentPosts({count, ...options}) {
     };
 }
 
-/**
- * sanitizeExcerpt
- */
-
 export function sanitizeExcerpt(excerpt) {
     if (typeof excerpt !== 'string') {
         throw new Error(`Failed to sanitize excerpt: invalid type ${typeof excerpt}`);
@@ -244,32 +221,23 @@ export function sanitizeExcerpt(excerpt) {
 
     let sanitized = excerpt;
 
-    // If the theme includes [...] as the more indication, clean it up to just ...
+
 
     sanitized = sanitized.replace(/\s?\[&hellip;\]/, '&hellip;');
-
-    // If after the above replacement, the ellipsis includes 4 dots, it's
-    // the end of a setence
 
     sanitized = sanitized.replace('....', '.');
     sanitized = sanitized.replace('.&hellip;', '.');
 
-    // If the theme is including a "Continue..." link, remove it
+
 
     sanitized = sanitized.replace(/\w*<a class="more-link".*<\/a>/, '');
 
     return sanitized;
 }
 
-/**
- * mapPostData
- */
-
 export function mapPostData(post = {}) {
     const data = {...post};
 
-    // Clean up the author object to avoid someone having to look an extra
-    // level deeper into the node
 
     if (data.author) {
         data.author = {
@@ -277,16 +245,9 @@ export function mapPostData(post = {}) {
         };
     }
 
-    // The URL by default that comes from Gravatar / WordPress is not a secure
-    // URL. This ends up redirecting to https, but it gives mixed content warnings
-    // as the HTML shows it as http. Replace the url to avoid those warnings
-    // and provide a secure URL by default
-
     if (data.author?.avatar) {
         data.author.avatar = updateUserAvatar(data.author.avatar);
     }
-
-    // Clean up the categories to make them more easy to access
 
     if (data.categories) {
         data.categories = data.categories.edges.map(({node}) => {
@@ -296,18 +257,12 @@ export function mapPostData(post = {}) {
         });
     }
 
-    // Clean up the featured image to make them more easy to access
-
     if (data.featuredImage) {
         data.featuredImage = data.featuredImage.node;
     }
 
     return data;
 }
-
-/**
- * getRelatedPosts
- */
 
 export async function getRelatedPosts(categories, postId, count = 5) {
     if (!Array.isArray(categories) || categories.length === 0) return;
@@ -340,17 +295,11 @@ export async function getRelatedPosts(categories, postId, count = 5) {
     return related;
 }
 
-/**
- * sortStickyPosts
- */
 
 export function sortStickyPosts(posts) {
     return [...posts].sort((post) => (post.isSticky ? -1 : 1));
 }
 
-/**
- * getPostsPerPage
- */
 
 export async function getPostsPerPage() {
     //If POST_PER_PAGE is defined at next.config.js
@@ -375,18 +324,12 @@ export async function getPostsPerPage() {
     }
 }
 
-/**
- * getPageCount
- */
 
 export async function getPagesCount(posts, postsPerPage) {
     const _postsPerPage = postsPerPage ?? (await getPostsPerPage());
     return Math.ceil(posts.length / _postsPerPage);
 }
 
-/**
- * getPaginatedPosts
- */
 
 export async function getPaginatedPosts({currentPage = 1, ...options} = {}) {
     const {posts} = await getAllPosts(options);
