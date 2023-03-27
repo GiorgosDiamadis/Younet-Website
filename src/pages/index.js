@@ -5,8 +5,6 @@ import dynamic from 'next/dynamic'
 import Layout from 'components/Layout'
 import Header from 'components/Header'
 import SectionTitle from '../components/SectionTitle'
-import CallToAction from '../components/CallToAction'
-import WithTooltip from '../components/WithTooltip'
 import CallToActionFramerHOC from '../components/CallToActionFramerHOC'
 
 
