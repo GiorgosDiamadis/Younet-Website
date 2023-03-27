@@ -3,14 +3,11 @@ import { textVariant2 } from '../utils/motion'
 
 export default function TitleText({ title, textStyles }) {
 
-    return <motion.h2
-        variants={textVariant2}
-        initial={'hidden'}
-        whileInView={'show'}
-        className={`mt-4 font-bold md:text-[64px] text-[40px] text-white ${textStyles}`}
+    return <h2
+        className={`mt-4 font-bold md:text-[50px] text-[30px] text-white ${textStyles}`}
     >
         {title}
 
-    </motion.h2>
+    </h2>
 
 }
