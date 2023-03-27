@@ -41,6 +41,7 @@ export default function Home({ services, brands, projects }) {
                 </div>
             </Header>
             <DynamicServices services={services} />
+
             <DynamicPortfolio projects={projects} />
             <DynamicBrands brands={brands} />
             <DynamicNewsletter />

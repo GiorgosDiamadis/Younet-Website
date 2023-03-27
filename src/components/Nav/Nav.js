@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import useSite from 'hooks/use-site'
@@ -54,22 +54,26 @@ const Nav = () => {
     }, [searchVisibility])
 
     useEffect(() => {
-            if (window.location.pathname === '/') {
-                if (scrollPosition >= 120) {
+            // if (window.location.pathname === '/') {
+            //     if (scrollPosition >= 120) {
+            //
+            //         if (menuRef.current) {
+            //             menuRef.current.classList.add('nav-scrolled')
+            //         }
+            //     } else {
+            //         if (menuRef.current) {
+            //             menuRef.current.classList.remove('nav-scrolled')
+            //
+            //         }
+            //     }
+            // } else {
+            //     menuRef.current.classList.add('nav-scrolled')
+            //
+            // }
 
-                    if (menuRef.current) {
-                        menuRef.current.classList.add('nav-scrolled')
-                    }
-                } else {
-                    if (menuRef.current) {
-                        menuRef.current.classList.remove('nav-scrolled')
-
-                    }
-                }
-            } else {
-                menuRef.current.classList.add('nav-scrolled')
-
-            }
+            setTimeout(() => {
+                menuRef.current.classList.remove('fixed')
+            }, 400)
 
         },
         [scrollPosition]
@@ -180,16 +184,15 @@ const Nav = () => {
 
     return (
 
-        <
-        >
+        <>
             <div>
                 <nav data-menu-transition ref={menuRef}
-                     className={'p-[1rem] main-nav pt-2  m-0 fixed w-full z-50'}>
+                     className={'p-[1rem] main-nav pt-2 fixed m-0 w-full z-50'}>
                     <div className='gradient-01 h-[239px] absolute w-[152px]' />
                     <motion.div variants={staggerContainer}
                                 initial={'hidden'}
                                 whileInView={'show'}
-                                viewport={{ once: false, amount: 0.25 }} className={'site-navigation'}>
+                                viewport={{ once: true, amount: 0.25 }} className={'site-navigation'}>
                         <motion.p variants={navVariants} className={styles.navName + ' z-50'}>
                             <Link legacyBehavior href='/'>
                                 <a className={'text-4xl text-white p-0 m-0'}>
