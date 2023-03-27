@@ -50,12 +50,12 @@ export default function Portfolio({ projects }) {
                                 </h1>
                             </div>
 
-                            <p className={'mt-[10px] text-lg w-3/4 relative opacity-100 lg:opacity-0 duration-500 transition-all text-center lg:text-left lg:group-hover:opacity-100'}>
+                            <p className={'mt-[10px] text-lg w-[400px] relative opacity-100 lg:opacity-0 duration-500 transition-all text-center lg:text-left lg:group-hover:opacity-100'}>
                                 {project.description}
                             </p>
                             <a target={'_blank'} href={project.url} className={'text-white'}>
                                 <div
-                                    className={'request-quote relative cursor-pointer text-center lg:group-hover:opacity-100 w-1/2  1150px:w-[400px]  opacity-100 lg:opacity-0 duration-500 transition-all'}>
+                                    className={'request-quote relative cursor-pointer text-center lg:group-hover:opacity-100 w-[300px]   opacity-100 lg:opacity-0 duration-500 transition-all'}>
                                     Go to Website
                                 </div>
                             </a>
