@@ -139,6 +139,8 @@ export async function getAllPosts(options = {}) {
         query: allPostsIncludesTypes[queryIncludes],
     });
 
+
+
     const posts = data?.data.posts.edges.map(({node = {}}) => node);
 
 
@@ -388,6 +390,7 @@ export async function getPagesCount(posts, postsPerPage) {
 
 export async function getPaginatedPosts({currentPage = 1, ...options} = {}) {
     const {posts} = await getAllPosts(options);
+
     const postsPerPage = await getPostsPerPage();
     const pagesCount = await getPagesCount(posts, postsPerPage);
 

@@ -54,26 +54,23 @@ const Nav = () => {
     }, [searchVisibility])
 
     useEffect(() => {
-            // if (window.location.pathname === '/') {
-            //     if (scrollPosition >= 120) {
-            //
-            //         if (menuRef.current) {
-            //             menuRef.current.classList.add('nav-scrolled')
-            //         }
-            //     } else {
-            //         if (menuRef.current) {
-            //             menuRef.current.classList.remove('nav-scrolled')
-            //
-            //         }
-            //     }
-            // } else {
-            //     menuRef.current.classList.add('nav-scrolled')
-            //
-            // }
+            if (window.location.pathname === '/') {
+                if (scrollPosition >= 120) {
 
-            setTimeout(() => {
-                menuRef.current.classList.remove('fixed')
-            }, 400)
+                    if (menuRef.current) {
+                        menuRef.current.classList.add('nav-scrolled')
+                    }
+                } else {
+                    if (menuRef.current) {
+                        menuRef.current.classList.remove('nav-scrolled')
+
+                    }
+                }
+            } else {
+                menuRef.current.classList.add('nav-scrolled')
+
+            }
+
 
         },
         [scrollPosition]

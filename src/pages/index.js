@@ -1,11 +1,12 @@
 import useSite from 'hooks/use-site'
-import { getBrands, getProjects, getServices } from 'lib/posts'
+import { getBrands, getPaginatedPosts, getProjects, getServices } from 'lib/posts'
 import { WebsiteJsonLd } from 'lib/json-ld'
 import dynamic from 'next/dynamic'
 import Layout from 'components/Layout'
 import Header from 'components/Header'
 import SectionTitle from '../components/SectionTitle'
 import CallToActionFramerHOC from '../components/CallToActionFramerHOC'
+import LatestPosts from '../components/LatestPosts'
 
 
 const DynamicPortfolio = dynamic(() => import('../components/Younet/Portfolio'), {
@@ -22,9 +23,11 @@ const DynamicNewsletter = dynamic(() => import('../components/Younet/NewsLetter'
 })
 
 
-export default function Home({ services, brands, projects }) {
+export default function Home({ services, brands, projects, posts }) {
     const { metadata = {} } = useSite()
     const { title, description } = metadata
+    console.log(posts)
+
 
     return (
         <Layout classes={'bg-gradient-body'}>
@@ -44,6 +47,7 @@ export default function Home({ services, brands, projects }) {
 
             <DynamicPortfolio projects={projects} />
             <DynamicBrands brands={brands} />
+            <LatestPosts />
             <DynamicNewsletter />
         </Layout>
     )
@@ -53,16 +57,18 @@ export async function getStaticProps() {
 
     const { services } = await getServices()
     const { brands } = await getBrands()
-
     const { projects } = await getProjects()
-
+    const { posts, pagination } = await getPaginatedPosts({
+        queryIncludes: 'archive'
+    })
 
     return {
         revalidate: 5,
         props: {
             services,
             brands,
-            projects
+            projects,
+            posts
         }
     }
 }
