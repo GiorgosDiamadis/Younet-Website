@@ -17,7 +17,7 @@ export default function Portfolio({ projects }) {
             variants={staggerContainer}
             initial={'hidden'}
             whileInView={'show'}
-            viewport={{ once: true, amount: .1 }}
+            viewport={{ once: false, amount: .1 }}
             className='portfolio-container mt-10 1150px:w-full w-3/4 m-auto'>
 
             {projects && projects.map((project, i) => (
