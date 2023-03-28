@@ -5,14 +5,37 @@ import Section from '../Section'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { fadeIn, staggerContainer, textVariant } from '../../utils/motion'
+import { getProjects } from '../../lib/posts'
 
-export default function Portfolio({ projects }) {
+export default function Portfolio({ projects, category, projectCategories }) {
 
 
     const [initialProjects, setInitialProjects] = useState(projects)
+    const [categories, setCategories] = useState(projectCategories)
+    const [initialCategory, setInitialCategory] = useState(category)
+    const [currentCategory, setCurrentCategory] = useState(category)
+
+    useEffect(() => {
+
+        getProjects(currentCategory).then(({ projects }) => {
+            setInitialProjects(projects)
+        })
+    }, [currentCategory])
+
 
     return <Section>
         <SectionTitle title={'Featured Web Design Launches'} />
+        <div className={'flex flex-row gap-5 w-full justify-center'}>
+            {categories && Object.keys(categories).map((category) => (
+                <div onClick={() => {
+                    setCurrentCategory(category)
+
+                }} key={categories[category].id}
+                     className={'p-2 bg-yn_blue-100 rounded-full mt-10 text-white cursor-pointer'}>
+                    {categories[category].name}
+                </div>
+            ))}
+        </div>
         <motion.div
             variants={staggerContainer}
             initial={'hidden'}
@@ -20,8 +43,11 @@ export default function Portfolio({ projects }) {
             viewport={{ once: false, amount: .1 }}
             className='portfolio-container mt-10 1150px:w-full w-3/4 m-auto'>
 
+
             {initialProjects && initialProjects.map((project, i) => (
-                <motion.div variants={fadeIn('up', 'tween', .1 * i, .5)} className='portfolio-item group relative  '>
+                <div
+                    // variants={fadeIn('up', 'tween', .1 * i, .5)}
+                    className='portfolio-item group relative  '>
 
                     <div style={{ '--bg-image': `url('${project.backgroundImage?.sourceUrl}')` }}
                          className='portfolio-item-details lg:group-hover:rotate-y-minus35  p-5'>
@@ -63,7 +89,7 @@ export default function Portfolio({ projects }) {
                     <div className='angled-image  1150px:w-auto'>
                         <Image src={project.onHover?.sourceUrl} width={250} height={300} alt={'alt'} loading={'lazy'} />
                     </div>
-                </motion.div>
+                </div>
 
 
             ))}

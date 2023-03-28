@@ -93,50 +93,66 @@ query AllServices {
 }
 
 `
-
-
-export const buildProjectQuery = (categoryId = '') => {
-    if (categoryId === '') {
-        return QUERY_ALL_PROJECTS
-    }
-
-
-    return gql`
-query ProjectsQuery {
-  projects(where: {${categoryId}) {
+export const QUERY_PROJECT_CATEGORIES = gql`
+query ProjectCategoriesQuery {
+  projectCategories {
     nodes {
-      projects {
-        fieldGroupName
-        projectBackgroundImage {
-          id
-          slug
-          srcSet
-          sourceUrl
-          title
-        }
-        projectCompanyLogo {
-          id
-          sourceUrl
-          srcSet
-          slug
-          title
-        }
-        projectShortDescription
-        projectOnHoverImage {
-          id
-          srcSet
-          sourceUrl
-          slug
-          title
-        }
-        websiteUrl
-      }
-      title
+      taxonomyName
+      id
+      name
+      link
+      termTaxonomyId
     }
   }
 }
-
 `
+
+export const buildProjectQuery = (categoryId) => {
+    return gql`
+    query ProjectsQuery {
+  projectCategories(where: {termTaxonomId: "${categoryId}"}) {
+    nodes {
+      slug
+      id
+      termTaxonomyId
+      contentNodes {
+        nodes {
+          slug
+          ... on Project {
+            projects {
+              fieldGroupName
+              websiteUrl
+              projectShortDescription
+              projectOnHoverImage {
+                altText
+                sourceUrl
+                title
+                uri
+                slug
+              }
+              projectCompanyLogo {
+                altText
+                sourceUrl
+                title
+                slug
+                id
+              }
+              projectBackgroundImage {
+                altText
+                sourceUrl
+                slug
+                title
+              }
+            }
+            title
+          }
+          link
+        }
+      }
+    }
+  }
+}
+    `
 }
 
 export const QUERY_ALL_PROJECTS = gql`

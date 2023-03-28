@@ -1,7 +1,7 @@
-import {getApolloClient} from 'lib/apollo-client';
+import { getApolloClient } from 'lib/apollo-client'
 
-import {updateUserAvatar} from 'lib/users';
-import {sortObjectsByDate} from 'lib/datetime';
+import { updateUserAvatar } from 'lib/users'
+import { sortObjectsByDate } from 'lib/datetime'
 
 import {
     QUERY_ALL_POSTS_INDEX,
@@ -15,38 +15,42 @@ import {
     QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE,
     QUERY_POSTS_BY_CATEGORY_ID,
     QUERY_POST_SEO_BY_SLUG,
-    QUERY_POST_PER_PAGE, QUERY_ALL_SERVICES_HOME, QUERY_ALL_BRANDS_HOME, QUERY_ALL_PROJECTS,
-} from 'data/posts';
-
+    QUERY_POST_PER_PAGE,
+    QUERY_ALL_SERVICES_HOME,
+    QUERY_ALL_BRANDS_HOME,
+    QUERY_ALL_PROJECTS,
+    buildProjectQuery,
+    QUERY_PROJECT_CATEGORIES
+} from 'data/posts'
 
 
 export function postPathBySlug(slug) {
-    return `/posts/${slug}`;
+    return `/posts/${slug}`
 }
 
 
 export async function getPostBySlug(slug) {
-    const apolloClient = getApolloClient();
-    const apiHost = new URL(process.env.WORDPRESS_GRAPHQL_ENDPOINT).host;
+    const apolloClient = getApolloClient()
+    const apiHost = new URL(process.env.WORDPRESS_GRAPHQL_ENDPOINT).host
 
-    let postData;
-    let seoData;
+    let postData
+    let seoData
 
     try {
         postData = await apolloClient.query({
             query: QUERY_POST_BY_SLUG,
             variables: {
-                slug,
-            },
-        });
+                slug
+            }
+        })
     } catch (e) {
-        console.log(`[posts][getPostBySlug] Failed to query post data: ${e.message}`);
-        throw e;
+        console.log(`[posts][getPostBySlug] Failed to query post data: ${e.message}`)
+        throw e
     }
 
-    if (!postData?.data.post) return {post: undefined};
+    if (!postData?.data.post) return { post: undefined }
 
-    const post = [postData?.data.post].map(mapPostData)[0];
+    const post = [postData?.data.post].map(mapPostData)[0]
 
 
     if (process.env.WORDPRESS_PLUGIN_SEO === true) {
@@ -54,25 +58,24 @@ export async function getPostBySlug(slug) {
             seoData = await apolloClient.query({
                 query: QUERY_POST_SEO_BY_SLUG,
                 variables: {
-                    slug,
-                },
-            });
+                    slug
+                }
+            })
         } catch (e) {
-            console.log(`[posts][getPostBySlug] Failed to query SEO plugin: ${e.message}`);
-            console.log('Is the SEO Plugin installed? If not, disable WORDPRESS_PLUGIN_SEO in next.config.js.');
-            throw e;
+            console.log(`[posts][getPostBySlug] Failed to query SEO plugin: ${e.message}`)
+            console.log('Is the SEO Plugin installed? If not, disable WORDPRESS_PLUGIN_SEO in next.config.js.')
+            throw e
         }
 
-        const {seo = {}} = seoData?.data?.post || {};
+        const { seo = {} } = seoData?.data?.post || {}
 
-        post.metaTitle = seo.title;
-        post.metaDescription = seo.metaDesc;
-        post.readingTime = seo.readingTime;
-
+        post.metaTitle = seo.title
+        post.metaDescription = seo.metaDesc
+        post.readingTime = seo.readingTime
 
 
         if (seo.canonical && !seo.canonical.includes(apiHost)) {
-            post.canonical = seo.canonical;
+            post.canonical = seo.canonical
         }
 
         post.og = {
@@ -83,221 +86,215 @@ export async function getPostBySlug(slug) {
             publishedTime: seo.opengraphPublishedTime,
             publisher: seo.opengraphPublisher,
             title: seo.opengraphTitle,
-            type: seo.opengraphType,
-        };
+            type: seo.opengraphType
+        }
 
         post.article = {
             author: post.og.author,
             modifiedTime: post.og.modifiedTime,
             publishedTime: post.og.publishedTime,
-            publisher: post.og.publisher,
-        };
+            publisher: post.og.publisher
+        }
 
         post.robots = {
             nofollow: seo.metaRobotsNofollow,
-            noindex: seo.metaRobotsNoindex,
-        };
+            noindex: seo.metaRobotsNoindex
+        }
 
         post.twitter = {
             description: seo.twitterDescription,
             image: seo.twitterImage,
-            title: seo.twitterTitle,
-        };
+            title: seo.twitterTitle
+        }
     }
 
     return {
-        post,
-    };
+        post
+    }
 }
 
 
 const allPostsIncludesTypes = {
     all: QUERY_ALL_POSTS,
     archive: QUERY_ALL_POSTS_ARCHIVE,
-    index: QUERY_ALL_POSTS_INDEX,
-};
+    index: QUERY_ALL_POSTS_INDEX
+}
 
 export async function getAllPosts(options = {}) {
-    const {queryIncludes = 'index'} = options;
+    const { queryIncludes = 'index' } = options
 
-    const apolloClient = getApolloClient();
+    const apolloClient = getApolloClient()
 
     const data = await apolloClient.query({
-        query: allPostsIncludesTypes[queryIncludes],
-    });
+        query: allPostsIncludesTypes[queryIncludes]
+    })
 
 
-
-    const posts = data?.data.posts.edges.map(({node = {}}) => node);
+    const posts = data?.data.posts.edges.map(({ node = {} }) => node)
 
 
     return {
-        posts: Array.isArray(posts) && posts.map(mapPostData),
-    };
+        posts: Array.isArray(posts) && posts.map(mapPostData)
+    }
 }
-
 
 
 const postsByAuthorSlugIncludesTypes = {
     all: QUERY_POSTS_BY_AUTHOR_SLUG,
     archive: QUERY_POSTS_BY_AUTHOR_SLUG_ARCHIVE,
-    index: QUERY_POSTS_BY_AUTHOR_SLUG_INDEX,
-};
+    index: QUERY_POSTS_BY_AUTHOR_SLUG_INDEX
+}
 
-export async function getPostsByAuthorSlug({slug, ...options}) {
-    const {queryIncludes = 'index'} = options;
+export async function getPostsByAuthorSlug({ slug, ...options }) {
+    const { queryIncludes = 'index' } = options
 
-    const apolloClient = getApolloClient();
+    const apolloClient = getApolloClient()
 
-    let postData;
+    let postData
 
     try {
         postData = await apolloClient.query({
             query: postsByAuthorSlugIncludesTypes[queryIncludes],
             variables: {
-                slug,
-            },
-        });
+                slug
+            }
+        })
     } catch (e) {
-        console.log(`[posts][getPostsByAuthorSlug] Failed to query post data: ${e.message}`);
-        throw e;
+        console.log(`[posts][getPostsByAuthorSlug] Failed to query post data: ${e.message}`)
+        throw e
     }
 
-    const posts = postData?.data.posts.edges.map(({node = {}}) => node);
+    const posts = postData?.data.posts.edges.map(({ node = {} }) => node)
 
     return {
-        posts: Array.isArray(posts) && posts.map(mapPostData),
-    };
+        posts: Array.isArray(posts) && posts.map(mapPostData)
+    }
 }
-
 
 
 const postsByCategoryIdIncludesTypes = {
     all: QUERY_POSTS_BY_CATEGORY_ID,
     archive: QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE,
-    index: QUERY_POSTS_BY_CATEGORY_ID_INDEX,
-};
+    index: QUERY_POSTS_BY_CATEGORY_ID_INDEX
+}
 
-export async function getPostsByCategoryId({categoryId, ...options}) {
-    const {queryIncludes = 'index'} = options;
+export async function getPostsByCategoryId({ categoryId, ...options }) {
+    const { queryIncludes = 'index' } = options
 
-    const apolloClient = getApolloClient();
+    const apolloClient = getApolloClient()
 
-    let postData;
+    let postData
 
     try {
         postData = await apolloClient.query({
             query: postsByCategoryIdIncludesTypes[queryIncludes],
             variables: {
-                categoryId,
-            },
-        });
+                categoryId
+            }
+        })
     } catch (e) {
-        console.log(`[posts][getPostsByCategoryId] Failed to query post data: ${e.message}`);
-        throw e;
+        console.log(`[posts][getPostsByCategoryId] Failed to query post data: ${e.message}`)
+        throw e
     }
 
-    const posts = postData?.data.posts.edges.map(({node = {}}) => node);
+    const posts = postData?.data.posts.edges.map(({ node = {} }) => node)
 
     return {
-        posts: Array.isArray(posts) && posts.map(mapPostData),
-    };
+        posts: Array.isArray(posts) && posts.map(mapPostData)
+    }
 }
 
 
-
-export async function getRecentPosts({count, ...options}) {
-    const {posts} = await getAllPosts(options);
-    const sorted = sortObjectsByDate(posts);
+export async function getRecentPosts({ count, ...options }) {
+    const { posts } = await getAllPosts(options)
+    const sorted = sortObjectsByDate(posts)
     return {
-        posts: sorted.slice(0, count),
-    };
+        posts: sorted.slice(0, count)
+    }
 }
 
 export function sanitizeExcerpt(excerpt) {
     if (typeof excerpt !== 'string') {
-        throw new Error(`Failed to sanitize excerpt: invalid type ${typeof excerpt}`);
+        throw new Error(`Failed to sanitize excerpt: invalid type ${typeof excerpt}`)
     }
 
-    let sanitized = excerpt;
+    let sanitized = excerpt
 
 
+    sanitized = sanitized.replace(/\s?\[&hellip;\]/, '&hellip;')
 
-    sanitized = sanitized.replace(/\s?\[&hellip;\]/, '&hellip;');
-
-    sanitized = sanitized.replace('....', '.');
-    sanitized = sanitized.replace('.&hellip;', '.');
-
+    sanitized = sanitized.replace('....', '.')
+    sanitized = sanitized.replace('.&hellip;', '.')
 
 
-    sanitized = sanitized.replace(/\w*<a class="more-link".*<\/a>/, '');
+    sanitized = sanitized.replace(/\w*<a class="more-link".*<\/a>/, '')
 
-    return sanitized;
+    return sanitized
 }
 
 export function mapPostData(post = {}) {
-    const data = {...post};
+    const data = { ...post }
 
 
     if (data.author) {
         data.author = {
-            ...data.author.node,
-        };
+            ...data.author.node
+        }
     }
 
     if (data.author?.avatar) {
-        data.author.avatar = updateUserAvatar(data.author.avatar);
+        data.author.avatar = updateUserAvatar(data.author.avatar)
     }
 
     if (data.categories) {
-        data.categories = data.categories.edges.map(({node}) => {
+        data.categories = data.categories.edges.map(({ node }) => {
             return {
-                ...node,
-            };
-        });
+                ...node
+            }
+        })
     }
 
     if (data.featuredImage) {
-        data.featuredImage = data.featuredImage.node;
+        data.featuredImage = data.featuredImage.node
     }
 
-    return data;
+    return data
 }
 
 export async function getRelatedPosts(categories, postId, count = 5) {
-    if (!Array.isArray(categories) || categories.length === 0) return;
+    if (!Array.isArray(categories) || categories.length === 0) return
 
     let related = {
-        category: categories && categories.shift(),
-    };
+        category: categories && categories.shift()
+    }
 
     if (related.category) {
-        const {posts} = await getPostsByCategoryId({
+        const { posts } = await getPostsByCategoryId({
             categoryId: related.category.databaseId,
-            queryIncludes: 'archive',
-        });
+            queryIncludes: 'archive'
+        })
 
-        const filtered = posts.filter(({postId: id}) => id !== postId);
-        const sorted = sortObjectsByDate(filtered);
+        const filtered = posts.filter(({ postId: id }) => id !== postId)
+        const sorted = sortObjectsByDate(filtered)
 
-        related.posts = sorted.map((post) => ({title: post.title, slug: post.slug}));
+        related.posts = sorted.map((post) => ({ title: post.title, slug: post.slug }))
     }
 
     if (!Array.isArray(related.posts) || related.posts.length === 0) {
-        const relatedPosts = await getRelatedPosts(categories, postId, count);
-        related = relatedPosts || related;
+        const relatedPosts = await getRelatedPosts(categories, postId, count)
+        related = relatedPosts || related
     }
 
     if (Array.isArray(related.posts) && related.posts.length > count) {
-        return related.posts.slice(0, count);
+        return related.posts.slice(0, count)
     }
 
-    return related;
+    return related
 }
 
 
 export function sortStickyPosts(posts) {
-    return [...posts].sort((post) => (post.isSticky ? -1 : 1));
+    return [...posts].sort((post) => (post.isSticky ? -1 : 1))
 }
 
 
@@ -306,75 +303,75 @@ export async function getPostsPerPage() {
     if (process.env.POSTS_PER_PAGE) {
         console.warn(
             'You are using the deprecated POST_PER_PAGE variable. Use your WordPress instance instead to set this value ("Settings" > "Reading" > "Blog pages show at most").'
-        );
-        return Number(process.env.POSTS_PER_PAGE);
+        )
+        return Number(process.env.POSTS_PER_PAGE)
     }
 
     try {
-        const apolloClient = getApolloClient();
+        const apolloClient = getApolloClient()
 
-        const {data} = await apolloClient.query({
-            query: QUERY_POST_PER_PAGE,
-        });
+        const { data } = await apolloClient.query({
+            query: QUERY_POST_PER_PAGE
+        })
 
-        return Number(data.allSettings.readingSettingsPostsPerPage);
+        return Number(data.allSettings.readingSettingsPostsPerPage)
     } catch (e) {
-        console.log(`Failed to query post per page data: ${e.message}`);
-        throw e;
+        console.log(`Failed to query post per page data: ${e.message}`)
+        throw e
     }
 }
 
 
 export async function getPagesCount(posts, postsPerPage) {
-    const _postsPerPage = postsPerPage ?? (await getPostsPerPage());
-    return Math.ceil(posts.length / _postsPerPage);
+    const _postsPerPage = postsPerPage ?? (await getPostsPerPage())
+    return Math.ceil(posts.length / _postsPerPage)
 }
 
 
-export async function getPaginatedPosts({currentPage = 1, ...options} = {}) {
-    const {posts} = await getAllPosts(options);
+export async function getPaginatedPosts({ currentPage = 1, ...options } = {}) {
+    const { posts } = await getAllPosts(options)
 
-    const postsPerPage = await getPostsPerPage();
-    const pagesCount = await getPagesCount(posts, postsPerPage);
+    const postsPerPage = await getPostsPerPage()
+    const pagesCount = await getPagesCount(posts, postsPerPage)
 
-    let page = Number(currentPage);
+    let page = Number(currentPage)
 
     if (typeof page === 'undefined' || isNaN(page)) {
-        page = 1;
+        page = 1
     } else if (page > pagesCount) {
         return {
             posts: [],
             pagination: {
                 currentPage: undefined,
-                pagesCount,
-            },
-        };
+                pagesCount
+            }
+        }
     }
 
-    const offset = postsPerPage * (page - 1);
-    const sortedPosts = sortStickyPosts(posts);
+    const offset = postsPerPage * (page - 1)
+    const sortedPosts = sortStickyPosts(posts)
     return {
         posts: sortedPosts.slice(offset, offset + postsPerPage),
         pagination: {
             currentPage: page,
-            pagesCount,
-        },
-    };
+            pagesCount
+        }
+    }
 }
 
 
 async function getAllServices() {
 
-    const apolloClient = getApolloClient();
+    const apolloClient = getApolloClient()
 
     const data = await apolloClient.query({
-        query: QUERY_ALL_SERVICES_HOME,
-    });
+        query: QUERY_ALL_SERVICES_HOME
+    })
 
     const queriedServices = []
 
 
-    data.data.services.nodes.forEach(({slug, title, link, id, uri, services}) => {
+    data.data.services.nodes.forEach(({ slug, title, link, id, uri, services }) => {
         queriedServices.push({
             slug,
             title,
@@ -388,14 +385,14 @@ async function getAllServices() {
 
 
     return {
-        services: queriedServices,
-    };
+        services: queriedServices
+    }
 
 }
 
 
 export async function getServices() {
-    const {services} = await getAllServices();
+    const { services } = await getAllServices()
 
     return {
         services
@@ -405,16 +402,16 @@ export async function getServices() {
 
 async function getAllBrands() {
 
-    const apolloClient = getApolloClient();
+    const apolloClient = getApolloClient()
 
     const data = await apolloClient.query({
-        query: QUERY_ALL_BRANDS_HOME,
-    });
+        query: QUERY_ALL_BRANDS_HOME
+    })
 
     const queriedBrands = []
 
 
-    data.data.brands.nodes.forEach(({brandId, title, uri, slug, link, brands}) => {
+    data.data.brands.nodes.forEach(({ brandId, title, uri, slug, link, brands }) => {
 
         queriedBrands.push({
             brandId,
@@ -430,50 +427,74 @@ async function getAllBrands() {
 
 
     return {
-        brands: queriedBrands,
-    };
+        brands: queriedBrands
+    }
 
 }
 
 export async function getBrands() {
 
-    const {brands} = await getAllBrands()
+    const { brands } = await getAllBrands()
 
 
-    return {brands}
+    return { brands }
 }
 
 
-async function getAllProjects() {
+export async function getProjectCategories() {
 
-    const apolloClient = getApolloClient();
+    const apolloClient = getApolloClient()
 
     const data = await apolloClient.query({
-        query: QUERY_ALL_PROJECTS,
-    });
+        query: QUERY_PROJECT_CATEGORIES
+    })
+
+    return {
+        categories: data.data.projectCategories.nodes
+    }
+}
+
+export async function getProjects(categoryId) {
+    const apolloClient = getApolloClient()
+
+
+    const { categories } = await getProjectCategories()
+
+    const categoriesWithTaxonomyKeys = {}
+
+    categories.forEach((c) => {
+        categoriesWithTaxonomyKeys[c.termTaxonomyId] = c
+    })
+
+    const data = await apolloClient.query({
+        query: buildProjectQuery(categoryId)
+    })
+
+
+
+    const projectCategory = data.data.projectCategories.nodes[0]
+
+    const projects = projectCategory.contentNodes.nodes
 
     const queriedProjects = []
 
 
-    data.data.projects.nodes.forEach((project) => {
+    projects.forEach((project) => {
         queriedProjects.push({
             title: project.title,
             backgroundImage: project.projects.projectBackgroundImage,
             companyLogo: project.projects.projectCompanyLogo,
             description: project.projects.projectShortDescription,
             onHover: project.projects.projectOnHoverImage,
-            url: project.projects.websiteUrl
+            url: project.projects.websiteUrl,
+            link: project.link
         })
     })
+
     return {
         projects: queriedProjects,
-    };
-}
-
-export async function getProjects() {
-    const {projects} = await getAllProjects()
-
-    return {projects}
+        categories: categoriesWithTaxonomyKeys
+    }
 }
 
 

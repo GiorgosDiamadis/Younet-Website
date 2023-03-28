@@ -26,7 +26,7 @@ export default function Services({ services }) {
 
                     <div className='absolute z-30 left-1/2 -translate-x-1/2 top-8 w-full'>
 
-                        <SectionTitle title={'360⁰ Digital Agency'} />
+                        <SectionTitle title={'360⁰ Boutique Digital Agency'} />
                     </div>
 
                     {services && services.map((service, i) => (

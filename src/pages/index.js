@@ -26,7 +26,7 @@ const DynamicLatestPosts = dynamic(() => import('../components/LatestPosts'), {
 })
 
 
-export default function Home({ services, brands, projects, posts }) {
+export default function Home({ services, brands, projectData, posts }) {
     const { metadata = {} } = useSite()
     const { title, description } = metadata
 
@@ -45,7 +45,7 @@ export default function Home({ services, brands, projects, posts }) {
                 </div>
             </Header>
             <DynamicServices services={services} />
-            <DynamicPortfolio projects={projects} />
+            <DynamicPortfolio projects={projectData.projects} projectCategories={projectData.categories} category={8} />
             <DynamicBrands brands={brands} />
             <DynamicLatestPosts posts={posts} />
             <DynamicNewsletter />
@@ -58,7 +58,8 @@ export async function getStaticProps() {
 
     const { services } = await getServices()
     const { brands } = await getBrands()
-    const { projects } = await getProjects()
+    const { projects, categories } = await getProjects(8)
+
     const { posts } = await getRecentPosts({
         count: 3,
         queryIncludes: 'archive'
@@ -69,7 +70,10 @@ export async function getStaticProps() {
         props: {
             services,
             brands,
-            projects,
+            projectData: {
+                projects,
+                categories
+            },
             posts
         }
     }
