@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { fadeIn } from '../utils/motion'
 import TitleText from './TitleText'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Post({ id, categories, date, postId, slug, title, author, excerpt, featuredImage, index }) {
 
@@ -9,7 +10,7 @@ export default function Post({ id, categories, date, postId, slug, title, author
         key={id}
         variants={fadeIn('up', 'spring', index * .5, 1)}
         className={'flex md:flex-row flex-col gap-4'}>
-        <img src={featuredImage && featuredImage.sourceUrl} alt={featuredImage && featuredImage.altText}
+        <Image loading={'lazy'} width={270} height={0} src={featuredImage && featuredImage.sourceUrl} alt={featuredImage && featuredImage.altText}
              className={'md:w-[270px] w-full h-[250px] rounded-[32px] object-cover'} />
 
         <div className={'w-full flex justify-between items-center'}>
@@ -27,7 +28,7 @@ export default function Post({ id, categories, date, postId, slug, title, author
                     ))}
                 </div>
                 <div className={'flex gap-2 mt-3'}>
-                    <img src={author.avatar.url} width={20} className={'rounded-full'} alt={author.name} />
+                    <Image loading={'lazy'} src={author.avatar.url} width={20} height={0} className={'h-auto rounded-full'} alt={author.name} />
                     <span className={'text-white'}>{author.name}</span>
                 </div>
 

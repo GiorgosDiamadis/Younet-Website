@@ -1,4 +1,8 @@
 {
+  "../components/Younet/Portfolio.js -> ../../utils/motion": {
+    "id": "../components/Younet/Portfolio.js -> ../../utils/motion",
+    "files": []
+  },
   "index.js -> ../components/LatestPosts": {
     "id": "index.js -> ../components/LatestPosts",
     "files": [

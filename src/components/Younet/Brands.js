@@ -3,6 +3,7 @@ import SectionTitle from '../SectionTitle'
 import { motion } from 'framer-motion'
 import { fadeIn, staggerContainer } from '../../utils/motion'
 import { useState } from 'react'
+import Image from 'next/image'
 
 
 export default function Brands({ brands }) {
@@ -53,10 +54,16 @@ export default function Brands({ brands }) {
                     viewport={{ once: false, amount: 0.25 }}
                     className={`relative ${active === index ? 'lg:flex-[3.5] flex-[10]' : 'lg:flex-[0.5] flex-[2]'}   flex items-center justify-center min-w-[170px] h-[700px] transition-[flex] duration-[0.7s] ease-out-flex cursor-pointer`}>
 
-                    <motion.img variants={fadeIn('right', 'spring', .1 * (index + 1), '0.75')}
-                                className={'absolute w-full h-full object-cover rounded-[24px]'}
-                                src='https://dev.younet.digital/cms/wp-content/uploads/2023/03/just-ferry-younet-slide2.webp'
-                                alt='' />
+                    <motion.div
+                        variants={fadeIn('right', 'spring', .1 * (index + 1), '0.75')}
+                        className={'absolute w-full h-full object-cover rounded-[24px]'}
+                    >
+                        <Image
+                            fill
+                            loading={'lazy'}
+                            className={'absolute w-full h-full object-cover rounded-[24px]'}
+                            src={'https://dev.younet.digital/cms/wp-content/uploads/2023/03/just-ferry-younet-slide2.webp'} alt={''} />
+                    </motion.div>
 
                     <motion.div
                         variants={fadeIn('right', 'spring', .1 * (index + 1), '0.75')}
@@ -65,7 +72,7 @@ export default function Brands({ brands }) {
                         {active === index ? (
                             <>
                                 <div className={'flexCenter w-[80px] h-[80px] rounded-[24px]'}>
-                                    <img src={image} alt='' />
+                                    <Image width={80} height={0}  loading={'lazy'} className={'h-auto'} src={image} alt='' />
 
                                 </div>
                                 <p className={'m-0'}>

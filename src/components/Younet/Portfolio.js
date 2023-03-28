@@ -1,11 +1,10 @@
 import SectionTitle from '../SectionTitle'
 import Image from 'next/image'
-import portfolioimg from 'public/portfolioimage.png'
 import Section from '../Section'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { fadeIn, staggerContainer, textVariant } from '../../utils/motion'
 import { getProjects } from '../../lib/posts'
+import dynamic from 'next/dynamic'
 
 export default function Portfolio({ projects, category, projectCategories }) {
 
@@ -40,7 +39,7 @@ export default function Portfolio({ projects, category, projectCategories }) {
             ))}
         </div>
         <motion.div
-            variants={staggerContainer}
+            variants={dynamic(() => import('../../utils/motion').then((utils) => utils.staggerContainer))}
             initial={'hidden'}
             whileInView={'show'}
             viewport={{ once: false, amount: .1 }}
@@ -66,7 +65,6 @@ export default function Portfolio({ projects, category, projectCategories }) {
                 <>
                     {initialProjects && initialProjects.map((project, i) => (
                         <div
-                            // variants={fadeIn('up', 'tween', .1 * i, .5)}
                             className='portfolio-item group relative  '>
 
                             <div style={{ '--bg-image': `url('${project.backgroundImage?.sourceUrl}')` }}
@@ -84,8 +82,8 @@ export default function Portfolio({ projects, category, projectCategories }) {
 
                                     <div
                                         className={`lg:absolute left-0 bottom-0 lg:group-hover:bottom-full transition-all duration-500 w-full lg:w-auto text-center`}>
-                                        <img className={' text-white relative  text-5xl font-bold '}
-                                             src={project.companyLogo?.sourceUrl} />
+                                        <Image  loading={'lazy'} width={100} height={0}  className={'h-auto text-white relative  text-5xl font-bold '}
+                                             src={project.companyLogo?.sourceUrl}  alt={''}/>
 
                                         <h1 className={'text-white relative w-[350px] text-xl font-bold mt-3 text-center lg:text-left '}>
                                             {project.title}
