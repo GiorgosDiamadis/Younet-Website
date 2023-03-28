@@ -12,7 +12,7 @@ export default function Services({ services }) {
                 <div className='hidden lg:block'>
                     {services && services.map((service, i) => (
                         <div className={'images ' + (i > 0 ? 'opacity-0' : '')}>
-                            <Image src={service.serviceBgImage.sourceUrl} alt={service.serviceBgImage.altText}
+                            <Image src={service.serviceBgImage?.sourceUrl} alt={service.serviceBgImage?.altText}
                                    loading={'lazy'} objectFit={'cover'}
                                    layout={'fill'}
                                    objectPosition={'center'} />
@@ -98,8 +98,8 @@ export default function Services({ services }) {
                              style={{ maxHeight: 0 }}>
 
                             <div className={'service-description w-100 relative'}>
-                                <Image width={1920} height={400} alt={service.serviceBgImage.altText}
-                                       src={service.serviceBgImage.sourceUrl} loading={'lazy'}
+                                <Image width={1920} height={400} alt={service.serviceBgImage?.altText}
+                                       src={service.serviceBgImage?.sourceUrl} loading={'lazy'}
                                        objectFit={'cover'} />
                                 <p className={'mt-0 text-lg'}>
                                     {service.serviceFrontShortDescription}

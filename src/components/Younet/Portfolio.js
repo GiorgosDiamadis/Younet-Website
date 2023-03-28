@@ -9,10 +9,10 @@ import { fadeIn, staggerContainer, textVariant } from '../../utils/motion'
 export default function Portfolio({ projects }) {
 
 
+    const [initialProjects, setInitialProjects] = useState(projects)
+
     return <Section>
         <SectionTitle title={'Featured Web Design Launches'} />
-
-
         <motion.div
             variants={staggerContainer}
             initial={'hidden'}
@@ -20,15 +20,15 @@ export default function Portfolio({ projects }) {
             viewport={{ once: false, amount: .1 }}
             className='portfolio-container mt-10 1150px:w-full w-3/4 m-auto'>
 
-            {projects && projects.map((project, i) => (
+            {initialProjects && initialProjects.map((project, i) => (
                 <motion.div variants={fadeIn('up', 'tween', .1 * i, .5)} className='portfolio-item group relative  '>
 
                     <div style={{ '--bg-image': `url('${project.backgroundImage?.sourceUrl}')` }}
-                        className='portfolio-item-details lg:group-hover:rotate-y-minus35  p-5'>
+                         className='portfolio-item-details lg:group-hover:rotate-y-minus35  p-5'>
                     </div>
 
                     <div style={{ '--bg-image': `url('${project.backgroundImage?.sourceUrl}')` }}
-                        className='portfolio-item-perspective'>
+                         className='portfolio-item-perspective'>
 
 
                     </div>

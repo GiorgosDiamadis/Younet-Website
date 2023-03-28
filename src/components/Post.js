@@ -4,7 +4,6 @@ import TitleText from './TitleText'
 import Link from 'next/link'
 
 export default function Post({ id, categories, date, postId, slug, title, author, excerpt, featuredImage, index }) {
-    console.log(categories)
 
     return <motion.div
         key={id}

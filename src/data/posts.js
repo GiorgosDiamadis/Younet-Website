@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client';
+import { gql } from '@apollo/client'
 
 export const POST_FIELDS = gql`
   fragment PostFields on Post {
@@ -26,7 +26,7 @@ export const POST_FIELDS = gql`
         }
     }
   }
-`;
+`
 
 export const QUERY_ALL_POSTS_INDEX = gql`
   ${POST_FIELDS}
@@ -39,7 +39,7 @@ export const QUERY_ALL_POSTS_INDEX = gql`
       }
     }
   }
-`;
+`
 
 
 export const QUERY_ALL_POSTS_ARCHIVE = gql`
@@ -66,7 +66,7 @@ export const QUERY_ALL_POSTS_ARCHIVE = gql`
       }
     }
   }
-`;
+`
 
 export const QUERY_ALL_SERVICES_HOME = gql`
 query AllServices {
@@ -93,6 +93,52 @@ query AllServices {
 }
 
 `
+
+
+export const buildProjectQuery = (categoryId = '') => {
+    if (categoryId === '') {
+        return QUERY_ALL_PROJECTS
+    }
+
+
+    return gql`
+query ProjectsQuery {
+  projects(where: {${categoryId}) {
+    nodes {
+      projects {
+        fieldGroupName
+        projectBackgroundImage {
+          id
+          slug
+          srcSet
+          sourceUrl
+          title
+        }
+        projectCompanyLogo {
+          id
+          sourceUrl
+          srcSet
+          slug
+          title
+        }
+        projectShortDescription
+        projectOnHoverImage {
+          id
+          srcSet
+          sourceUrl
+          slug
+          title
+        }
+        websiteUrl
+      }
+      title
+    }
+  }
+}
+
+`
+}
+
 export const QUERY_ALL_PROJECTS = gql`
 query ProjectsQuery {
   projects(where: {}) {
@@ -190,7 +236,7 @@ export const QUERY_ALL_POSTS = gql`
       }
     }
   }
-`;
+`
 
 export const QUERY_POST_BY_SLUG = gql`
   query PostBySlug($slug: ID!) {
@@ -238,7 +284,7 @@ export const QUERY_POST_BY_SLUG = gql`
       isSticky
     }
   }
-`;
+`
 
 export const QUERY_POSTS_BY_CATEGORY_ID_INDEX = gql`
   ${POST_FIELDS}
@@ -251,7 +297,7 @@ export const QUERY_POSTS_BY_CATEGORY_ID_INDEX = gql`
       }
     }
   }
-`;
+`
 
 export const QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE = gql`
   ${POST_FIELDS}
@@ -277,7 +323,7 @@ export const QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE = gql`
       }
     }
   }
-`;
+`
 
 export const QUERY_POSTS_BY_CATEGORY_ID = gql`
   ${POST_FIELDS}
@@ -315,7 +361,7 @@ export const QUERY_POSTS_BY_CATEGORY_ID = gql`
       }
     }
   }
-`;
+`
 
 export const QUERY_POSTS_BY_AUTHOR_SLUG_INDEX = gql`
   ${POST_FIELDS}
@@ -328,7 +374,7 @@ export const QUERY_POSTS_BY_AUTHOR_SLUG_INDEX = gql`
       }
     }
   }
-`;
+`
 
 export const QUERY_POSTS_BY_AUTHOR_SLUG_ARCHIVE = gql`
   ${POST_FIELDS}
@@ -342,7 +388,7 @@ export const QUERY_POSTS_BY_AUTHOR_SLUG_ARCHIVE = gql`
       }
     }
   }
-`;
+`
 
 export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
   ${POST_FIELDS}
@@ -367,7 +413,7 @@ export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
       }
     }
   }
-`;
+`
 
 export const QUERY_POST_SEO_BY_SLUG = gql`
   query PostSEOBySlug($slug: ID!) {
@@ -408,7 +454,7 @@ export const QUERY_POST_SEO_BY_SLUG = gql`
       }
     }
   }
-`;
+`
 
 export const QUERY_POST_PER_PAGE = gql`
   query PostPerPage {
@@ -416,4 +462,4 @@ export const QUERY_POST_PER_PAGE = gql`
       readingSettingsPostsPerPage
     }
   }
-`;
+`
