@@ -29,9 +29,12 @@ const nextConfig = {
     }
 }
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true'
+})
 module.exports = () => {
     const plugins = [sitemap]
-    return plugins.reduce((acc, plugin) => plugin(acc), nextConfig)
+    return plugins.reduce((acc, plugin) => plugin(acc), withBundleAnalyzer(nextConfig))
 }
 
 /**

@@ -10,12 +10,12 @@ const SectionTitle = ({ title, subTitle, size = 'lg' }) => {
     >
         {subTitle && <div className='text-center'>
             <motion.span
-                variants={textVariant(.1)}
+                variants={textVariant(.05)}
                 className={'text-white text-center text-sm sm:text-xl lg:text-2xl  font-bold mr-1 inline-block'}>{subTitle}</motion.span>
         </div>}
 
 
-        <motion.p variants={textVariant(.3)} className={`p-1.5 mb-0 heading ${size === 'md' ? 'text-5xl' : ''} `}>{title}</motion.p>
+        <motion.p variants={textVariant(.1)} className={`p-1.5 mb-0 heading ${size === 'md' ? 'text-5xl' : ''} `}>{title}</motion.p>
     </motion.div>
 }
 
