@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 import { staggerContainer, textVariant } from '../../utils/motion'
 
 export default function NewsLetter() {
-    return <Section className={'max-h-[300px]'}>
+    return <Section className={'min-h-[0px] h-[300px] mb-0'}>
         <motion.div
             variants={staggerContainer}
             initial={'hidden'}
