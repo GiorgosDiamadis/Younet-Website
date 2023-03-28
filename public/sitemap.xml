@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://localhost</loc>
-    <lastmod>2023-03-27T10:05:05.472Z</lastmod>
+    <lastmod>2023-03-28T10:12:50.655Z</lastmod>
   </url>
   <url>
     <loc>http://localhost/sample-page/</loc>
@@ -11,11 +11,15 @@
   </url>
 
   <url>
+    <loc>http://localhost/posts/example-post/</loc>
+    <lastmod>2023-03-27T08:18:05.000Z</lastmod>
+  </url>
+  <url>
     <loc>http://localhost/posts/hello-world2/</loc>
-    <lastmod>2023-03-27T07:03:43.000Z</lastmod>
+    <lastmod>2023-03-27T07:40:42.000Z</lastmod>
   </url>
   <url>
     <loc>http://localhost/posts/hello-world/</loc>
-    <lastmod>2023-03-17T08:06:07.000Z</lastmod>
+    <lastmod>2023-03-27T10:35:25.000Z</lastmod>
   </url>
 </urlset>

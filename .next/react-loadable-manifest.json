@@ -1,7 +1,9 @@
 {
   "index.js -> ../components/LatestPosts": {
     "id": "index.js -> ../components/LatestPosts",
-    "files": []
+    "files": [
+      "static/chunks/src_components_LatestPosts_js.js"
+    ]
   },
   "index.js -> ../components/Younet/Brands": {
     "id": "index.js -> ../components/Younet/Brands",

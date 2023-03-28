@@ -1,8 +1,10 @@
 import Section from './Section'
 import SectionTitle from './SectionTitle'
 import { motion } from 'framer-motion'
-import { staggerContainer } from '../utils/motion'
+import { fadeIn, staggerContainer, zoomIn } from '../utils/motion'
 import Post from './Post'
+import Link from 'next/link'
+
 
 export default function LatestPosts({ posts }) {
 
@@ -32,6 +34,15 @@ export default function LatestPosts({ posts }) {
                     index={index}
                 />
             ))}
+
+
+            <motion.button variants={fadeIn('up', 'tween', 1.5, .5)} className='btn btn-primary m-auto' role='button'>
+
+
+                <Link href={'/posts'} className={'text-white'}>
+                    More posts
+                </Link>
+            </motion.button>
 
         </motion.div>
 

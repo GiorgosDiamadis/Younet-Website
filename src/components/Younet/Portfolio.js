@@ -23,15 +23,11 @@ export default function Portfolio({ projects }) {
             {projects && projects.map((project, i) => (
                 <motion.div variants={fadeIn('up', 'tween', .1 * i, .5)} className='portfolio-item group relative  '>
 
-                    <div
-
-                        style={{ '--bg-image': `url('${project.backgroundImage?.sourceUrl}')` }}
+                    <div style={{ '--bg-image': `url('${project.backgroundImage?.sourceUrl}')` }}
                         className='portfolio-item-details lg:group-hover:rotate-y-minus35  p-5'>
                     </div>
 
-                    <div
-
-                        style={{ '--bg-image': `url('${project.backgroundImage?.sourceUrl}')` }}
+                    <div style={{ '--bg-image': `url('${project.backgroundImage?.sourceUrl}')` }}
                         className='portfolio-item-perspective'>
 
 

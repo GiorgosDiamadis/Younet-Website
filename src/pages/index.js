@@ -1,12 +1,11 @@
 import useSite from 'hooks/use-site'
-import { getBrands, getPaginatedPosts, getProjects, getServices } from 'lib/posts'
+import { getBrands, getPaginatedPosts, getProjects, getRecentPosts, getServices } from 'lib/posts'
 import { WebsiteJsonLd } from 'lib/json-ld'
 import dynamic from 'next/dynamic'
 import Layout from 'components/Layout'
 import Header from 'components/Header'
 import SectionTitle from '../components/SectionTitle'
 import CallToActionFramerHOC from '../components/CallToActionFramerHOC'
-import LatestPosts from '../components/LatestPosts'
 
 
 const DynamicPortfolio = dynamic(() => import('../components/Younet/Portfolio'), {
@@ -51,6 +50,7 @@ export default function Home({ services, brands, projects, posts }) {
             <DynamicLatestPosts posts={posts} />
             <DynamicNewsletter />
         </Layout>
+
     )
 }
 
@@ -59,7 +59,8 @@ export async function getStaticProps() {
     const { services } = await getServices()
     const { brands } = await getBrands()
     const { projects } = await getProjects()
-    const { posts, pagination } = await getPaginatedPosts({
+    const { posts } = await getRecentPosts({
+        count: 3,
         queryIncludes: 'archive'
     })
 

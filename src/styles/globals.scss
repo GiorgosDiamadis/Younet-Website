@@ -166,7 +166,13 @@
       background-position: 67% 0%
     }
   }
+  .btn-primary {
 
+    @apply hover:outline-none active:outline-none box-border leading-[1em] select-none no-underline whitespace-pre-wrap items-center border-0 rounded-[16px] text-white text-[20px] flex justify-center w-[200px] pt-[19px] pb-[19px] pl-[15px] pr-[15px] cursor-pointer ;
+    background-image: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB);
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    touch-action: manipulation;
+  }
 
   .text-glow {
     text-shadow: -2px 0 5px rgb(24 151 227 / 98%), 2px 3px 5px #1baaff, 3px 0 5px #1baaff, -3px -2px 5px #1baaff;
