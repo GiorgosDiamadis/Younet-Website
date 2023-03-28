@@ -441,6 +441,7 @@ export async function getProjectCategories() {
         query: QUERY_PROJECT_CATEGORIES
     })
 
+
     return {
         categories: data.data.projectCategories.nodes
     }
