@@ -139,6 +139,7 @@ query ProjectCategoriesQuery {
       name
       link
       termTaxonomyId
+      count
     }
   }
 }

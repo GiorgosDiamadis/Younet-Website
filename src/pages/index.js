@@ -6,6 +6,7 @@ import Layout from 'components/Layout'
 import Header from 'components/Header'
 import SectionTitle from '../components/SectionTitle'
 import CallToActionFramerHOC from '../components/CallToActionFramerHOC'
+import { Helmet } from 'react-helmet'
 
 
 const DynamicPortfolio = dynamic(() => import('../components/Younet/Portfolio'), {
