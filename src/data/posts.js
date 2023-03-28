@@ -68,6 +68,43 @@ export const QUERY_ALL_POSTS_ARCHIVE = gql`
   }
 `
 
+//
+
+
+export const buildServicesQuery = (categoryId) => {
+    return gql`
+  query ServicesByCategoryQuery {
+  servicesCategories(where: {termTaxonomyId: "${categoryId}"}) {
+     nodes {
+      contentNodes {
+        nodes {
+          ... on Service {
+            id
+            services {
+              fieldGroupName
+              frontButtonLink
+              frontButtonText
+              serviceFrontShortDescription
+              serviceBgImage {
+                altText
+                slug
+                sourceUrl
+                uri
+                title
+              }
+            }
+            title
+            uri
+          }
+          slug
+          link
+        }
+      }
+    }
+  }
+}
+  `
+}
 export const QUERY_ALL_SERVICES_HOME = gql`
 query AllServices {
   services {

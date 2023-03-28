@@ -30,38 +30,43 @@ export default function Services({ services }) {
                     </div>
 
                     {services && services.map((service, i) => (
-                        <Link legacyBehavior key={service.id} href={service.path}>
-                            <a onMouseEnter={() => {
-                                document.querySelectorAll('.images').forEach((r) => {
-                                    r.classList.remove('active')
-                                })
-                                document.querySelector(`.images:nth-child(${i + 1})`).classList.add('active')
-                            }} className={'group service'}>
-                                <div className='relative d-flex flex-col justify-end'>
-                                    <motion.div variants={staggerContainer}
-                                                initial={'hidden'}
-                                                whileInView={'show'}
-                                                viewport={{ once: false, amount: 0.25 }} id={`heading-${service.id}`}
-                                                className={'service-heading '}>
-                                        <motion.span variants={textVariant(.1)}
-                                                     className={'text-highlighted text-5xl font-bold'}>0{i + 1}</motion.span>
-                                        <motion.p variants={textVariant(.15)}
-                                                  className={' inline-block lg:text-2xl text-3xl font-bold'}>
-                                            {service.title}
-                                        </motion.p>
-                                    </motion.div>
-                                    <div className='opacity-0 service-description'>
-                                        <p className={'mt-0 text-lg'}>
-                                            {service.serviceFrontShortDescription}
-                                        </p>
+                        <div onMouseEnter={() => {
+                            document.querySelectorAll('.images').forEach((r) => {
+                                r.classList.remove('active')
+                            })
+                            document.querySelector(`.images:nth-child(${i + 1})`).classList.add('active')
+                        }} className={'group service'}>
+                            <div className='relative d-flex flex-col justify-end'>
+                                <motion.div variants={staggerContainer}
+                                            initial={'hidden'}
+                                            whileInView={'show'}
+                                            viewport={{ once: false, amount: 0.25 }} id={`heading-${service.id}`}
+                                            className={'service-heading '}>
+                                    <motion.span variants={textVariant(.1)}
+                                                 className={'text-highlighted text-5xl font-bold'}>0{i + 1}</motion.span>
+                                    <motion.p variants={textVariant(.15)}
+                                              className={' inline-block lg:text-2xl text-3xl font-bold'}>
+                                        {service.title}
+                                    </motion.p>
+                                </motion.div>
+                                <div className='opacity-0 service-description'>
+                                    <p className={'mt-0 text-lg'}>
+                                        {service.serviceFrontShortDescription}
+                                    </p>
 
-                                        <p className='text-lg font-bold'>{service.frontButtonText}</p>
-                                    </div>
+                                    {service.frontButtonLink && (
+                                        <button className={'btn-primary w-full text-[16px]'}>
+                                            <Link href={service.frontButtonLink} className={'text-white'}>
+                                                {service.frontButtonText}
+
+                                            </Link>
+                                        </button>
+
+                                    )}
+
                                 </div>
-
-
-                            </a>
-                        </Link>
+                            </div>
+                        </div>
 
                     ))}
 

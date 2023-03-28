@@ -56,7 +56,7 @@ export default function Home({ services, brands, projectData, posts }) {
 
 export async function getStaticProps() {
 
-    const { services } = await getServices()
+    const { services } = await getServices(13)
     const { brands } = await getBrands()
     const { projects, categories } = await getProjects(8)
 

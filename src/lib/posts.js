@@ -20,7 +20,7 @@ import {
     QUERY_ALL_BRANDS_HOME,
     QUERY_ALL_PROJECTS,
     buildProjectQuery,
-    QUERY_PROJECT_CATEGORIES
+    QUERY_PROJECT_CATEGORIES, buildServicesQuery
 } from 'data/posts'
 
 
@@ -360,18 +360,21 @@ export async function getPaginatedPosts({ currentPage = 1, ...options } = {}) {
 }
 
 
-async function getAllServices() {
 
+export async function getServices(categoryId) {
     const apolloClient = getApolloClient()
 
     const data = await apolloClient.query({
-        query: QUERY_ALL_SERVICES_HOME
+        query: buildServicesQuery(categoryId)
     })
+
+
+
 
     const queriedServices = []
 
 
-    data.data.services.nodes.forEach(({ slug, title, link, id, uri, services }) => {
+    data.data.servicesCategories.nodes[0].contentNodes.nodes.forEach(({ slug, title, link, id, uri, services }) => {
         queriedServices.push({
             slug,
             title,
@@ -379,23 +382,12 @@ async function getAllServices() {
             path: uri,
             ...services
 
-
         })
     })
 
 
     return {
         services: queriedServices
-    }
-
-}
-
-
-export async function getServices() {
-    const { services } = await getAllServices()
-
-    return {
-        services
     }
 }
 
