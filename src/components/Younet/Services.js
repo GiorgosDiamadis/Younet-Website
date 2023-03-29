@@ -1,13 +1,19 @@
+'use client'
+
+
 import SectionTitle from '../SectionTitle'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { staggerContainer, textVariant } from '../../utils/motion'
+import useWindowSize from '../../hooks/useWindowSize'
 
 export default function Services({ services }) {
-    return <div className='bg-dark_blue '>
 
-        <div className='hidden lg:flex services-description h-[600px]  flex-col'>
+    const { width, height } = useWindowSize()
+
+    const ServicesDesktop = () => {
+        return <div className='hidden lg:flex services-description h-[600px]  flex-col'>
             <div className='relative  flex-1 overflow-hidden'>
                 <div className='hidden lg:block'>
                     {services && services.map((service, i) => (
@@ -74,8 +80,10 @@ export default function Services({ services }) {
                 </div>
             </div>
         </div>
+    }
 
-        <div className='w-full block lg:hidden mx-auto '>
+    const ServicesMobile = () => {
+        return <div className='w-full block lg:hidden mx-auto '>
             <SectionTitle title={'Full Service Digital Agency'} />
 
             <div className='bg-transparent mt-7 shadow-sm'>
@@ -119,6 +127,12 @@ export default function Services({ services }) {
 
             </div>
         </div>
+    }
+
+
+    return <div className='bg-dark_blue '>
+
+        {width >= 1024 ? <ServicesDesktop /> : <ServicesMobile />}
 
 
     </div>

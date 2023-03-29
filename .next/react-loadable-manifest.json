@@ -1,40 +1,36 @@
 {
   "../components/Younet/Portfolio.js -> ../../utils/motion": {
-    "id": 6330,
+    "id": "../components/Younet/Portfolio.js -> ../../utils/motion",
     "files": []
   },
   "index.js -> ../components/LatestPosts": {
-    "id": 4563,
+    "id": "index.js -> ../components/LatestPosts",
     "files": [
-      "static/css/ef46db3751d8e999.css",
-      "static/chunks/563.39e47757a0db4b79.js"
+      "static/chunks/src_components_LatestPosts_js.js"
     ]
   },
   "index.js -> ../components/Younet/Brands": {
-    "id": 6780,
+    "id": "index.js -> ../components/Younet/Brands",
     "files": [
-      "static/css/ef46db3751d8e999.css",
-      "static/chunks/780.a8c652cad3951ed5.js"
+      "static/chunks/src_components_Younet_Brands_js.js"
     ]
   },
   "index.js -> ../components/Younet/NewsLetter": {
-    "id": 1125,
+    "id": "index.js -> ../components/Younet/NewsLetter",
     "files": [
-      "static/css/ef46db3751d8e999.css",
-      "static/chunks/125.0d874904d7a3d1c1.js"
+      "static/chunks/src_components_Younet_NewsLetter_js.js"
     ]
   },
   "index.js -> ../components/Younet/Portfolio": {
-    "id": 7221,
+    "id": "index.js -> ../components/Younet/Portfolio",
     "files": [
-      "static/css/ef46db3751d8e999.css",
-      "static/chunks/221.cd00d80f76832f23.js"
+      "static/chunks/src_components_Younet_Portfolio_js.js"
     ]
   },
   "index.js -> ../components/Younet/Services": {
-    "id": 2609,
+    "id": "index.js -> ../components/Younet/Services",
     "files": [
-      "static/chunks/609.228890acd531d0ec.js"
+      "static/chunks/src_components_Younet_Services_js.js"
     ]
   }
 }
