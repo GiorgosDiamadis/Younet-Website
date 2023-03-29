@@ -1,7 +1,7 @@
 import Section from './Section'
 import SectionTitle from './SectionTitle'
 import { motion } from 'framer-motion'
-import { fadeIn, staggerContainer, zoomIn } from '../utils/motion'
+import { fadeIn, staggerContainer } from '../utils/motion'
 import Post from './Post'
 import Link from 'next/link'
 

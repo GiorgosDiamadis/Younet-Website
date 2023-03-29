@@ -4,56 +4,22 @@ exports.id = 888;
 exports.ids = [888];
 exports.modules = {
 
-/***/ 1152:
-/***/ ((module) => {
-
-// Exports
-module.exports = {
-	"progressbarColor": "#0070f3"
-};
-
-
-/***/ }),
-
-/***/ 3275:
+/***/ 2730:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ _app)
-});
-
-// EXTERNAL MODULE: external "react/jsx-runtime"
-var jsx_runtime_ = __webpack_require__(997);
-// EXTERNAL MODULE: ./node_modules/next/app.js
-var app = __webpack_require__(7544);
-// EXTERNAL MODULE: ./src/hooks/use-site.js
-var use_site = __webpack_require__(2097);
-// EXTERNAL MODULE: ./src/lib/site.js + 1 modules
-var site = __webpack_require__(7027);
-// EXTERNAL MODULE: ./src/lib/posts.js + 1 modules
-var posts = __webpack_require__(3958);
-// EXTERNAL MODULE: ./src/lib/categories.js + 1 modules
-var categories = __webpack_require__(7706);
-;// CONCATENATED MODULE: external "nextjs-progressbar"
-const external_nextjs_progressbar_namespaceObject = require("nextjs-progressbar");
-var external_nextjs_progressbar_default = /*#__PURE__*/__webpack_require__.n(external_nextjs_progressbar_namespaceObject);
-// EXTERNAL MODULE: ./src/lib/menus.js + 1 modules
-var lib_menus = __webpack_require__(7588);
-// EXTERNAL MODULE: ./src/styles/globals.scss
-var globals = __webpack_require__(6961);
-// EXTERNAL MODULE: ./src/styles/_variables.module.scss
-var _variables_module = __webpack_require__(1152);
-var _variables_module_default = /*#__PURE__*/__webpack_require__.n(_variables_module);
-;// CONCATENATED MODULE: ./src/pages/_app.js
-
-
-
-
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7544);
+/* harmony import */ var hooks_use_site__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2097);
+/* harmony import */ var lib_site__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7027);
+/* harmony import */ var lib_menus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7588);
+/* harmony import */ var styles_globals_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6961);
+/* harmony import */ var styles_globals_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(styles_globals_scss__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
@@ -61,35 +27,29 @@ var _variables_module_default = /*#__PURE__*/__webpack_require__.n(_variables_mo
 
 
 function App({ Component , pageProps ={} , metadata , recentPosts , categories , menus  }) {
-    const site = (0,use_site/* useSiteContext */.AA)({
+    const site = (0,hooks_use_site__WEBPACK_IMPORTED_MODULE_2__/* .useSiteContext */ .AA)({
         metadata,
         recentPosts,
         categories,
         menus
     });
-    return /*#__PURE__*/ (0,jsx_runtime_.jsxs)(use_site/* SiteContext.Provider */.DN.Provider, {
+    return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(hooks_use_site__WEBPACK_IMPORTED_MODULE_2__/* .SiteContext.Provider */ .DN.Provider, {
         value: site,
-        children: [
-            /*#__PURE__*/ jsx_runtime_.jsx((external_nextjs_progressbar_default()), {
-                height: 4,
-                color: (_variables_module_default()).progressbarColor
-            }),
-            /*#__PURE__*/ jsx_runtime_.jsx(Component, {
-                ...pageProps
-            })
-        ]
+        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(Component, {
+            ...pageProps
+        })
     });
 }
 App.getInitialProps = async function(appContext) {
-    const appProps = await app["default"].getInitialProps(appContext);
-    const { menus =[]  } = await (0,lib_menus/* getAllMenus */.xz)();
+    const appProps = await next_app__WEBPACK_IMPORTED_MODULE_1__["default"].getInitialProps(appContext);
+    const { menus =[]  } = await (0,lib_menus__WEBPACK_IMPORTED_MODULE_4__/* .getAllMenus */ .xz)();
     return {
         ...appProps,
-        metadata: await (0,site/* getSiteMetadata */.Oq)(),
+        metadata: await (0,lib_site__WEBPACK_IMPORTED_MODULE_3__/* .getSiteMetadata */ .Oq)(),
         menus
     };
 };
-/* harmony default export */ const _app = (App);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 
 
 /***/ }),
@@ -109,27 +69,11 @@ module.exports = require("@apollo/client");
 
 /***/ }),
 
-/***/ 4146:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("date-fns");
-
-/***/ }),
-
 /***/ 9232:
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("next/dist/shared/lib/utils.js");
-
-/***/ }),
-
-/***/ 8181:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("parameterize");
 
 /***/ }),
 
@@ -156,7 +100,7 @@ module.exports = require("react/jsx-runtime");
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [270,544,550,958,706], () => (__webpack_exec__(3275)));
+var __webpack_exports__ = __webpack_require__.X(0, [270,544,550], () => (__webpack_exec__(2730)));
 module.exports = __webpack_exports__;
 
 })();

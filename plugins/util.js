@@ -1,8 +1,6 @@
 const fs = require('fs');
-const he = require('he');
 const { gql, ApolloClient, InMemoryCache } = require('@apollo/client');
 const RSS = require('rss');
-const prettier = require('prettier');
 
 const config = require('../package.json');
 
@@ -274,28 +272,28 @@ function generateFeed({ posts = [], metadata = {} }) {
  * generateIndexSearch
  */
 
-function generateIndexSearch({ posts }) {
-  const index = posts.map((post = {}) => {
-    // We need to decode the title because we're using the
-    // rendered version which assumes this value will be used
-    // within the DOM
-
-    const title = he.decode(post.title);
-
-    return {
-      title,
-      slug: post.slug,
-      date: post.date,
-    };
-  });
-
-  const indexJson = JSON.stringify({
-    generated: Date.now(),
-    posts: index,
-  });
-
-  return indexJson;
-}
+// function generateIndexSearch({ posts }) {
+//   const index = posts.map((post = {}) => {
+//     // We need to decode the title because we're using the
+//     // rendered version which assumes this value will be used
+//     // within the DOM
+//
+//     const title = he.decode(post.title);
+//
+//     return {
+//       title,
+//       slug: post.slug,
+//       date: post.date,
+//     };
+//   });
+//
+//   const indexJson = JSON.stringify({
+//     generated: Date.now(),
+//     posts: index,
+//   });
+//
+//   return indexJson;
+// }
 
 /**
  * getSitemapData
@@ -333,12 +331,12 @@ function generateSitemap({ posts = [], pages = [] }, nextConfig = {}) {
     </urlset>
     `;
 
-  const sitemapFormatted = prettier.format(sitemap, {
-    printWidth: 120,
-    parser: 'html',
-  });
+  // const sitemapFormatted = prettier.format(sitemap, {
+  //   printWidth: 120,
+  //   parser: 'html',
+  // });
 
-  return sitemapFormatted;
+  return sitemap;
 }
 
 /**
@@ -429,7 +427,7 @@ module.exports = {
   getSiteMetadata,
   getFeedData,
   generateFeed,
-  generateIndexSearch,
+  // generateIndexSearch,
   getPages,
   getSitemapData,
   generateSitemap,

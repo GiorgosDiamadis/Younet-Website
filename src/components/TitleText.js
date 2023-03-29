@@ -1,6 +1,3 @@
-import { motion } from 'framer-motion'
-import { textVariant2 } from '../utils/motion'
-
 export default function TitleText({ title, textStyles }) {
 
     return <h2

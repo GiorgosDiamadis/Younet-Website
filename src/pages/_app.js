@@ -1,16 +1,13 @@
-import NextApp from 'next/app';
+import NextApp from 'next/app'
 
-import {SiteContext, useSiteContext} from 'hooks/use-site';
+import { SiteContext, useSiteContext } from 'hooks/use-site'
 
 
-import {getSiteMetadata} from 'lib/site';
-import {getRecentPosts} from 'lib/posts';
-import {getCategories} from 'lib/categories';
-import NextNProgress from 'nextjs-progressbar';
-import {getAllMenus} from 'lib/menus';
+import { getSiteMetadata } from 'lib/site'
+import { getAllMenus } from 'lib/menus'
 
-import 'styles/globals.scss';
-import variables from 'styles/_variables.module.scss';
+import 'styles/globals.scss'
+
 
 function App({Component, pageProps = {}, metadata, recentPosts, categories, menus}) {
     const site = useSiteContext({
@@ -23,7 +20,6 @@ function App({Component, pageProps = {}, metadata, recentPosts, categories, menu
 
     return (
         <SiteContext.Provider value={site}>
-            <NextNProgress height={4} color={variables.progressbarColor}/>
             <Component {...pageProps} />
         </SiteContext.Provider>
     );
