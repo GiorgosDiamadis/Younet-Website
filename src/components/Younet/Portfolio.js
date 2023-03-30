@@ -1,12 +1,12 @@
 import SectionTitle from '../SectionTitle'
-import Image from 'next/image'
 import Section from '../Section'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { getProjects } from '../../lib/posts'
-import dynamic from 'next/dynamic'
+import { staggerContainer } from '../../utils/motion'
+import Project from '../Project'
 
-export default function Portfolio({ projects, category, projectCategories }) {
+export default function Portfolio({ projects, category, projectCategories, ...rest }) {
 
 
     const [initialProjects, setInitialProjects] = useState(projects)
@@ -14,6 +14,7 @@ export default function Portfolio({ projects, category, projectCategories }) {
     const [currentCategory, setCurrentCategory] = useState(category)
 
     const [isLoading, setIsLoading] = useState(false)
+
 
     useEffect(() => {
 
@@ -24,12 +25,28 @@ export default function Portfolio({ projects, category, projectCategories }) {
         })
     }, [currentCategory])
 
+    const Skeleton = (number) => {
+        return <>
+            {Array.from(Array(number < 4 ? number : 4).keys()).map((i) => (
+                <div key={`skeleton-${i}`} className='card'>
+                    <div className='card-img skeleton'>
 
-    return <Section>
+                    </div>
+                    <div className='card-body'>
+                        <p className='card-intro skeleton'>
+                        </p>
+                    </div>
+                </div>
+            ))}
+        </>
+    }
+
+
+    return <Section {...rest}>
         <SectionTitle title={'Featured Web Design Launches'} />
         <div className={'flex flex-row gap-5 w-full justify-center'}>
             {categories && Object.keys(categories).map((category) => (
-                <div onClick={() => {
+                <div  onClick={() => {
                     setCurrentCategory(category)
 
                 }} key={categories[category].id}
@@ -39,79 +56,15 @@ export default function Portfolio({ projects, category, projectCategories }) {
             ))}
         </div>
         <motion.div
-            variants={dynamic(() => import('../../utils/motion').then((utils) => utils.staggerContainer))}
+            variants={staggerContainer}
             initial={'hidden'}
             whileInView={'show'}
             viewport={{ once: false, amount: .1 }}
             className='portfolio-container mt-10 1150px:w-full w-3/4 m-auto'>
 
-            {isLoading ? (
+            {isLoading ? <Skeleton number={categories[currentCategory].count} /> : (
                 <>
-                    {Array.from(Array(categories[currentCategory].count < 4 ? categories[currentCategory].count : 4).keys()).map(() => (
-                        <div className='card'>
-                            <div className='card-img skeleton'>
-
-                            </div>
-                            <div className='card-body'>
-                                <p className='card-intro skeleton'>
-                                </p>
-                            </div>
-                        </div>
-                    ))}
-                </>
-
-
-            ) : (
-                <>
-                    {initialProjects && initialProjects.map((project, i) => (
-                        <div
-                            className='portfolio-item group relative  '>
-
-                            <div style={{ '--bg-image': `url('${project.backgroundImage?.sourceUrl}')` }}
-                                 className='portfolio-item-details lg:group-hover:rotate-y-minus35  p-5'>
-                            </div>
-
-                            <div style={{ '--bg-image': `url('${project.backgroundImage?.sourceUrl}')` }}
-                                 className='portfolio-item-perspective'>
-
-
-                            </div>
-
-                            <div className='flex flex-col relative  group w-full h-full items-end z-[12] '>
-                                <div className='lg:absolute left-3 bottom-12 w-[90%]'>
-
-                                    <div
-                                        className={`lg:absolute left-0 bottom-0 lg:group-hover:bottom-full transition-all duration-500 w-full lg:w-auto text-center`}>
-                                        <Image  loading={'lazy'} width={100} height={0}  className={'h-auto text-white relative  text-5xl font-bold '}
-                                             src={project.companyLogo?.sourceUrl}  alt={''}/>
-
-                                        <h1 className={'text-white relative w-[350px] text-xl font-bold mt-3 text-center lg:text-left '}>
-                                            {project.title}
-                                        </h1>
-                                    </div>
-
-                                    <p className={'mt-[10px] text-lg w-[350px] relative opacity-100 lg:opacity-0 duration-500 transition-all text-center lg:text-left lg:group-hover:opacity-100'}>
-                                        {project.description}
-                                    </p>
-                                    <a target={'_blank'} href={project.url} className={'text-white'}>
-                                        <div
-                                            className={'request-quote relative cursor-pointer text-center lg:group-hover:opacity-100 w-[300px]   opacity-100 lg:opacity-0 duration-500 transition-all'}>
-                                            Go to Website
-                                        </div>
-                                    </a>
-
-
-                                </div>
-
-                            </div>
-                            <div className='angled-image  z-[12] 1150px:w-auto'>
-                                <Image src={project.onHover?.sourceUrl} width={250} height={300} alt={'alt'}
-                                       loading={'lazy'} />
-                            </div>
-                        </div>
-
-
-                    ))}
+                    {initialProjects && initialProjects.map((project, i) => (<Project key={project.id} project={project} />))}
                 </>
 
             )}

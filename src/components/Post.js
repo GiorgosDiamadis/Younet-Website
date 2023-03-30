@@ -4,11 +4,12 @@ import TitleText from './TitleText'
 import Link from 'next/link'
 import Image from 'next/image'
 
-export default function Post({ id, categories, date, postId, slug, title, author, excerpt, featuredImage, index }) {
+export default function Post({ id, categories, date, postId, slug, title, author, excerpt, featuredImage, index, ...rest }) {
 
     return <motion.div
         key={id}
         variants={fadeIn('up', 'spring', index * .5, 1)}
+        {...rest}
         className={'flex md:flex-row flex-col gap-4'}>
         <Image loading={'lazy'} width={270} height={0} src={featuredImage && featuredImage.sourceUrl} alt={featuredImage && featuredImage.altText}
              className={'md:w-[270px] w-full h-[250px] rounded-[32px] object-cover'} />
@@ -18,7 +19,7 @@ export default function Post({ id, categories, date, postId, slug, title, author
                 <TitleText title={title} />
                 <div className='grid grid-cols-5 gap-3'>
                     {categories.map((category) => (
-                        <div className={'p-1 text-white text-center bg-yn_blue-100 rounded-full'}>
+                        <div key={category.id} className={'p-1 text-white text-center bg-yn_blue-100 rounded-full'}>
                             <Link href={`/categories/${category.slug}`} className={'text-white'}>
 
                                 {category.name}

@@ -8,7 +8,6 @@ import Link from 'next/link'
 
 export default function LatestPosts({ posts }) {
 
-
     return <Section>
         <SectionTitle title={'Digital Trends'}
                       subTitle={'Discover The Latest Digital Strategies & Emerging Ideas For Business Growth'} />
@@ -23,6 +22,7 @@ export default function LatestPosts({ posts }) {
 
             {posts && posts.map((post, index) => (
                 <Post
+                    key={post.id}
                     title={post.title}
                     postId={post.postId}
                     date={post.date}

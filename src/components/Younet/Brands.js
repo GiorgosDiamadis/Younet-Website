@@ -45,6 +45,7 @@ export default function Brands({ brands }) {
 
             {brands.map(({ image, testimonial, name }, index) => (
                 <motion.div
+                    key={`testimonial-${index}`}
                     variants={staggerContainer}
                     initial={'hidden'}
                     whileInView={'show'}

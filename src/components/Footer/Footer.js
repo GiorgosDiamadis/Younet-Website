@@ -47,7 +47,7 @@ const Footer = () => {
                             <div className={'flex gap-2'}>
                                 <div className=" hidden md:block">
 
-                                    <Image src={location} width={24} height={24} loading={"lazy"}/>
+                                    <Image alt={'text'} src={location} width={24} height={24} loading={"lazy"}/>
                                 </div>
                                 <p className={'mt-0 mb-0'}>
 
@@ -59,7 +59,7 @@ const Footer = () => {
                             <div className=" flex gap-2">
                                 <div className=" hidden md:block">
 
-                                    <Image src={phone} width={24} height={24} loading={"lazy"}/>
+                                    <Image alt={'text'} src={phone} width={24} height={24} loading={"lazy"}/>
                                 </div>
                                 <p className={"mt-0 mb-0"}>
 

@@ -183,6 +183,7 @@ export const buildProjectQuery = (categoryId) => {
               }
             }
             title
+            id
           }
           link
         }

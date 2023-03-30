@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react'
 import useSite from 'hooks/use-site'
 import { getBrands, getProjects, getRecentPosts, getServices } from 'lib/posts'
 import { WebsiteJsonLd } from 'lib/json-ld'
@@ -6,6 +7,8 @@ import Layout from 'components/Layout'
 import Header from 'components/Header'
 import SectionTitle from '../components/SectionTitle'
 import CallToActionFramerHOC from '../components/CallToActionFramerHOC'
+import { useRef, useState } from 'react'
+import useOnScreen from '../hooks/useOnScreen'
 
 
 const DynamicPortfolio = dynamic(() => import('../components/Younet/Portfolio'), {
@@ -29,6 +32,18 @@ const DynamicLatestPosts = dynamic(() => import('../components/LatestPosts'), {
 export default function Home({ services, brands, projectData, posts }) {
     const { metadata = {} } = useSite()
     const { title, description } = metadata
+    const portfolioRef = useRef()
+    const x = useOnScreen(portfolioRef, '200px')
+    const [hasLoadedOnce, setHasLoadedOnce] = useState(false)
+
+    useEffect(() => {
+
+        if (hasLoadedOnce === false && x === true) {
+
+            setHasLoadedOnce(true)
+        }
+    }, [x])
+
 
     return (
         <Layout classes={'bg-gradient-body'}>
@@ -45,7 +60,13 @@ export default function Home({ services, brands, projectData, posts }) {
                 </div>
             </Header>
             <DynamicServices services={services} />
-            <DynamicPortfolio projects={projectData.projects} projectCategories={projectData.categories} category={8} />
+            <div ref={portfolioRef}>
+                {(x || hasLoadedOnce) &&
+                    <DynamicPortfolio projects={projectData.projects} projectCategories={projectData.categories}
+                                      category={8} />}
+
+            </div>
+
             <DynamicBrands brands={brands} />
             <DynamicLatestPosts posts={posts} />
             <DynamicNewsletter />

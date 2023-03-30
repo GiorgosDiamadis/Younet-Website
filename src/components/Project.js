@@ -1,0 +1,59 @@
+import Image from 'next/image'
+import { useRef } from 'react'
+import useOnScreen from '../hooks/useOnScreen'
+
+export default function Project({ project,...rest }) {
+
+
+    return <>
+        <div {...rest} className='portfolio-item group relative  '>
+
+            <div className='portfolio-item-details lg:group-hover:rotate-y-minus35'>
+                <Image src={project.backgroundImage?.sourceUrl} alt={''}
+                       loading={'lazy'}
+                       width={680} height={500}
+                       className={'h-full w-full absolute top-0 bottom-0 left-0 right-0'} />
+            </div>
+
+            <div  style={{ '--bg-image': `url('${project.backgroundImage?.sourceUrl}')` }}
+                 className={'portfolio-item-perspective'}>
+
+
+            </div>
+
+            <div className='flex flex-col relative  group w-full h-full items-end z-[12] '>
+                <div className='lg:absolute left-3 bottom-12 w-[90%]'>
+
+                    <div
+                        className={`lg:absolute left-0 bottom-0 lg:group-hover:bottom-full transition-all duration-500 w-full lg:w-auto text-center`}>
+                        <Image loading={'lazy'} width={100} height={0}
+                               className={'h-auto text-white relative  text-5xl font-bold '}
+                               src={project.companyLogo?.sourceUrl} alt={''} />
+
+                        <h1 className={'text-white relative w-[350px] text-xl font-bold mt-3 text-center lg:text-left '}>
+                            {project.title}
+                        </h1>
+                    </div>
+
+                    <p className={'mt-[10px] text-lg w-[350px] relative opacity-100 lg:opacity-0 duration-500 transition-all text-center lg:text-left lg:group-hover:opacity-100'}>
+                        {project.description}
+                    </p>
+                    <a target={'_blank'} href={project.url} className={'text-white'}>
+                        <div
+                            className={'request-quote relative cursor-pointer text-center lg:group-hover:opacity-100 w-[300px]   opacity-100 lg:opacity-0 duration-500 transition-all'}>
+                            Go to Website
+                        </div>
+                    </a>
+
+
+                </div>
+
+            </div>
+            <div className='angled-image  z-[12] 1150px:w-auto'>
+                <Image src={project.onHover?.sourceUrl} width={250} height={300} alt={'alt'}
+                       loading={'lazy'} />
+            </div>
+        </div>
+    </>
+
+}

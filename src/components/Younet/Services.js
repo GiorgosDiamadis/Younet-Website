@@ -17,7 +17,7 @@ export default function Services({ services }) {
             <div className='relative  flex-1 overflow-hidden'>
                 <div className='hidden lg:block'>
                     {services && services.map((service, i) => (
-                        <div className={'images ' + (i > 0 ? 'opacity-0' : '')}>
+                        <div key={service.id} className={'images ' + (i > 0 ? 'opacity-0' : '')}>
                             <Image src={service.serviceBgImage?.sourceUrl} alt={service.serviceBgImage?.altText}
                                    loading={'lazy'} objectFit={'cover'}
                                    layout={'fill'}
@@ -36,7 +36,7 @@ export default function Services({ services }) {
                     </div>
 
                     {services && services.map((service, i) => (
-                        <div onMouseEnter={() => {
+                        <div key={service.id} onMouseEnter={() => {
                             document.querySelectorAll('.images').forEach((r) => {
                                 r.classList.remove('active')
                             })

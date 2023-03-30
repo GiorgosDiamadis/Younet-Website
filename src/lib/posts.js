@@ -479,6 +479,7 @@ export async function getProjects(categoryId) {
             description: project.projects.projectShortDescription,
             onHover: project.projects.projectOnHoverImage,
             url: project.projects.websiteUrl,
+            id: project.id,
             link: project.link
         })
     })
