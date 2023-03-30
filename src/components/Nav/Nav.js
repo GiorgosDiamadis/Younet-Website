@@ -4,13 +4,11 @@ import Image from 'next/image'
 import useSite from 'hooks/use-site'
 import logo from '../../../public/YouNet-LogoW.webp'
 import { findMenuByLocation, MENU_LOCATION_NAVIGATION_DEFAULT } from 'lib/menus'
-import { motion } from 'framer-motion'
 
 import styles from './Nav.module.scss'
 import useScrollPosition from '../../hooks/useScrollPosition'
 import CallToAction from '../CallToAction'
 import Burger from './Burger'
-import { navVariants, staggerContainer } from '../../utils/motion'
 import NavListItem from '../NavListItem'
 
 const SEARCH_VISIBLE = 'visible'
@@ -186,19 +184,16 @@ const Nav = () => {
                 <nav data-menu-transition ref={menuRef}
                      className={'p-[1rem] main-nav pt-2 fixed m-0 w-full z-50'}>
                     <div className='gradient-01 h-[239px] absolute w-[152px]' />
-                    <motion.div variants={staggerContainer}
-                                initial={'hidden'}
-                                whileInView={'show'}
-                                viewport={{ once: true, amount: 0.25 }} className={'site-navigation'}>
-                        <motion.p variants={navVariants} className={styles.navName + ' z-50'}>
+                    <div className={'site-navigation'}>
+                        <p  className={styles.navName + ' z-50'}>
                             <Link legacyBehavior href='/'>
                                 <a className={'text-4xl text-white p-0 m-0'}>
                                     <Image src={logo} alt='me' width={'90'} height={'51'} loading={'lazy'} />
 
                                 </a>
                             </Link>
-                        </motion.p>
-                        <motion.div variants={navVariants} className={'flex gap-6'}>
+                        </p>
+                        <div  className={'flex gap-6'}>
                             <button aria-label={'Ζητήστε τιμή'} type={'button'} className={'burger-container'}>
                                 <CallToAction>
                                     <div data-menu-transition className={'request-quote hidden md:block'}>Ζητηστε τιμη
@@ -216,8 +211,8 @@ const Nav = () => {
                                     <h1 data-menu-transition className={'menu-text hidden md:block'}>menu</h1>
                                 </div>
                             </button>
-                        </motion.div>
-                    </motion.div>
+                        </div>
+                    </div>
                 </nav>
                 <div data-menu-transition className='menu'>
                     <div className='menu-scaling-bg bg-gradient'>
