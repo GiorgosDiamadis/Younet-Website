@@ -8,7 +8,7 @@ export default function Project({ project, ...rest }) {
     return <>
         <div {...rest} className='portfolio-item group relative  '>
 
-            <div className='portfolio-item-details 850px:group-hover:rotate-y-minus35'>
+            <div className='portfolio-item-details 800px:group-hover:rotate-y-minus35'>
                 <Image src={project.backgroundImage?.sourceUrl} alt={''}
                        loading={'lazy'}
                        width={680} height={500}
@@ -25,7 +25,7 @@ export default function Project({ project, ...rest }) {
                 <div className='absolute left-3 bottom-12 w-[90%]'>
 
                     <div
-                        className={`absolute left-0 bottom-full 850px:bottom-0 group-hover:bottom-full transition-all duration-500 w-full w-auto text-center`}>
+                        className={`absolute left-0 bottom-full 800px:bottom-0 group-hover:bottom-full transition-all duration-500 w-full w-auto text-center`}>
                         <Image loading={'lazy'} width={100} height={0}
                                className={'h-auto text-white relative  text-5xl font-bold '}
                                src={project.companyLogo?.sourceUrl} alt={''} />
@@ -35,12 +35,12 @@ export default function Project({ project, ...rest }) {
                         </h1>
                     </div>
 
-                    <p className={'mt-[10px] text-lg w-[350px] relative opacity-100 850px:opacity-0 duration-500 transition-all text-left group-hover:opacity-100'}>
+                    <p className={'mt-[10px] text-lg w-[350px] relative opacity-100 800px:opacity-0 duration-500 transition-all text-left group-hover:opacity-100'}>
                         {project.description}
                     </p>
                     <a target={'_blank'} href={project.url} className={'text-white'}>
                         <div
-                            className={'request-quote relative cursor-pointer text-center group-hover:opacity-100 w-[300px]   opacity-100 850px:opacity-0 duration-500 transition-all'}>
+                            className={'request-quote relative cursor-pointer text-center group-hover:opacity-100 w-[300px]   opacity-100 800px:opacity-0 duration-500 transition-all'}>
                             Go to Website
                         </div>
                     </a>
