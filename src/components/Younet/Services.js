@@ -46,7 +46,7 @@ export default function Services({ services }) {
                                 <motion.div variants={staggerContainer}
                                             initial={'hidden'}
                                             whileInView={'show'}
-                                            viewport={{ once: false, amount: 0.25 }} id={`heading-${service.id}`}
+                                            viewport={{ once: true, amount: 0.25 }} id={`heading-${service.id}`}
                                             className={'service-heading '}>
                                     <motion.span variants={textVariant(.1)}
                                                  className={'text-highlighted text-5xl font-bold'}>0{i + 1}</motion.span>

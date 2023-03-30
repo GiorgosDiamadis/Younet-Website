@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { getProjects } from '../../lib/posts'
 import { staggerContainer } from '../../utils/motion'
 import Project from '../Project'
+import useWindowSize from '../../hooks/useWindowSize'
 
 export default function Portfolio({ projects, category, projectCategories, ...rest }) {
 
@@ -14,6 +15,7 @@ export default function Portfolio({ projects, category, projectCategories, ...re
     const [currentCategory, setCurrentCategory] = useState(category)
 
     const [isLoading, setIsLoading] = useState(false)
+    const { width, height } = useWindowSize()
 
 
     useEffect(() => {
@@ -42,10 +44,8 @@ export default function Portfolio({ projects, category, projectCategories, ...re
         </>
     }
 
-
-    return <Section {...rest}>
-        <SectionTitle title={'Featured Web Design Launches'} />
-        <div className={'flex flex-row gap-5 w-full justify-center'}>
+    const CategoriesDesktopSelector = ({ categories }) => {
+        return <>
             {categories && Object.keys(categories).map((category) => (
                 <div onClick={() => {
                     setCurrentCategory(category)
@@ -54,13 +54,33 @@ export default function Portfolio({ projects, category, projectCategories, ...re
                      className={'p-2 bg-yn_blue-100 rounded-full mt-10 text-white cursor-pointer'}>
                     {categories[category].name}
                 </div>
-            ))}
+            ))}</>
+    }
+
+    const CategoriesMobileSelector = ({ categories }) => {
+        return <>
+            <select onChange={(e) => {
+                setCurrentCategory(e.target.value)
+            }}>
+                {categories && Object.keys(categories).map((category) => (
+                    <option selected={category === currentCategory} value={category}>{categories[category].name}</option>
+                ))}
+            </select>
+        </>
+    }
+
+
+    return <Section {...rest}>
+        <SectionTitle title={'Featured Web Design Launches'} />
+        <div className={'flex flex-row gap-5 w-full justify-center'}>
+            {width >= 800 ? <CategoriesDesktopSelector categories={categories} /> :
+                <CategoriesMobileSelector categories={categories} />}
         </div>
         <motion.div
             variants={staggerContainer}
             initial={'hidden'}
             whileInView={'show'}
-            viewport={{ once: false, amount: .1 }}
+            viewport={{ once: true, amount: .1 }}
             className='portfolio-container mt-10 w-full m-auto'>
 
             {isLoading ? <Skeleton number={categories[currentCategory].count} /> : (

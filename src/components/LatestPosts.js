@@ -16,7 +16,7 @@ export default function LatestPosts({ posts }) {
             variants={staggerContainer}
             initial={'hidden'}
             whileInView={'show'}
-            viewport={{ once: false, amount: .1 }}
+            viewport={{ once: true, amount: .1 }}
             className={'mt-[50px] flex flex-col gap-[30px]'}>
 
 

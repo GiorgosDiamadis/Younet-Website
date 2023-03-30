@@ -5,6 +5,7 @@ import Section from '../Section'
 import { TypingText } from '../TypingText'
 import { motion } from 'framer-motion'
 import { staggerContainer, textVariant } from '../../utils/motion'
+import { tr } from 'date-fns/locale'
 
 export default function NewsLetter() {
     return <Section className={'min-h-[0px] h-[300px] mb-0'}>
@@ -12,7 +13,7 @@ export default function NewsLetter() {
             variants={staggerContainer}
             initial={'hidden'}
             whileInView={'show'}
-            viewport={{ once: false, amount: 0.25 }}
+            viewport={{ once: true, amount: 0.25 }}
             className='flex-col lg:flex-row   flex justify-between items-center'>
             <div className='w-full lg:w-1/3'>
                 <SectionTitle size={'md'} title={' Sign Up To Get The Latest Digital Trends'} />

@@ -1,6 +1,4 @@
 import Image from 'next/image'
-import { useRef } from 'react'
-import useOnScreen from '../hooks/useOnScreen'
 
 export default function Project({ project, ...rest }) {
 
@@ -22,7 +20,7 @@ export default function Project({ project, ...rest }) {
             </div>
 
             <div className='flex flex-col relative  group w-full h-full items-end z-[12] '>
-                <div className='absolute left-3 bottom-12 w-[90%]'>
+                <div className='absolute left-3 bottom-4 800px:bottom-12 w-[90%]'>
 
                     <div
                         className={`absolute left-0 bottom-full 800px:bottom-0 group-hover:bottom-full transition-all duration-500 w-full w-auto text-center`}>
@@ -35,7 +33,7 @@ export default function Project({ project, ...rest }) {
                         </h1>
                     </div>
 
-                    <p className={'mt-[10px] text-lg w-[350px] relative opacity-100 800px:opacity-0 duration-500 transition-all text-left group-hover:opacity-100'}>
+                    <p className={'leading-[20px] 800px:leading-[26px]  800px:text-[18px] text-[15px]  mt-[10px] text-lg w-[350px] relative opacity-100 800px:opacity-0 duration-500 transition-all text-left group-hover:opacity-100'}>
                         {project.description}
                     </p>
                     <a target={'_blank'} href={project.url} className={'text-white'}>
