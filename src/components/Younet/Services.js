@@ -7,11 +7,16 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { staggerContainer, textVariant } from '../../utils/motion'
 import useWindowSize from '../../hooks/useWindowSize'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 
 export default function Services({ services }) {
 
-    const { width, height } = useWindowSize()
+    const [width, setWidth] = useState()
+
+    useEffect(() => {
+
+        setWidth(window.screen.width)
+    })
 
     const ServicesDesktop = () => {
         const [activeService, setActiveService] = useState(0)
