@@ -15,8 +15,13 @@ export default function Portfolio({ projects, category, projectCategories, ...re
     const [currentCategory, setCurrentCategory] = useState(category)
 
     const [isLoading, setIsLoading] = useState(false)
-    const { width, height } = useWindowSize()
 
+    const [width, setWidth] = useState()
+
+    useEffect(() => {
+
+        setWidth(window.screen.width)
+    },[])
 
     useEffect(() => {
 
