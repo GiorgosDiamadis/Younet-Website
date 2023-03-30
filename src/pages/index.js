@@ -32,17 +32,6 @@ const DynamicLatestPosts = dynamic(() => import('../components/LatestPosts'), {
 export default function Home({ services, brands, projectData, posts }) {
     const { metadata = {} } = useSite()
     const { title, description } = metadata
-    const portfolioRef = useRef()
-    const x = useOnScreen(portfolioRef, '200px')
-    const [hasLoadedOnce, setHasLoadedOnce] = useState(false)
-
-    useEffect(() => {
-
-        if (hasLoadedOnce === false && x === true) {
-
-            setHasLoadedOnce(true)
-        }
-    }, [x])
 
 
     return (
@@ -60,10 +49,7 @@ export default function Home({ services, brands, projectData, posts }) {
                 </div>
             </Header>
             <DynamicServices services={services} />
-            <DynamicPortfolio projects={projectData.projects} projectCategories={projectData.categories}
-                              category={8} />
-
-
+            <DynamicPortfolio projects={projectData.projects} projectCategories={projectData.categories} category={8} />
             <DynamicBrands brands={brands} />
             <DynamicLatestPosts posts={posts} />
             <DynamicNewsletter />

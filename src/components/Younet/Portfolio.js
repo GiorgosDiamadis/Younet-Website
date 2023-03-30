@@ -25,7 +25,8 @@ export default function Portfolio({ projects, category, projectCategories, ...re
         })
     }, [currentCategory])
 
-    const Skeleton = (number) => {
+    const Skeleton = ({ number }) => {
+
         return <>
             {Array.from(Array(number < 4 ? number : 4).keys()).map((i) => (
                 <div key={`skeleton-${i}`} className='card'>
@@ -46,7 +47,7 @@ export default function Portfolio({ projects, category, projectCategories, ...re
         <SectionTitle title={'Featured Web Design Launches'} />
         <div className={'flex flex-row gap-5 w-full justify-center'}>
             {categories && Object.keys(categories).map((category) => (
-                <div  onClick={() => {
+                <div onClick={() => {
                     setCurrentCategory(category)
 
                 }} key={categories[category].id}
@@ -64,7 +65,8 @@ export default function Portfolio({ projects, category, projectCategories, ...re
 
             {isLoading ? <Skeleton number={categories[currentCategory].count} /> : (
                 <>
-                    {initialProjects && initialProjects.map((project, i) => (<Project key={project.id} project={project} />))}
+                    {initialProjects && initialProjects.map((project, i) => (
+                        <Project key={project.id} project={project} />))}
                 </>
 
             )}

@@ -111,7 +111,7 @@ export default function Services({ services }) {
                              style={{ maxHeight: 0 }}>
 
                             <div className={'service-description w-100 relative'}>
-                                <Image width={1920} height={400} alt={service.serviceBgImage?.altText}
+                                <Image width={560} height={130} alt={service.serviceBgImage?.altText}
                                        src={service.serviceBgImage?.sourceUrl} loading={'lazy'}
                                        objectFit={'cover'} />
                                 <p className={'mt-0 text-lg'}>
