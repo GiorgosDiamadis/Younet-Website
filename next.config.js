@@ -2,7 +2,7 @@ const sitemap = require('./plugins/sitemap')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: true,
+    reactStrictMode: false,
     swcMinify: true,
 
     images: {
