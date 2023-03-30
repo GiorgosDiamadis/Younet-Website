@@ -83,7 +83,7 @@ export default function Services({ services }) {
     }
 
     const ServicesMobile = () => {
-        return <div className='w-full block lg:hidden mx-auto pt-3 pb-5 pl-3 pr-3'>
+        return <div className='w-full block lg:hidden mx-auto'>
             <SectionTitle title={'Full Service Digital Agency'} />
 
             <div className='bg-transparent mt-7 shadow-sm'>
@@ -130,10 +130,8 @@ export default function Services({ services }) {
     }
 
 
-    return <div>
+    return <>
+        {width >= 1024 ? <ServicesDesktop /> : <ServicesMobile />}</>
 
-        {width >= 1024 ? <ServicesDesktop /> : <ServicesMobile />}
 
-
-    </div>
 }

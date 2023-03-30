@@ -3,6 +3,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+* {
+  box-sizing: border-box;
+}
 
 @layer components {
   @font-face {
@@ -486,12 +489,11 @@
 
   z-index: 12;
 
-  @apply  bg-black transition-all duration-500  flex justify-start items-end absolute left-0 w-full h-full  ;
+  @apply bg-black transition-all duration-500  flex justify-start items-end absolute left-0 w-full h-full  ;
   background-image: var(--bg-image);
   background-repeat: no-repeat;
   background-size: cover;
 }
-
 
 
 .portfolio-item:hover .portfolio-item-details::after {
@@ -529,6 +531,32 @@
 @media (max-width: 800px) {
   .portfolio-item-details::after {
     background-color: rgb(1 19 67 / 60%) !important;
+  }
+  section {
+    margin: 4rem 0 !important;
+  }
+}
+@media (max-width: 600px) {
+  .accordion-header{
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+  }
+
+}
+
+@media (max-width: 700px) {
+  .portfolio-item {
+    max-width: 100%;
+    aspect-ratio: 4/3;
+    height: auto;
+  }
+}
+
+@media (max-width: 400px) {
+  section {
+    padding: 0 !important;
+    margin: 2rem 0 !important;
   }
 }
 

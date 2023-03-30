@@ -15,7 +15,7 @@ const SectionTitle = ({ title, subTitle, size = 'lg' }) => {
         </div>}
 
 
-        <motion.p variants={textVariant(.1)} className={`p-1.5 mb-0 heading ${size === 'md' ? 'text-5xl' : ''} `}>{title}</motion.p>
+        <motion.p variants={textVariant(.1)} className={`mb-0 heading ${size === 'md' ? 'text-5xl' : ''} `}>{title}</motion.p>
     </motion.div>
 }
 
