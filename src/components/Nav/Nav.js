@@ -75,6 +75,11 @@ const Nav = () => {
                                 lines.forEach((line) => {
                                     line.classList.toggle('menu-open')
                                 })
+                            }} onTouchStart={() => {
+                                const lines = [...document.querySelectorAll('[data-menu-transition]')]
+                                lines.forEach((line) => {
+                                    line.classList.toggle('menu-open')
+                                })
                             }}>
                                 <div id={'nav-burger'} className={'flex gap-2 relative'}>
                                     <Burger data-menu-transition />
