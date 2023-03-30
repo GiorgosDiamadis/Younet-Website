@@ -50,9 +50,9 @@ export default function Home({ services, brands, projectData, posts }) {
             </Header>
             <DynamicServices services={services} />
             <DynamicPortfolio projects={projectData.projects} projectCategories={projectData.categories} category={8} />
-            <DynamicBrands brands={brands} />
-            <DynamicLatestPosts posts={posts} />
-            <DynamicNewsletter />
+            {/*<DynamicBrands brands={brands} />*/}
+            {/*<DynamicLatestPosts posts={posts} />*/}
+            {/*<DynamicNewsletter />*/}
         </Layout>
 
     )

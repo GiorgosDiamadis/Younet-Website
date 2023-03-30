@@ -1,24 +1,24 @@
 /** @type {import('tailwindcss').Config} */
-const plugin = require("tailwindcss/plugin")
+const plugin = require('tailwindcss/plugin')
 
-const rotateY = plugin(function ({addUtilities}) {
+const rotateY = plugin(function({ addUtilities }) {
 
     addUtilities({
         '.rotate-y-minus35': {
-            transform: 'perspective(265px) rotateY(2deg)',
+            transform: 'perspective(265px) rotateY(2deg)'
 
         }
     })
 })
 
 module.exports = {
-    mode: "jit",
-    purge: ["./src/**/*.{js,jsx,ts,tsx}"],
+    mode: 'jit',
+    purge: ['./src/**/*.{js,jsx,ts,tsx}'],
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {
             transitionProperty: {
-                'top': 'top',
+                'top': 'top'
             },
             borderWidth: {
                 '1': '1px'
@@ -40,12 +40,13 @@ module.exports = {
             },
             screens: {
                 '1350px': '1350px',
-                '1150px': '1150px'
+                '1150px': '1150px',
+                '800px': '800px'
             }
-        },
+        }
     },
     variants: {
-        extend: {},
+        extend: {}
     },
-    plugins: [rotateY],
-};
+    plugins: [rotateY]
+}

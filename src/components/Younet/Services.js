@@ -83,7 +83,7 @@ export default function Services({ services }) {
     }
 
     const ServicesMobile = () => {
-        return <div className='w-full block lg:hidden mx-auto '>
+        return <div className='w-full block lg:hidden mx-auto pt-3 pb-5 pl-3 pr-3'>
             <SectionTitle title={'Full Service Digital Agency'} />
 
             <div className='bg-transparent mt-7 shadow-sm'>
@@ -99,10 +99,10 @@ export default function Services({ services }) {
                                     document.getElementById('tab' + i).style.maxHeight = '0'
 
                             }}
-                            className='accordion-header cursor-pointer transition flex space-x-5 items-center h-16'>
+                            className='accordion-header relative cursor-pointer transition flex space-x-5 items-center h-16'>
                             <div className={'service-heading '}>
                                 <span className={'text-highlighted text-5xl font-bold'}>0{i + 1}</span>
-                                <p className={' inline-block text-2xl font-bold'}>
+                                <p className={' inline-block text-2xl font-bold m-0'}>
                                     {service.title}
                                 </p>
                             </div>
@@ -130,7 +130,7 @@ export default function Services({ services }) {
     }
 
 
-    return <div className='bg-dark_blue '>
+    return <div>
 
         {width >= 1024 ? <ServicesDesktop /> : <ServicesMobile />}
 

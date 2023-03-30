@@ -61,7 +61,7 @@ export default function Portfolio({ projects, category, projectCategories, ...re
             initial={'hidden'}
             whileInView={'show'}
             viewport={{ once: false, amount: .1 }}
-            className='portfolio-container mt-10 1150px:w-full w-3/4 m-auto'>
+            className='portfolio-container mt-10 w-full m-auto'>
 
             {isLoading ? <Skeleton number={categories[currentCategory].count} /> : (
                 <>
