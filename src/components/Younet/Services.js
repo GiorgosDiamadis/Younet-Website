@@ -99,8 +99,9 @@ export default function Services({ services }) {
                 {services && services.map((service, i) => (
                     <div key={'service-mobile-' + service.id} className='transition accordion-item'>
                         <div
-                            onClick={() => {
+                            onTouchStart={()=>{
                                 setActiveService(i)
+
                             }}
                             className='accordion-header relative cursor-pointer transition flex space-x-5 items-center h-16'>
                             <div className={'service-heading '}>
