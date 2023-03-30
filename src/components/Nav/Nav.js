@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import useSite from 'hooks/use-site'
@@ -11,15 +11,9 @@ import CallToAction from '../CallToAction'
 import Burger from './Burger'
 import NavListItem from '../NavListItem'
 
-const SEARCH_VISIBLE = 'visible'
-const SEARCH_HIDDEN = 'hidden'
-
 const Nav = () => {
-    const formRef = useRef()
     const menuRef = useRef()
     const scrollPosition = useScrollPosition()
-
-    const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN)
 
     const { metadata = {}, menus } = useSite()
 
@@ -29,27 +23,6 @@ const Nav = () => {
 
     const navigation = findMenuByLocation(menus, navigationLocation)
 
-
-    useEffect(() => {
-        if (searchVisibility === SEARCH_HIDDEN) {
-            removeDocumentOnClick()
-            return
-        }
-
-        addDocumentOnClick()
-        addResultsRoving()
-
-
-        const searchInput = Array.from(formRef.current.elements).find((input) => input.type === 'search')
-
-        searchInput.focus()
-
-        return () => {
-            removeResultsRoving()
-            removeDocumentOnClick()
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchVisibility])
 
     useEffect(() => {
             if (window.location.pathname === '/') {
@@ -73,109 +46,6 @@ const Nav = () => {
         },
         [scrollPosition]
     )
-
-    /**
-     * addDocumentOnClick
-     */
-
-    function addDocumentOnClick() {
-        document.body.addEventListener('click', handleOnDocumentClick, true)
-    }
-
-    /**
-     * removeDocumentOnClick
-     */
-
-    function removeDocumentOnClick() {
-        document.body.removeEventListener('click', handleOnDocumentClick, true)
-    }
-
-    /**
-     * handleOnDocumentClick
-     */
-
-    function handleOnDocumentClick(e) {
-        if (!e.composedPath().includes(formRef.current)) {
-            setSearchVisibility(SEARCH_HIDDEN)
-        }
-    }
-
-    /**
-     * handleOnSearch
-     */
-
-    function handleOnSearch({ currentTarget }) {
-    }
-
-    /**
-     * handleOnToggleSearch
-     */
-
-    function handleOnToggleSearch() {
-        setSearchVisibility(SEARCH_VISIBLE)
-    }
-
-    /**
-     * addResultsRoving
-     */
-
-    function addResultsRoving() {
-        document.body.addEventListener('keydown', handleResultsRoving)
-    }
-
-    /**
-     * removeResultsRoving
-     */
-
-    function removeResultsRoving() {
-        document.body.removeEventListener('keydown', handleResultsRoving)
-    }
-
-    /**
-     * handleResultsRoving
-     */
-
-    function handleResultsRoving(e) {
-        const focusElement = document.activeElement
-
-        if (e.key === 'ArrowDown') {
-            e.preventDefault()
-            if (focusElement.nodeName === 'INPUT' && focusElement.nextSibling.children[0].nodeName !== 'P') {
-                focusElement.nextSibling.children[0].firstChild.firstChild.focus()
-            } else if (focusElement.parentElement.nextSibling) {
-                focusElement.parentElement.nextSibling.firstChild.focus()
-            } else {
-                focusElement.parentElement.parentElement.firstChild.firstChild.focus()
-            }
-        }
-
-        if (e.key === 'ArrowUp') {
-            e.preventDefault()
-            if (focusElement.nodeName === 'A' && focusElement.parentElement.previousSibling) {
-                focusElement.parentElement.previousSibling.firstChild.focus()
-            } else {
-                focusElement.parentElement.parentElement.lastChild.firstChild.focus()
-            }
-        }
-    }
-
-
-    const escFunction = useCallback((event) => {
-        if (event.keyCode === 27) {
-            setSearchVisibility(SEARCH_HIDDEN)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    useEffect(() => {
-
-        document.addEventListener('keydown', escFunction, false)
-
-        return () => {
-            document.removeEventListener('keydown', escFunction, false)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     return (
 

@@ -7,17 +7,21 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { staggerContainer, textVariant } from '../../utils/motion'
 import useWindowSize from '../../hooks/useWindowSize'
+import { useState } from 'react'
 
 export default function Services({ services }) {
 
     const { width, height } = useWindowSize()
 
     const ServicesDesktop = () => {
+        const [activeService, setActiveService] = useState(0)
+
         return <div className='hidden lg:flex services-description h-[600px]  flex-col'>
             <div className='relative  flex-1 overflow-hidden'>
                 <div className='hidden lg:block'>
                     {services && services.map((service, i) => (
-                        <div key={service.id} className={'images ' + (i > 0 ? 'opacity-0' : '')}>
+                        <div key={service.id}
+                             className={`images ${i === activeService ? 'active' : ''} ` + (i > 0 ? 'opacity-0' : '')}>
                             <Image src={service.serviceBgImage?.sourceUrl} alt={service.serviceBgImage?.altText}
                                    loading={'lazy'} objectFit={'cover'}
                                    layout={'fill'}
@@ -36,12 +40,9 @@ export default function Services({ services }) {
                     </div>
 
                     {services && services.map((service, i) => (
-                        <div key={service.id} onMouseEnter={() => {
-                            document.querySelectorAll('.images').forEach((r) => {
-                                r.classList.remove('active')
-                            })
-                            document.querySelector(`.images:nth-child(${i + 1})`).classList.add('active')
-                        }} className={'group service'}>
+                        <div key={service.id} className={'group service'} onMouseEnter={() => {
+                            setActiveService(i)
+                        }}>
                             <div className='relative d-flex flex-col justify-end'>
                                 <motion.div variants={staggerContainer}
                                             initial={'hidden'}
@@ -83,6 +84,9 @@ export default function Services({ services }) {
     }
 
     const ServicesMobile = () => {
+
+        const [activeService, setActiveService] = useState(0)
+
         return <div className='w-full block lg:hidden mx-auto'>
             <SectionTitle title={'Full Service Digital Agency'} />
 
@@ -92,12 +96,7 @@ export default function Services({ services }) {
                     <div key={'service-mobile-' + service.id} className='transition accordion-item'>
                         <div
                             onClick={() => {
-                                var height = document.getElementById('tab' + i).style.maxHeight
-                                if (height !== '300px')
-                                    document.getElementById('tab' + i).style.maxHeight = '300px'
-                                else
-                                    document.getElementById('tab' + i).style.maxHeight = '0'
-
+                                setActiveService(i)
                             }}
                             className='accordion-header relative cursor-pointer transition flex space-x-5 items-center h-16'>
                             <div className={'service-heading '}>
@@ -107,8 +106,8 @@ export default function Services({ services }) {
                                 </p>
                             </div>
                         </div>
-                        <div id={'tab' + i} className='accordion-content px-5 pt-0 overflow-hidden max-h-0'
-                             style={{ maxHeight: 0 }}>
+                        <div className='accordion-content px-5 pt-0 overflow-hidden max-h-0'
+                             style={{ maxHeight: `${i === activeService ? '300px' : '0px'}` }}>
 
                             <div className={'service-description w-100 relative'}>
                                 <Image width={560} height={130} alt={service.serviceBgImage?.altText}
