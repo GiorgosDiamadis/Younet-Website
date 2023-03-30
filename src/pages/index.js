@@ -60,12 +60,9 @@ export default function Home({ services, brands, projectData, posts }) {
                 </div>
             </Header>
             <DynamicServices services={services} />
-            <div ref={portfolioRef}>
-                {(x || hasLoadedOnce) &&
-                    <DynamicPortfolio projects={projectData.projects} projectCategories={projectData.categories}
-                                      category={8} />}
+            <DynamicPortfolio projects={projectData.projects} projectCategories={projectData.categories}
+                              category={8} />
 
-            </div>
 
             <DynamicBrands brands={brands} />
             <DynamicLatestPosts posts={posts} />
