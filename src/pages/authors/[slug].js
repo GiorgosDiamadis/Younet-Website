@@ -24,15 +24,15 @@ export default function Author({ user, posts }) {
 
   return (
     <>
-      <AuthorJsonLd author={user} />
-      <TemplateArchive
-        title={name}
-        Title={<Title title={name} thumbnail={avatar} />}
-        posts={posts}
-        postOptions={postOptions}
-        slug={slug}
-        metadata={metadata}
-      />
+      {/*<AuthorJsonLd author={user} />*/}
+      {/*<TemplateArchive*/}
+      {/*  title={name}*/}
+      {/*  Title={<Title title={name} thumbnail={avatar} />}*/}
+      {/*  posts={posts}*/}
+      {/*  postOptions={postOptions}*/}
+      {/*  slug={slug}*/}
+      {/*  metadata={metadata}*/}
+      {/*/>*/}
     </>
   );
 }
