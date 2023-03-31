@@ -16,7 +16,7 @@ export default function Posts({ posts, pagination }) {
     })
 
     // return <></>
-    return <TemplateArchive title={title} posts={posts} slug={slug} pagination={pagination} metadata={metadata} />;
+    return <TemplateArchive title={title} posts={posts} slug={slug} pagination={pagination} metadata={metadata} />
 }
 
 export async function getStaticProps() {
@@ -24,6 +24,7 @@ export async function getStaticProps() {
         queryIncludes: 'archive'
     })
     return {
+        revalidate: 5,
         props: {
             posts,
             pagination: {
