@@ -1,4 +1,4 @@
-import useAsync from "../9-useAsync/useAsync"
+import useAsync from "../hooks/useAsync"
 
 export default function useScript(url) {
   return useAsync(() => {

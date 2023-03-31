@@ -9,11 +9,11 @@ import usePageMetadata from 'hooks/use-page-metadata'
 
 import Layout from 'components/Layout'
 import Section from 'components/Section'
-import Container from 'components/Container'
 import Content from 'components/Content'
 import Metadata from 'components/Metadata'
-import FeaturedImage from 'components/FeaturedImage'
 import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
+import useScript from '../../hooks/useScript'
 
 export default function Post({ post, socialImage, related }) {
     const {
@@ -61,6 +61,42 @@ export default function Post({ post, socialImage, related }) {
     const { posts: relatedPostsList, title: relatedPostsTitle } = related || {}
 
     const helmetSettings = helmetSettingsFromMetadata(metadata)
+    const wpContentRef = useRef()
+    const [tableOfContent, setTableOfContent] = useState([])
+
+    const timelinejs = useScript('/timeline.js')
+
+    useEffect(() => {
+        if (!wpContentRef.current) return
+
+
+        const h2s = wpContentRef.current.querySelectorAll('h2')
+        const content = []
+        var previous = 0
+        const entry = {}
+        h2s.forEach((h2, i) => {
+
+
+            content.push({
+                title: h2.innerHTML,
+                link: `#${h2.getAttribute('id')}`
+            })
+
+            const rect = h2.getBoundingClientRect()
+            if (i === 0) {
+                previous = rect.y
+            } else {
+                content[i - 1].height = rect.y - previous
+                previous = rect.y
+            }
+        })
+
+        setTableOfContent(content)
+
+
+    }, [wpContentRef.current])
+    console.log(tableOfContent)
+
 
     return (
         <Layout classes={'bg-white'}>
@@ -69,31 +105,52 @@ export default function Post({ post, socialImage, related }) {
             <ArticleJsonLd post={post} siteTitle={siteMetadata.title} />
 
             {featuredImage && (
-                <div className={'h-[30%] overflow-hidden'}>
+                <div className={'h-[50vh] overflow-hidden'}>
 
                     <Image alt={''} width={1920} height={400} className={'w-full h-auto'}
                            src={featuredImage.sourceUrl} />
                 </div>
             )}
             <Content>
-                <Section>
-                    <Container>
-                        <h1
-                            className={'text-8xl m-auto text-center'}
-                            dangerouslySetInnerHTML={{
-                                __html: title
-                            }}
-                        />
-                        <Metadata
-                            className={'flex justify-content-center'}
-                            date={date}
-                            author={author}
-                            categories={categories}
-                            options={metadataOptions}
-                            isSticky={isSticky}
-                        />
+                <Section className={'w-full max-w-[95%]'}>
+                    <h1
+                        className={'text-8xl m-auto text-center'}
+                        dangerouslySetInnerHTML={{
+                            __html: title
+                        }}
+                    />
+                    <Metadata
+                        className={'flex justify-content-center'}
+                        date={date}
+                        author={author}
+                        categories={categories}
+                        options={metadataOptions}
+                        isSticky={isSticky}
+                    />
+                    <div className='flex flex-row'>
+                        <div className='table-of-contents flex-[0.2]'>
+                            <div className='timeline'>
+                                <div className='line'></div>
+                                {tableOfContent.map((content) => (
+                                    <div className='section'>
+                                        <div className='bead'>
+
+                                        </div>
+                                        <div className='content'>
+                                            <h2>{content.title}</h2>
+                                            <p style={{ height: `${content.height ? (content.height - 70) : '0'}px` }}>
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+
+                            </div>
+
+                        </div>
                         <div
-                            className={'wp-content'}
+
+                            ref={wpContentRef}
+                            className={'wp-content flex-[0.6] w-full'}
                             dangerouslySetInnerHTML={{
                                 __html: content
                             }}
@@ -101,7 +158,9 @@ export default function Post({ post, socialImage, related }) {
                         >
 
                         </div>
-                    </Container>
+                        <div className='table-of-contents flex-[0.2]'></div>
+                    </div>
+
                 </Section>
             </Content>
 
