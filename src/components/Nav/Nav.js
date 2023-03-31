@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { createRef, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import useSite from 'hooks/use-site'
@@ -12,7 +12,14 @@ import Burger from './Burger'
 import NavListItem from '../NavListItem'
 
 const Nav = () => {
+
     const menuRef = useRef()
+    const burgerLineRefs = useRef([])
+    const menuTextRef = useRef()
+    const ctaRef = useRef()
+    const menuFromTop = useRef()
+    const menuXClose = useRef()
+
     const scrollPosition = useScrollPosition()
     const [width, setWidth] = useState()
 
@@ -28,6 +35,7 @@ const Nav = () => {
 
     const navigation = findMenuByLocation(menus, navigationLocation)
 
+    console.log(burgerLineRefs)
 
     useEffect(() => {
             if (window.location.pathname === '/') {
@@ -56,7 +64,7 @@ const Nav = () => {
 
         <>
             <div>
-                <nav data-menu-transition ref={menuRef}
+                <nav ref={menuRef}
                      className={'p-[1rem] main-nav pt-2 fixed m-0 w-full z-50'}>
                     <div className='gradient-01 h-[239px] absolute w-[152px]' />
                     <div className={'site-navigation'}>
@@ -71,21 +79,33 @@ const Nav = () => {
                         <div className={'flex gap-6'}>
                             <button aria-label={'Ζητήστε τιμή'} type={'button'} className={'burger-container'}>
                                 <CallToAction>
-                                    <div data-menu-transition className={'request-quote hidden md:block'}>Ζητηστε τιμη
+                                    <div ref={ctaRef} className={'request-quote hidden md:block'}>Ζητηστε τιμη
                                     </div>
                                 </CallToAction>
                             </button>
                             {width > 800 ? <>
                                 <button aria-label={'Μενού'} type={'button'} className={'burger-container'}
                                         onClick={() => {
-                                            const lines = [...document.querySelectorAll('[data-menu-transition]')]
-                                            lines.forEach((line) => {
-                                                line.classList.toggle('menu-open')
+                                            burgerLineRefs.current.forEach((bgRef) => {
+                                                bgRef.classList.toggle('menu-open')
                                             })
+                                            menuTextRef.current.classList.toggle('menu-open')
+                                            ctaRef.current.classList.toggle('menu-open')
+                                            menuFromTop.current.classList.toggle('menu-open')
+                                            menuXClose.current.classList.toggle('menu-open')
                                         }}>
                                     <div id={'nav-burger'} className={'flex gap-2 relative'}>
-                                        <Burger data-menu-transition />
-                                        <h1 data-menu-transition className={'menu-text hidden md:block'}>menu</h1>
+                                        <div className='burger'>
+                                            <span ref={ref => burgerLineRefs.current[0] = ref}
+                                                  className='burger-line'></span>
+                                            <span ref={ref => burgerLineRefs.current[1] = ref}
+                                                  className='burger-line'></span>
+                                            <span ref={ref => burgerLineRefs.current[2] = ref}
+                                                  className='burger-line'></span>
+                                        </div>
+                                        <div ref={menuXClose} className={'menu-x-close'}></div>
+
+                                        <h1 ref={menuTextRef} className={'menu-text hidden md:block'}>menu</h1>
                                     </div>
                                 </button>
 
@@ -93,14 +113,27 @@ const Nav = () => {
 
                                 <button aria-label={'Μενού'} type={'button'} className={'burger-container'}
                                         onTouchStart={() => {
-                                            const lines = [...document.querySelectorAll('[data-menu-transition]')]
-                                            lines.forEach((line) => {
-                                                line.classList.toggle('menu-open')
+                                            burgerLineRefs.current.forEach((bgRef) => {
+                                                bgRef.classList.toggle('menu-open')
                                             })
+                                            menuTextRef.current.classList.toggle('menu-open')
+                                            ctaRef.current.classList.toggle('menu-open')
+                                            menuFromTop.current.classList.toggle('menu-open')
+                                            menuXClose.current.classList.toggle('menu-open')
                                         }}>
                                     <div id={'nav-burger'} className={'flex gap-2 relative'}>
-                                        <Burger data-menu-transition />
-                                        <h1 data-menu-transition className={'menu-text hidden md:block'}>menu</h1>
+                                        <div className='burger'>
+                                            <span ref={ref => burgerLineRefs.current[0] = ref}
+                                                  className='burger-line'></span>
+                                            <span ref={ref => burgerLineRefs.current[1] = ref}
+                                                  className='burger-line'></span>
+                                            <span ref={ref => burgerLineRefs.current[2] = ref}
+                                                  className='burger-line'></span>
+                                        </div>
+                                        <div ref={menuXClose} className={'menu-x-close'}></div>
+
+                                        <div className={'menu-x-close'}></div>
+                                        <h1 ref={menuTextRef} className={'menu-text hidden md:block'}>menu</h1>
                                     </div>
                                 </button>
                             </>}
@@ -108,7 +141,7 @@ const Nav = () => {
                         </div>
                     </div>
                 </nav>
-                <div data-menu-transition className='menu'>
+                <div ref={menuFromTop} className='menu'>
                     <div className='menu-scaling-bg bg-gradient'>
 
                     </div>

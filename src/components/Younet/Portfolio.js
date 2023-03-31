@@ -68,7 +68,7 @@ export default function Portfolio({ projects, category, projectCategories, ...re
                 setCurrentCategory(e.target.value)
             }}>
                 {categories && Object.keys(categories).map((category) => (
-                    <option selected={category === currentCategory} value={category}>{categories[category].name}</option>
+                    <option key={categories[category].id} selected={category === currentCategory} value={category}>{categories[category].name}</option>
                 ))}
             </select>
         </>
