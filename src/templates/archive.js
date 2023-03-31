@@ -55,7 +55,7 @@ export default function TemplateArchive({
             <Section>
                 <Section>
                     <SectionTitle title={'younet.digital posts'} />
-                    <div className={'mt-[50px] flex flex-col items-center gap-[30px] 800px:px-0 px-5'}>
+                    <div className={'mt-[50px] flex flex-col  gap-[30px] 800px:px-0 px-5'}>
                         {Array.isArray(posts) && posts && posts.map((post, index) => (
                             <Post
                                 key={post.id}
