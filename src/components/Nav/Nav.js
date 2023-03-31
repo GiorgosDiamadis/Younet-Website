@@ -35,30 +35,29 @@ const Nav = () => {
 
     const navigation = findMenuByLocation(menus, navigationLocation)
 
-    console.log(burgerLineRefs)
 
-    useEffect(() => {
-            if (window.location.pathname === '/') {
-                if (scrollPosition >= 120) {
-
-                    if (menuRef.current) {
-                        menuRef.current.classList.add('nav-scrolled')
-                    }
-                } else {
-                    if (menuRef.current) {
-                        menuRef.current.classList.remove('nav-scrolled')
-
-                    }
-                }
-            } else {
-                menuRef.current.classList.add('nav-scrolled')
-
-            }
-
-
-        },
-        [scrollPosition]
-    )
+    // useEffect(() => {
+    //         if (window.location.pathname === '/') {
+    //             if (scrollPosition >= 120) {
+    //
+    //                 if (menuRef.current) {
+    //                     menuRef.current.classList.add('nav-scrolled')
+    //                 }
+    //             } else {
+    //                 if (menuRef.current) {
+    //                     menuRef.current.classList.remove('nav-scrolled')
+    //
+    //                 }
+    //             }
+    //         } else {
+    //             menuRef.current.classList.add('nav-scrolled')
+    //
+    //         }
+    //
+    //
+    //     },
+    //     [scrollPosition]
+    // )
 
     return (
 
