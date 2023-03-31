@@ -17,7 +17,7 @@ export default function LatestPosts({ posts }) {
             initial={'hidden'}
             whileInView={'show'}
             viewport={{ once: true, amount: .1 }}
-            className={'mt-[50px] flex flex-col gap-[30px]'}>
+            className={'mt-[50px] flex flex-col gap-[30px] 800px:px-0 px-5'}>
 
 
             {posts && posts.map((post, index) => (

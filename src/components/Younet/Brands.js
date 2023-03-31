@@ -41,7 +41,7 @@ export default function Brands({ brands }) {
         <SectionTitle title={'Recognized Digital Agency Experts'}
                       subTitle={'OUR EXPERTS HAVE WON INDUSTRY AWARDS'} />
 
-        <div className='m-auto mt-[50px]  flex lg:flex-row flex-col min-h-[70vh] gap-5'>
+        <div className='m-auto mt-[50px] 800px:px-0 px-5  flex lg:flex-row flex-col min-h-[70vh] gap-5'>
 
             {brands.map(({ image, testimonial, name }, index) => (
                 <motion.div

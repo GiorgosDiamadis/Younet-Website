@@ -36,28 +36,28 @@ const Nav = () => {
     const navigation = findMenuByLocation(menus, navigationLocation)
 
 
-    // useEffect(() => {
-    //         if (window.location.pathname === '/') {
-    //             if (scrollPosition >= 120) {
-    //
-    //                 if (menuRef.current) {
-    //                     menuRef.current.classList.add('nav-scrolled')
-    //                 }
-    //             } else {
-    //                 if (menuRef.current) {
-    //                     menuRef.current.classList.remove('nav-scrolled')
-    //
-    //                 }
-    //             }
-    //         } else {
-    //             menuRef.current.classList.add('nav-scrolled')
-    //
-    //         }
-    //
-    //
-    //     },
-    //     [scrollPosition]
-    // )
+    useEffect(() => {
+            if (window.location.pathname === '/') {
+                if (scrollPosition >= 120) {
+
+                    if (menuRef.current) {
+                        menuRef.current.classList.add('nav-scrolled')
+                    }
+                } else {
+                    if (menuRef.current) {
+                        menuRef.current.classList.remove('nav-scrolled')
+
+                    }
+                }
+            } else {
+                menuRef.current.classList.add('nav-scrolled')
+
+            }
+
+
+        },
+        [scrollPosition]
+    )
 
     return (
 
@@ -92,6 +92,7 @@ const Nav = () => {
                                             ctaRef.current.classList.toggle('menu-open')
                                             menuFromTop.current.classList.toggle('menu-open')
                                             menuXClose.current.classList.toggle('menu-open')
+                                            menuRef.current.classList.toggle('menu-open')
                                         }}>
                                     <div id={'nav-burger'} className={'flex gap-2 relative'}>
                                         <div className='burger'>
@@ -119,6 +120,7 @@ const Nav = () => {
                                             ctaRef.current.classList.toggle('menu-open')
                                             menuFromTop.current.classList.toggle('menu-open')
                                             menuXClose.current.classList.toggle('menu-open')
+                                            menuRef.current.classList.toggle('menu-open')
                                         }}>
                                     <div id={'nav-burger'} className={'flex gap-2 relative'}>
                                         <div className='burger'>

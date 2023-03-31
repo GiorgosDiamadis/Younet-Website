@@ -1,5 +1,6 @@
 const SectionTitle = ({ title, subTitle, size = 'lg' }) => {
     return <div
+        className={'800px:px-0 px-5'}
     >
         {subTitle && <div className='text-center'>
             <span
@@ -8,7 +9,7 @@ const SectionTitle = ({ title, subTitle, size = 'lg' }) => {
         </div>}
 
 
-        <p  className={`mb-0 heading ${size === 'md' ? 'text-5xl' : ''} `}>{title}</p>
+        <p className={`mb-0 heading ${size === 'md' ? 'text-5xl' : ''} `}>{title}</p>
     </div>
 }
 

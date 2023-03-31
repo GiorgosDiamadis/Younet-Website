@@ -10,7 +10,7 @@ export default function Post({ id, categories, date, postId, slug, title, author
         key={id}
         variants={fadeIn('up', 'spring', index * .5, 1)}
         {...rest}
-        className={'flex md:flex-row flex-col gap-4'}>
+        className={'flex md:flex-row flex-col  gap-1 800px:gap-2 1150px:gap-4'}>
         <Image loading={'lazy'} width={270} height={0} src={featuredImage && featuredImage.sourceUrl} alt={featuredImage && featuredImage.altText}
              className={'md:w-[270px] w-full h-[250px] rounded-[32px] object-cover'} />
 

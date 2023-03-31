@@ -8,17 +8,19 @@ export default function CallToActionFramerHOC({
                                               }) {
 
 
-    return <motion.div
-        variants={staggerContainer}
-        initial={'hidden'}
-        whileInView={'show'}
-        viewport={{ once: true, amount: 0.25 }}>
+    return <div
+        // variants={staggerContainer}
+        // initial={'hidden'}
+        // whileInView={'show'}
+        // viewport={{ once: true, amount: 0.25 }}
+    >
 
-        <motion.div
-            variants={textVariant(.4)}>
+        <div
+            // variants={textVariant(.4)}
+        >
             <CallToAction onClick={onClick} children={children} {...rest} />
 
-        </motion.div>
+        </div>
 
-    </motion.div>
+    </div>
 }

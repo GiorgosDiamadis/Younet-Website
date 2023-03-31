@@ -91,7 +91,7 @@ export default function Services({ services }) {
 
         const [activeService, setActiveService] = useState(0)
 
-        return <div className='w-full block lg:hidden mx-auto'>
+        return <div className='w-full block lg:hidden mx-auto px-5 800px:px-0'>
             <SectionTitle title={'Full Service Digital Agency'} />
 
             <div className='bg-transparent mt-7 shadow-sm'>
@@ -103,7 +103,7 @@ export default function Services({ services }) {
                                 setActiveService(i)
 
                             }}
-                            className='accordion-header relative cursor-pointer transition flex space-x-5 items-center h-16'>
+                            className='accordion-header relative cursor-pointer transition flex px-0 items-center h-16'>
                             <div className={'service-heading '}>
                                 <span className={'text-highlighted text-5xl font-bold'}>0{i + 1}</span>
                                 <p className={' inline-block text-2xl font-bold m-0'}>
@@ -111,7 +111,7 @@ export default function Services({ services }) {
                                 </p>
                             </div>
                         </div>
-                        <div className='accordion-content px-5 pt-0 overflow-hidden max-h-0'
+                        <div className='accordion-content pt-0 overflow-hidden max-h-0'
                              style={{ maxHeight: `${i === activeService ? '300px' : '0px'}` }}>
 
                             <div className={'service-description w-100 relative'}>

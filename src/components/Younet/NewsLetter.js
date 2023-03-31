@@ -14,7 +14,7 @@ export default function NewsLetter() {
             initial={'hidden'}
             whileInView={'show'}
             viewport={{ once: true, amount: 0.25 }}
-            className='flex-col lg:flex-row   flex justify-between items-center'>
+            className='flex-col lg:flex-row   flex justify-between items-center 800px:px-0 px-5'>
             <div className='w-full lg:w-1/3'>
                 <SectionTitle size={'md'} title={' Sign Up To Get The Latest Digital Trends'} />
             </div>
@@ -53,7 +53,7 @@ export default function NewsLetter() {
             initial={'hidden'}
             whileInView={'show'}
             viewport={{ once: false, amount: 0.25 }}
-            className='text-2xl text-white text-center mt-10'>
+            className='text-2xl text-white text-center mt-10 800px:px-0 px-5'>
             <motion.p variants={textVariant(.4)}>
                 Κάνε εγγραφή στο Newsletter μας και μάθε πρώτος τις τελευταίες εξελίξεις στον κόσμο του Digital.
             </motion.p>

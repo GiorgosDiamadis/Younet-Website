@@ -12,73 +12,66 @@ import PostCard from 'components/PostCard'
 import Pagination from 'components/Pagination/Pagination'
 
 import styles from 'styles/templates/Archive.module.scss'
+import Post from '../components/Post'
+import SectionTitle from '../components/SectionTitle'
 
-const DEFAULT_POST_OPTIONS = {};
+const DEFAULT_POST_OPTIONS = {}
 
 export default function TemplateArchive({
-  title = 'Archive',
-  Title,
-  posts,
-  postOptions = DEFAULT_POST_OPTIONS,
-  slug,
-  metadata,
-  pagination,
-}) {
-  const { metadata: siteMetadata = {} } = useSite();
+                                            title = 'Archive',
+                                            Title,
+                                            posts,
+                                            postOptions = DEFAULT_POST_OPTIONS,
+                                            slug,
+                                            metadata,
+                                            pagination
+                                        }) {
+    const { metadata: siteMetadata = {} } = useSite()
 
-  if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
-    metadata.title = `${title} - ${siteMetadata.title}`;
-    metadata.og.title = metadata.title;
-    metadata.twitter.title = metadata.title;
-  }
+    if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
+        metadata.title = `${title} - ${siteMetadata.title}`
+        metadata.og.title = metadata.title
+        metadata.twitter.title = metadata.title
+    }
 
-  const helmetSettings = helmetSettingsFromMetadata(metadata);
+    const helmetSettings = helmetSettingsFromMetadata(metadata)
 
-  return (
-    <Layout>
-      <Helmet {...helmetSettings} />
+    return (
+        <Layout classes={'bg-gradient-body'}>
+            <Helmet {...helmetSettings} />
 
-      <WebpageJsonLd title={title} description={metadata.description} siteTitle={siteMetadata.title} slug={slug} />
-
-      <Header>
-        <Container>
-          <h1>{Title || title}</h1>
-          {metadata.description && (
-            <p
-              className={styles.archiveDescription}
-              dangerouslySetInnerHTML={{
-                __html: metadata.description,
-              }}
-            />
-          )}
-        </Container>
-      </Header>
-
-      <Section>
-        <Container>
-
-          {Array.isArray(posts) && (
-            <>
-              <ul className={styles.posts}>
-                {posts.map((post) => {
-                  return (
-                    <li key={post.slug}>
-                      <PostCard post={post} options={postOptions} />
-                    </li>
-                  );
-                })}
-              </ul>
-              {pagination && (
-                <Pagination
-                  currentPage={pagination?.currentPage}
-                  pagesCount={pagination?.pagesCount}
-                  basePath={pagination?.basePath}
+            <WebpageJsonLd title={title} description={metadata.description} siteTitle={siteMetadata.title}
+                           slug={slug} />
+            <h1>{Title || title}</h1>
+            {metadata.description && (
+                <p
+                    className={styles.archiveDescription}
+                    dangerouslySetInnerHTML={{
+                        __html: metadata.description
+                    }}
                 />
-              )}
-            </>
-          )}
-        </Container>
-      </Section>
-    </Layout>
-  );
+            )}
+
+            <Section>
+                <Section>
+                    <SectionTitle title={'younet.digital posts'} />
+                    <div className={'mt-[50px] flex flex-col items-center gap-[30px] 800px:px-0 px-5'}>
+                        {Array.isArray(posts) && posts && posts.map((post, index) => (
+                            <Post
+                                key={post.id}
+                                {...post}
+                            />
+                        ))}
+                    </div>
+                    {pagination && (
+                        <Pagination
+                            currentPage={pagination?.currentPage}
+                            pagesCount={pagination?.pagesCount}
+                            basePath={pagination?.basePath}
+                        />
+                    )}
+                </Section>
+            </Section>
+        </Layout>
+    )
 }
