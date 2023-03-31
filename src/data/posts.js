@@ -62,6 +62,7 @@ export const QUERY_ALL_POSTS_ARCHIVE = gql`
             }
           }
           excerpt
+          slug
         }
       }
     }

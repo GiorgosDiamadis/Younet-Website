@@ -7,6 +7,7 @@ import Link from 'next/link'
 
 
 export default function LatestPosts({ posts }) {
+    console.log(posts)
 
     return <Section>
         <SectionTitle title={'Digital Trends'}
@@ -26,6 +27,7 @@ export default function LatestPosts({ posts }) {
                     title={post.title}
                     postId={post.postId}
                     date={post.date}
+                    slug={post.slug}
                     featuredImage={post.featuredImage}
                     author={post.author}
                     categories={post.categories}
