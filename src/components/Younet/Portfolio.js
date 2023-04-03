@@ -1,11 +1,8 @@
 import SectionTitle from '../SectionTitle'
 import Section from '../Section'
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
-import { getProjects } from '../../lib/posts'
-import { staggerContainer } from '../../utils/motion'
+import {useEffect, useState} from 'react'
+import {getProjects} from '../../lib/posts'
 import Project from '../Project'
-import useWindowSize from '../../hooks/useWindowSize'
 
 export default function Portfolio({ projects, category, projectCategories, ...rest }) {
 
@@ -81,11 +78,11 @@ export default function Portfolio({ projects, category, projectCategories, ...re
             {width >= 800 ? <CategoriesDesktopSelector categories={categories} /> :
                 <CategoriesMobileSelector categories={categories} />}
         </div>
-        <motion.div
-            variants={staggerContainer}
-            initial={'hidden'}
-            whileInView={'show'}
-            viewport={{ once: true, amount: .1 }}
+        <div
+            // variants={staggerContainer}
+            // initial={'hidden'}
+            // whileInView={'show'}
+            // viewport={{ once: true, amount: .1 }}
             className='portfolio-container mt-10 w-full m-auto'>
 
             {isLoading ? <Skeleton number={categories[currentCategory].count} /> : (
@@ -97,7 +94,7 @@ export default function Portfolio({ projects, category, projectCategories, ...re
             )}
 
 
-        </motion.div>
+        </div>
 
     </Section>
 }

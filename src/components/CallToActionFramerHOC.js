@@ -1,6 +1,4 @@
-import { motion } from 'framer-motion'
 import CallToAction from './CallToAction'
-import { staggerContainer, textVariant } from '../utils/motion'
 
 export default function CallToActionFramerHOC({
                                                   children, onClick = () => {

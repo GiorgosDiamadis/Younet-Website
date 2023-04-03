@@ -3,10 +3,8 @@
 
 import SectionTitle from '../SectionTitle'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { staggerContainer, textVariant } from '../../utils/motion'
-import { useState, useEffect } from 'react'
+import {useEffect, useState} from 'react'
 
 export default function Services({ services }) {
 
@@ -48,18 +46,22 @@ export default function Services({ services }) {
                             setActiveService(i)
                         }}>
                             <div className='relative d-flex flex-col justify-end'>
-                                <motion.div variants={staggerContainer}
-                                            initial={'hidden'}
-                                            whileInView={'show'}
-                                            viewport={{ once: true, amount: 0.25 }} id={`heading-${service.id}`}
+                                <div
+                                    // variants={staggerContainer}
+                                    //         initial={'hidden'}
+                                    //         whileInView={'show'}
+                                    //         viewport={{ once: true, amount: 0.25 }}
+                                     id={`heading-${service.id}`}
                                             className={'service-heading '}>
-                                    <motion.span variants={textVariant(.1)}
-                                                 className={'text-highlighted text-5xl font-bold'}>0{i + 1}</motion.span>
-                                    <motion.p variants={textVariant(.15)}
+                                    <span
+                                        // variants={textVariant(.1)}
+                                                 className={'text-highlighted text-5xl font-bold'}>0{i + 1}</span>
+                                    <p
+                                        // variants={textVariant(.15)}
                                               className={' inline-block lg:text-2xl text-3xl font-bold'}>
                                         {service.title}
-                                    </motion.p>
-                                </motion.div>
+                                    </p>
+                                </div>
                                 <div className='opacity-0 service-description'>
                                     <p className={'mt-0 text-lg'}>
                                         {service.serviceFrontShortDescription}

@@ -1,8 +1,6 @@
 import Section from '../Section'
 import SectionTitle from '../SectionTitle'
-import { motion } from 'framer-motion'
-import { fadeIn, staggerContainer } from '../../utils/motion'
-import { useState } from 'react'
+import {useState} from 'react'
 import Image from 'next/image'
 
 
@@ -44,19 +42,19 @@ export default function Brands({ brands }) {
         <div className='m-auto mt-[50px] 800px:px-0 px-5  flex lg:flex-row flex-col min-h-[70vh] gap-5'>
 
             {brands.map(({ image, testimonial, name }, index) => (
-                <motion.div
+                <mdiv
                     key={`testimonial-${index}`}
-                    variants={staggerContainer}
-                    initial={'hidden'}
-                    whileInView={'show'}
+                    // variants={staggerContainer}
+                    // initial={'hidden'}
+                    // whileInView={'show'}
                     onClick={() => {
                         changeTestimonial(index)
                     }}
-                    viewport={{ once: true, amount: 0.25 }}
+                    // viewport={{ once: true, amount: 0.25 }}
                     className={`relative ${active === index ? 'lg:flex-[3.5] flex-[6]' : 'lg:flex-[0.5] flex-[1]'}   flex items-center justify-center min-w-[170px] h-[700px] transition-[flex] duration-[0.7s] ease-out-flex cursor-pointer`}>
 
-                    <motion.div
-                        variants={fadeIn('right', 'spring', .1 * (index + 1), '0.75')}
+                    <div
+                        // variants={fadeIn('right', 'spring', .1 * (index + 1), '0.75')}
                         className={'absolute w-full h-full object-cover rounded-[24px]'}
                     >
                         <Image
@@ -66,9 +64,9 @@ export default function Brands({ brands }) {
                             className={'absolute w-full h-full object-cover rounded-[24px]'}
                             src={'https://dev.younet.digital/cms/wp-content/uploads/2023/03/just-ferry-younet-slide2.webp'}
                             alt={''} />
-                    </motion.div>
-                    <motion.div
-                        variants={fadeIn('right', 'spring', .1 * (index + 1), '0.75')}
+                    </div>
+                    <div
+                        // variants={fadeIn('right', 'spring', .1 * (index + 1), '0.75')}
                         className={`absolute flex ${active !== index ? ' rounded-t-[24px] lg:rounded-t-[0px] bottom-0 w-full h-full lg:h-1/3 justify-center lg:justify-start' : 'rounded-t-[24px] lg:rounded-t-[0px] justify-start p-4 h-full lg:h-1/3 lg:p-8 '} bottom-0    w-full  flex-col bg-[rgba(0,0,0,0.5)] rounded-b-[24px] overflow-hidden`}>
 
 
@@ -93,9 +91,9 @@ export default function Brands({ brands }) {
 
                         )}
 
-                    </motion.div>
+                    </div>
 
-                </motion.div>
+                </mdiv>
             ))}
         </div>
 

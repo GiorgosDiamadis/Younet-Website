@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { gql, ApolloClient, InMemoryCache } = require('@apollo/client');
-const RSS = require('rss');
+// const RSS = require('rss');
 
 const config = require('../package.json');
 
@@ -239,34 +239,34 @@ async function getSitemapData(apolloClient, process, verbose = false) {
 /**
  * generateFeed
  */
-
-function generateFeed({ posts = [], metadata = {} }) {
-  const { homepage = '' } = config;
-
-  const feed = new RSS({
-    title: metadata.title || '',
-    description: metadata.description,
-    site_url: homepage,
-    feed_url: `${homepage}/feed.xml`,
-    copyright: `${new Date().getFullYear()} ${metadata.title}`,
-    language: metadata.language,
-    pubDate: new Date(),
-  });
-
-  posts.map((post) => {
-    feed.item({
-      title: post.title,
-      guid: `${homepage}/posts/${post.slug}`,
-      url: `${homepage}/posts/${post.slug}`,
-      date: post.date,
-      description: post.excerpt,
-      author: post.author,
-      categories: post.categories || [],
-    });
-  });
-
-  return feed.xml({ indent: true });
-}
+//
+// function generateFeed({ posts = [], metadata = {} }) {
+//   const { homepage = '' } = config;
+//
+//   const feed = new RSS({
+//     title: metadata.title || '',
+//     description: metadata.description,
+//     site_url: homepage,
+//     feed_url: `${homepage}/feed.xml`,
+//     copyright: `${new Date().getFullYear()} ${metadata.title}`,
+//     language: metadata.language,
+//     pubDate: new Date(),
+//   });
+//
+//   posts.map((post) => {
+//     feed.item({
+//       title: post.title,
+//       guid: `${homepage}/posts/${post.slug}`,
+//       url: `${homepage}/posts/${post.slug}`,
+//       date: post.date,
+//       description: post.excerpt,
+//       author: post.author,
+//       categories: post.categories || [],
+//     });
+//   });
+//
+//   return feed.xml({ indent: true });
+// }
 
 /**
  * generateIndexSearch
@@ -426,7 +426,7 @@ module.exports = {
   getAllPosts,
   getSiteMetadata,
   getFeedData,
-  generateFeed,
+  // generateFeed,
   // generateIndexSearch,
   getPages,
   getSitemapData,

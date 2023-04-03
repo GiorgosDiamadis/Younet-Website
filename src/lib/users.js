@@ -1,6 +1,5 @@
 import { getApolloClient } from 'lib/apollo-client';
 
-import parameterize from 'parameterize';
 
 import { QUERY_ALL_USERS, QUERY_ALL_USERS_SEO } from 'data/users';
 
@@ -22,7 +21,7 @@ export async function getUserBySlug(slug) {
 
 
 export function authorPathByName(name) {
-  return `/authors/${parameterize(name)}`;
+  return `/authors/${name}`;
 }
 
 

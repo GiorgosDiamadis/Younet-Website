@@ -27,11 +27,11 @@ const Layout = ({children,classes}) => {
         ...helmetSettingsFromMetadata(metadata, {
             setTitle: false,
             link: [
-                {
-                    rel: 'alternate',
-                    type: 'application/rss+xml',
-                    href: '/feed.xml',
-                },
+                // {
+                //     rel: 'alternate',
+                //     type: 'application/rss+xml',
+                //     href: '/feed.xml',
+                // },
 
                 // Favicon sizes and manifest generated via https://favicon.io/
 

@@ -2,23 +2,20 @@ import SectionTitle from '../SectionTitle'
 import WithTooltip from '../WithTooltip'
 import CallToAction from '../CallToAction'
 import Section from '../Section'
-import { TypingText } from '../TypingText'
-import { motion } from 'framer-motion'
-import { staggerContainer, textVariant } from '../../utils/motion'
-import { tr } from 'date-fns/locale'
+import {textVariant} from '../../utils/motion'
 
 export default function NewsLetter() {
     return <Section className={'min-h-[0px] h-[300px] mb-0'}>
-        <motion.div
-            variants={staggerContainer}
-            initial={'hidden'}
-            whileInView={'show'}
-            viewport={{ once: true, amount: 0.25 }}
+        <div
+            // variants={staggerContainer}
+            // initial={'hidden'}
+            // whileInView={'show'}
+            // viewport={{ once: true, amount: 0.25 }}
             className='flex-col lg:flex-row   flex justify-between items-center 800px:px-0 px-5'>
             <div className='w-full lg:w-1/3'>
                 <SectionTitle size={'md'} title={' Sign Up To Get The Latest Digital Trends'} />
             </div>
-            <motion.div variants={textVariant(.3)} className='w-full lg:w-1/2'>
+            <div variants={textVariant(.3)} className='w-full lg:w-1/2'>
                 <form id='form' noValidate>
                     <div
                         className='relative z-0 w-full mt-10 lg:mt-0 flex-col lg:flex-row flex gap-4 items-center'>
@@ -46,18 +43,20 @@ export default function NewsLetter() {
                               id='error'>Name is required</span>
                     </div>
                 </form>
-            </motion.div>
-        </motion.div>
-        <motion.div
-            variants={staggerContainer}
-            initial={'hidden'}
-            whileInView={'show'}
-            viewport={{ once: false, amount: 0.25 }}
+            </div>
+        </div>
+        <div
+            // variants={staggerContainer}
+            // initial={'hidden'}
+            // whileInView={'show'}
+            // viewport={{ once: false, amount: 0.25 }}
             className='text-2xl text-white text-center mt-10 800px:px-0 px-5'>
-            <motion.p variants={textVariant(.4)}>
+            <p
+                // variants={textVariant(.4)}
+            >
                 Κάνε εγγραφή στο Newsletter μας και μάθε πρώτος τις τελευταίες εξελίξεις στον κόσμο του Digital.
-            </motion.p>
+            </p>
 
-        </motion.div>
+        </div>
     </Section>
 }

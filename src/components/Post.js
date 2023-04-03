@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion'
-import { fadeIn } from '../utils/motion'
 import TitleText from './TitleText'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -18,9 +16,9 @@ export default function Post({
                                  ...rest
                              }) {
 
-    return <motion.div
+    return <div
         key={id}
-        variants={fadeIn('up', 'spring', index * .5, 1)}
+        // variants={fadeIn('up', 'spring', index * .5, 1)}
         {...rest}
         className={'flex md:flex-row flex-col  gap-1 800px:gap-2 1150px:gap-4'}>
         <Link href={`/posts/${slug}`} className={'w-[340px] h-[250px]'}>
@@ -56,5 +54,5 @@ export default function Post({
             </div>
         </div>
 
-    </motion.div>
+    </div>
 }
