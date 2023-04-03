@@ -69,7 +69,7 @@ export default function Services({ services }) {
 
                                     {service.frontButtonLink && (
                                         <button className={'btn-primary w-full text-[16px]'}>
-                                            <Link href={service.frontButtonLink} className={'text-white'}>
+                                            <Link target={'_blank'} href={service.frontButtonLink} className={'text-white'}>
                                                 {service.frontButtonText}
 
                                             </Link>

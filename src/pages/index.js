@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import useSite from 'hooks/use-site'
-import { getBrands, getProjects, getRecentPosts, getServices } from 'lib/posts'
-import { WebsiteJsonLd } from 'lib/json-ld'
+import {getBrands, getProjects, getRecentPosts, getServices} from 'lib/posts'
+import {WebsiteJsonLd} from 'lib/json-ld'
 import dynamic from 'next/dynamic'
 import Layout from 'components/Layout'
 import Header from 'components/Header'
 import SectionTitle from '../components/SectionTitle'
 import CallToActionFramerHOC from '../components/CallToActionFramerHOC'
-import { useRef, useState } from 'react'
-import useOnScreen from '../hooks/useOnScreen'
 
 
 const DynamicPortfolio = dynamic(() => import('../components/Younet/Portfolio'), {

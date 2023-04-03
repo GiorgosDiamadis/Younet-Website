@@ -1,15 +1,15 @@
-import { getApolloClient } from 'lib/apollo-client'
+import {getApolloClient} from 'lib/apollo-client'
 
-import { updateUserAvatar } from 'lib/users'
-import { sortObjectsByDate } from 'lib/datetime'
+import {updateUserAvatar} from 'lib/users'
+import {sortObjectsByDate} from 'lib/datetime'
 
 import {
     buildProjectQuery,
     buildServicesQuery,
-    QUERY_ALL_BRANDS_HOME,
+    QUERY_ALL_BRANDS_HOME, QUERY_ALL_PAGES,
     QUERY_ALL_POSTS,
     QUERY_ALL_POSTS_ARCHIVE,
-    QUERY_ALL_POSTS_INDEX,
+    QUERY_ALL_POSTS_INDEX, QUERY_PAGE_BY_SLUG, QUERY_PAGE_SEO_BY_SLUG,
     QUERY_POST_BY_SLUG,
     QUERY_POST_PER_PAGE,
     QUERY_POST_SEO_BY_SLUG,
@@ -25,6 +25,91 @@ import {
 
 export function postPathBySlug(slug) {
     return `/posts/${slug}`
+}
+
+export async function getPageBySlug(slug) {
+    const apolloClient = getApolloClient()
+    const apiHost = new URL(process.env.WORDPRESS_GRAPHQL_ENDPOINT).host
+
+    let pageData
+    let seoData
+
+    try {
+        pageData = await apolloClient.query({
+            query: QUERY_PAGE_BY_SLUG,
+            variables: {
+                slug
+            }
+        })
+    } catch (e) {
+        console.log(`[posts][getPostBySlug] Failed to query post data: ${e.message}`)
+        throw e
+    }
+
+    if (!pageData?.data.page) return {post: undefined}
+
+    const page = pageData?.data.page
+
+    if (process.env.WORDPRESS_PLUGIN_SEO === true) {
+        try {
+            seoData = await apolloClient.query({
+                query: QUERY_PAGE_SEO_BY_SLUG,
+                variables: {
+                    slug
+                }
+            })
+        } catch (e) {
+            console.log(`[posts][getPostBySlug] Failed to query SEO plugin: ${e.message}`)
+            console.log('Is the SEO Plugin installed? If not, disable WORDPRESS_PLUGIN_SEO in next.config.js.')
+            throw e
+        }
+
+
+        const {seo = {}} = seoData?.data?.page || {}
+
+        page.metaTitle = seo.title
+        page.metaDescription = seo.metaDesc
+        page.readingTime = seo.readingTime
+
+
+        if (seo.canonical && !seo.canonical.includes(apiHost)) {
+            page.canonical = seo.canonical
+        }
+
+        page.og = {
+            author: seo.opengraphAuthor,
+            description: seo.opengraphDescription,
+            image: seo.opengraphImage,
+            modifiedTime: seo.opengraphModifiedTime,
+            publishedTime: seo.opengraphPublishedTime,
+            publisher: seo.opengraphPublisher,
+            title: seo.opengraphTitle,
+            type: seo.opengraphType
+        }
+
+        page.article = {
+            author: page.og.author,
+            modifiedTime: page.og.modifiedTime,
+            publishedTime: page.og.publishedTime,
+            publisher: page.og.publisher
+        }
+
+        page.robots = {
+            nofollow: seo.metaRobotsNofollow,
+            noindex: seo.metaRobotsNoindex
+        }
+
+        page.twitter = {
+            description: seo.twitterDescription,
+            image: seo.twitterImage,
+            title: seo.twitterTitle
+        }
+    }
+
+
+    return {
+         page
+    }
 }
 
 
@@ -47,7 +132,7 @@ export async function getPostBySlug(slug) {
         throw e
     }
 
-    if (!postData?.data.post) return { post: undefined }
+    if (!postData?.data.post) return {post: undefined}
 
     const post = [postData?.data.post].map(mapPostData)[0]
 
@@ -66,7 +151,7 @@ export async function getPostBySlug(slug) {
             throw e
         }
 
-        const { seo = {} } = seoData?.data?.post || {}
+        const {seo = {}} = seoData?.data?.post || {}
 
         post.metaTitle = seo.title
         post.metaDescription = seo.metaDesc
@@ -119,8 +204,25 @@ const allPostsIncludesTypes = {
     index: QUERY_ALL_POSTS_INDEX
 }
 
+export async function getAllPages() {
+
+    const apolloClient = getApolloClient()
+
+    const data = await apolloClient.query({
+        query: QUERY_ALL_PAGES
+    })
+
+
+    const pages = data?.data.pages.nodes.map((node) => node)
+
+
+    return {
+        pages
+    }
+}
+
 export async function getAllPosts(options = {}) {
-    const { queryIncludes = 'index' } = options
+    const {queryIncludes = 'index'} = options
 
     const apolloClient = getApolloClient()
 
@@ -129,7 +231,7 @@ export async function getAllPosts(options = {}) {
     })
 
 
-    const posts = data?.data.posts.edges.map(({ node = {} }) => node)
+    const posts = data?.data.posts.edges.map(({node = {}}) => node)
 
 
     return {
@@ -144,8 +246,8 @@ const postsByAuthorSlugIncludesTypes = {
     index: QUERY_POSTS_BY_AUTHOR_SLUG_INDEX
 }
 
-export async function getPostsByAuthorSlug({ slug, ...options }) {
-    const { queryIncludes = 'index' } = options
+export async function getPostsByAuthorSlug({slug, ...options}) {
+    const {queryIncludes = 'index'} = options
 
     const apolloClient = getApolloClient()
 
@@ -163,7 +265,7 @@ export async function getPostsByAuthorSlug({ slug, ...options }) {
         throw e
     }
 
-    const posts = postData?.data.posts.edges.map(({ node = {} }) => node)
+    const posts = postData?.data.posts.edges.map(({node = {}}) => node)
 
     return {
         posts: Array.isArray(posts) && posts.map(mapPostData)
@@ -177,8 +279,8 @@ const postsByCategoryIdIncludesTypes = {
     index: QUERY_POSTS_BY_CATEGORY_ID_INDEX
 }
 
-export async function getPostsByCategoryId({ categoryId, ...options }) {
-    const { queryIncludes = 'index' } = options
+export async function getPostsByCategoryId({categoryId, ...options}) {
+    const {queryIncludes = 'index'} = options
 
     const apolloClient = getApolloClient()
 
@@ -196,7 +298,7 @@ export async function getPostsByCategoryId({ categoryId, ...options }) {
         throw e
     }
 
-    const posts = postData?.data.posts.edges.map(({ node = {} }) => node)
+    const posts = postData?.data.posts.edges.map(({node = {}}) => node)
 
     return {
         posts: Array.isArray(posts) && posts.map(mapPostData)
@@ -204,8 +306,16 @@ export async function getPostsByCategoryId({ categoryId, ...options }) {
 }
 
 
-export async function getRecentPosts({ count, ...options }) {
-    const { posts } = await getAllPosts(options)
+export async function getPages() {
+    const {pages} = await getAllPages()
+    const sorted = sortObjectsByDate(pages)
+    return {
+        pages
+    }
+}
+
+export async function getRecentPosts({count, ...options}) {
+    const {posts} = await getAllPosts(options)
     const sorted = sortObjectsByDate(posts)
     return {
         posts: sorted.slice(0, count)
@@ -232,7 +342,7 @@ export function sanitizeExcerpt(excerpt) {
 }
 
 export function mapPostData(post = {}) {
-    const data = { ...post }
+    const data = {...post}
 
 
     if (data.author) {
@@ -246,7 +356,7 @@ export function mapPostData(post = {}) {
     }
 
     if (data.categories) {
-        data.categories = data.categories.edges.map(({ node }) => {
+        data.categories = data.categories.edges.map(({node}) => {
             return {
                 ...node
             }
@@ -268,15 +378,15 @@ export async function getRelatedPosts(categories, postId, count = 5) {
     }
 
     if (related.category) {
-        const { posts } = await getPostsByCategoryId({
+        const {posts} = await getPostsByCategoryId({
             categoryId: related.category.databaseId,
             queryIncludes: 'archive'
         })
 
-        const filtered = posts.filter(({ postId: id }) => id !== postId)
+        const filtered = posts.filter(({postId: id}) => id !== postId)
         const sorted = sortObjectsByDate(filtered)
 
-        related.posts = sorted.map((post) => ({ title: post.title, slug: post.slug }))
+        related.posts = sorted.map((post) => ({title: post.title, slug: post.slug}))
     }
 
     if (!Array.isArray(related.posts) || related.posts.length === 0) {
@@ -309,7 +419,7 @@ export async function getPostsPerPage() {
     try {
         const apolloClient = getApolloClient()
 
-        const { data } = await apolloClient.query({
+        const {data} = await apolloClient.query({
             query: QUERY_POST_PER_PAGE
         })
 
@@ -327,8 +437,8 @@ export async function getPagesCount(posts, postsPerPage) {
 }
 
 
-export async function getPaginatedPosts({ currentPage = 1, ...options } = {}) {
-    const { posts } = await getAllPosts(options)
+export async function getPaginatedPosts({currentPage = 1, ...options} = {}) {
+    const {posts} = await getAllPosts(options)
 
     const postsPerPage = await getPostsPerPage()
     const pagesCount = await getPagesCount(posts, postsPerPage)
@@ -359,7 +469,6 @@ export async function getPaginatedPosts({ currentPage = 1, ...options } = {}) {
 }
 
 
-
 export async function getServices(categoryId) {
     const apolloClient = getApolloClient()
 
@@ -368,12 +477,10 @@ export async function getServices(categoryId) {
     })
 
 
-
-
     const queriedServices = []
 
 
-    data.data.servicesCategories.nodes[0].contentNodes.nodes.forEach(({ slug, title, link, id, uri, services }) => {
+    data.data.servicesCategories.nodes[0].contentNodes.nodes.forEach(({slug, title, link, id, uri, services}) => {
         queriedServices.push({
             slug,
             title,
@@ -402,7 +509,7 @@ async function getAllBrands() {
     const queriedBrands = []
 
 
-    data.data.brands.nodes.forEach(({ brandId, title, uri, slug, link, brands }) => {
+    data.data.brands.nodes.forEach(({brandId, title, uri, slug, link, brands}) => {
 
         queriedBrands.push({
             brandId,
@@ -425,10 +532,10 @@ async function getAllBrands() {
 
 export async function getBrands() {
 
-    const { brands } = await getAllBrands()
+    const {brands} = await getAllBrands()
 
 
-    return { brands }
+    return {brands}
 }
 
 
@@ -450,7 +557,7 @@ export async function getProjects(categoryId) {
     const apolloClient = getApolloClient()
 
 
-    const { categories } = await getProjectCategories()
+    const {categories} = await getProjectCategories()
 
     const categoriesWithTaxonomyKeys = {}
 
@@ -461,7 +568,6 @@ export async function getProjects(categoryId) {
     const data = await apolloClient.query({
         query: buildProjectQuery(categoryId)
     })
-
 
 
     const projectCategory = data.data.projectCategories.nodes[0]

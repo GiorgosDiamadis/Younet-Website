@@ -2,7 +2,7 @@
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
         <loc>http://localhost</loc>
-        <lastmod>2023-04-03T09:20:51.480Z</lastmod>
+        <lastmod>2023-04-03T10:35:22.900Z</lastmod>
       </url>
         <url>
                       <loc>http://localhost/branding-digital-strategies/</loc>
@@ -42,7 +42,7 @@
                 <url>
                       <loc>http://localhost/digital-marketing/</loc>
                       <priority>0.3</priority>
-                      <lastmod>2023-03-28T09:35:27.000Z</lastmod>
+                      <lastmod>2023-04-03T07:22:50.000Z</lastmod>
                     </url>
                 <url>
                       <loc>http://localhost/sample-page/</loc>

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import {gql} from '@apollo/client'
 
 export const POST_FIELDS = gql`
   fragment PostFields on Post {
@@ -255,7 +255,34 @@ query AllBrands {
 }
 
 `
-
+export const QUERY_ALL_PAGES = gql`
+query AllPages {
+pages {
+    nodes {
+      content
+      id
+      pageId
+      slug
+      title
+      uri
+      featuredImage {
+        node {
+          altText
+          title
+          uri
+          sourceUrl
+          slug
+        }
+      }
+      servicesDataForPages {
+        fieldGroupName
+        servicesCategoryId
+        isServicesPage
+      }
+    }
+  }
+  }
+`
 export const QUERY_ALL_POSTS = gql`
   ${POST_FIELDS}
   query AllPosts {
@@ -338,6 +365,36 @@ export const QUERY_POST_BY_SLUG = gql`
       title
       slug
       isSticky
+    }
+  }
+`
+
+
+export const QUERY_PAGE_BY_SLUG = gql`
+  query PageBySlug($slug: ID!) {
+    page(id: $slug, idType: URI) {
+      id
+    content
+    date
+    featuredImage {
+      node {
+        altText
+        caption
+        sourceUrl
+        srcSet
+        sizes
+        id
+      }
+    }
+    servicesDataForPages {
+        fieldGroupName
+        servicesCategoryId
+        isServicesPage
+      }
+    modified
+    databaseId
+    title
+    slug
     }
   }
 `
@@ -474,6 +531,47 @@ export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
 export const QUERY_POST_SEO_BY_SLUG = gql`
   query PostSEOBySlug($slug: ID!) {
     post(id: $slug, idType: SLUG) {
+      id
+      seo {
+        canonical
+        metaDesc
+        metaRobotsNofollow
+        metaRobotsNoindex
+        opengraphAuthor
+        opengraphDescription
+        opengraphModifiedTime
+        opengraphPublishedTime
+        opengraphPublisher
+        opengraphTitle
+        opengraphType
+        readingTime
+        title
+        twitterDescription
+        twitterTitle
+        twitterImage {
+          altText
+          sourceUrl
+          mediaDetails {
+            width
+            height
+          }
+        }
+        opengraphImage {
+          altText
+          sourceUrl
+          mediaDetails {
+            height
+            width
+          }
+        }
+      }
+    }
+  }
+`
+
+export const QUERY_PAGE_SEO_BY_SLUG = gql`
+  query PageSEOBySlug($slug: ID!) {
+    page(id: $slug, idType: URI) {
       id
       seo {
         canonical
