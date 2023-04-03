@@ -7,6 +7,7 @@ import Layout from 'components/Layout'
 import Header from 'components/Header'
 import SectionTitle from '../components/SectionTitle'
 import CallToActionFramerHOC from '../components/CallToActionFramerHOC'
+import ContactForm from "../components/ContactForm";
 
 
 const DynamicPortfolio = dynamic(() => import('../components/Younet/Portfolio'), {
@@ -27,18 +28,18 @@ const DynamicLatestPosts = dynamic(() => import('../components/LatestPosts'), {
 })
 
 
-export default function Home({ services, brands, projectData, posts }) {
-    const { metadata = {} } = useSite()
-    const { title, description } = metadata
+export default function Home({services, brands, projectData, posts}) {
+    const {metadata = {}} = useSite()
+    const {title, description} = metadata
 
 
     return (
         <Layout classes={'bg-gradient-body'}>
-            <WebsiteJsonLd siteTitle={title} />
+            <WebsiteJsonLd siteTitle={title}/>
             <Header>
                 <div className='header-content flex flex-col items-center'>
                     <SectionTitle title={'Growing Brands Online'}
-                                  subTitle={'Results-Driven Creative Digital Agency Focused On'} />
+                                  subTitle={'Results-Driven Creative Digital Agency Focused On'}/>
 
                     <CallToActionFramerHOC className={'request-quote cursor-pointer'} onClick={() => {
                     }}>
@@ -46,11 +47,15 @@ export default function Home({ services, brands, projectData, posts }) {
                     </CallToActionFramerHOC>
                 </div>
             </Header>
-            <DynamicServices services={services} />
-            <DynamicPortfolio projects={projectData.projects} projectCategories={projectData.categories} category={8} />
-            <DynamicBrands brands={brands} />
-            <DynamicLatestPosts posts={posts} />
-            <DynamicNewsletter />
+            <DynamicServices services={services}/>
+            <DynamicPortfolio projects={projectData.projects} projectCategories={projectData.categories} category={8}/>
+            <DynamicBrands brands={brands}/>
+            <DynamicLatestPosts posts={posts}/>
+
+            <ContactForm/>
+
+            <DynamicNewsletter/>
+
         </Layout>
 
     )
@@ -58,11 +63,11 @@ export default function Home({ services, brands, projectData, posts }) {
 
 export async function getStaticProps() {
 
-    const { services } = await getServices(13)
-    const { brands } = await getBrands()
-    const { projects, categories } = await getProjects(8)
+    const {services} = await getServices(13)
+    const {brands} = await getBrands()
+    const {projects, categories} = await getProjects(8)
 
-    const { posts } = await getRecentPosts({
+    const {posts} = await getRecentPosts({
         count: 3,
         queryIncludes: 'archive'
     })

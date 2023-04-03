@@ -252,7 +252,17 @@ h1 {
   }
 
   .text-glow {
-    text-shadow: -2px 0 5px rgb(24 151 227 / 98%), 2px 3px 5px #1baaff, 3px 0 5px #1baaff, -3px -2px 5px #1baaff;
+    text-shadow: -2px 0 5px rgb(24 151 227 / 98%), 2px 3px 5px #1baaff, 3px 0 5px #1baaff, -3px -2px 5px #1baaff !important;
+  }
+
+  .text-glow-blue {
+    background: linear-gradient(131.8deg, #04e4ff 0, #009cff 100%) !important;
+    background-clip: border-box !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: #04e4ff !important;
+
+    color: transparent !important;
+    text-shadow: 0 0 10px rgba(4, 228, 255, .5) !important;
   }
 
   .text-glow-white {
@@ -610,8 +620,9 @@ h1 {
     margin: 4rem 0 !important;
   }
 }
+
 @media (max-width: 600px) {
-  .accordion-header{
+  .accordion-header {
     //padding-left: 1rem;
     //padding-right: 1rem;
 

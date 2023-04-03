@@ -2,6 +2,7 @@ import Layout from 'components/Layout'
 import {getAllPages, getPageBySlug, getServices} from "../lib/posts";
 import React, {useEffect, useState} from 'react'
 import Services from "../components/Younet/Services";
+import ContactForm from "../components/ContactForm";
 
 export default function Page({page, socialImage}) {
 
@@ -17,7 +18,8 @@ export default function Page({page, socialImage}) {
         <Layout classes={'bg-gradient-body'}>
 
             <div className="mt-20"></div>
-            <p className={'max-w-[1400px] m-auto mb-5'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab illum
+            <p className={'max-w-[1400px] m-auto mb-5'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
+                illum
                 laborum obcaecati perferendis possimus
                 quia? Amet aut beatae blanditiis cum debitis deleniti distinctio doloremque dolores dolorum et, eveniet
                 expedita hic id in incidunt magnam nemo nihil officia, pariatur placeat quae qui recusandae rem sapiente
@@ -30,7 +32,8 @@ export default function Page({page, socialImage}) {
             {services && <Services services={services}/>}
 
 
-            <p className={'max-w-[1400px] m-auto mt-5'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab illum
+            <p className={'max-w-[1400px] m-auto mt-5'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
+                illum
                 laborum obcaecati perferendis possimus
                 quia? Amet aut beatae blanditiis cum debitis deleniti distinctio doloremque dolores dolorum et, eveniet
                 expedita hic id in incidunt magnam nemo nihil officia, pariatur placeat quae qui recusandae rem sapiente
@@ -39,6 +42,8 @@ export default function Page({page, socialImage}) {
                 nam, necessitatibus nemo nostrum officia perferendis perspiciatis quaerat quas quod rem saepe sapiente
                 sunt vel voluptatem voluptatibus. Accusamus, aspernatur deleniti officiis sapiente ut veniam voluptatem!
                 Amet blanditiis cumque deserunt qui.</p>
+
+            <ContactForm/>
         </Layout>
     )
 }
