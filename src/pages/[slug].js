@@ -2,11 +2,10 @@ import Layout from 'components/Layout'
 import {getAllPages, getPageBySlug, getServices} from "../lib/posts";
 import React, {useEffect, useState} from 'react'
 import Services from "../components/Younet/Services";
-import Section from "../components/Section";
 
 export default function Page({page, socialImage}) {
 
-    const [services, setServices] = useState([])
+    const [services, setServices] = useState(null)
 
     useEffect(() => {
         getServices(page.servicesDataForPages.servicesCategoryId).then((res) => {
@@ -28,8 +27,8 @@ export default function Page({page, socialImage}) {
                 sunt vel voluptatem voluptatibus. Accusamus, aspernatur deleniti officiis sapiente ut veniam voluptatem!
                 Amet blanditiis cumque deserunt qui.</p>
 
+            {services && <Services services={services}/>}
 
-            <Services services={services}/>
 
             <p className={'max-w-[1400px] m-auto mt-5'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab illum
                 laborum obcaecati perferendis possimus

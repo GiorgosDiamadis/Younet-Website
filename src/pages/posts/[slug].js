@@ -95,7 +95,6 @@ export default function Post({ post, socialImage, related }) {
 
 
     }, [wpContentRef.current])
-    console.log(tableOfContent)
 
 
     return (
