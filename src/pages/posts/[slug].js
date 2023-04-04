@@ -64,37 +64,37 @@ export default function Post({ post, socialImage, related }) {
     const wpContentRef = useRef()
     const [tableOfContent, setTableOfContent] = useState([])
 
-    const timelinejs = useScript('/timeline.js')
-
-    useEffect(() => {
-        if (!wpContentRef.current) return
-
-
-        const h2s = wpContentRef.current.querySelectorAll('h2')
-        const content = []
-        var previous = 0
-        const entry = {}
-        h2s.forEach((h2, i) => {
-
-
-            content.push({
-                title: h2.innerHTML,
-                link: `#${h2.getAttribute('id')}`
-            })
-
-            const rect = h2.getBoundingClientRect()
-            if (i === 0) {
-                previous = rect.y
-            } else {
-                content[i - 1].height = rect.y - previous
-                previous = rect.y
-            }
-        })
-
-        setTableOfContent(content)
-
-
-    }, [wpContentRef.current])
+    // const timelinejs = useScript('/timeline.js')
+    //
+    // useEffect(() => {
+    //     if (!wpContentRef.current) return
+    //
+    //
+    //     const h2s = wpContentRef.current.querySelectorAll('h2')
+    //     const content = []
+    //     var previous = 0
+    //     const entry = {}
+    //     h2s.forEach((h2, i) => {
+    //
+    //
+    //         content.push({
+    //             title: h2.innerHTML,
+    //             link: `#${h2.getAttribute('id')}`
+    //         })
+    //
+    //         const rect = h2.getBoundingClientRect()
+    //         if (i === 0) {
+    //             previous = rect.y
+    //         } else {
+    //             content[i - 1].height = rect.y - previous
+    //             previous = rect.y
+    //         }
+    //     })
+    //
+    //     setTableOfContent(content)
+    //
+    //
+    // }, [wpContentRef.current])
 
 
     return (

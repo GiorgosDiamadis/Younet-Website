@@ -23,8 +23,8 @@ export default function Post({
         className={'flex md:flex-row flex-col  gap-1 800px:gap-2 1150px:gap-4'}>
         <Link href={`/posts/${slug}`} className={'w-[340px] h-[250px]'}>
 
-            <Image loading={'lazy'} width={340} height={250} src={featuredImage && featuredImage.sourceUrl}
-                   alt={featuredImage && featuredImage.altText}
+            <Image loading={'lazy'} width={340} height={250} src={featuredImage && featuredImage?.sourceUrl}
+                   alt={featuredImage && featuredImage?.altText}
                    className={'md:w-[270px] w-full h-[250px] rounded-[32px] object-cover'} />
         </Link>
 

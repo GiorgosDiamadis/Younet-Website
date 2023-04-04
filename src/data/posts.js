@@ -45,7 +45,7 @@ export const QUERY_ALL_POSTS_INDEX = gql`
 export const QUERY_ALL_POSTS_ARCHIVE = gql`
   ${POST_FIELDS}
   query AllPostsArchive {
-    posts(first: 10000, where: { hasPassword: false }) {
+    posts(first: 10000, where: { language: EL }) {
       edges {
         node {
           ...PostFields
