@@ -7,6 +7,13 @@
   box-sizing: border-box;
 }
 
+.splide__arrow {
+  display: none !important;
+}
+
+.splide__pagination {
+  display: none !important;
+}
 
 .timeline-container {
   padding: 2rem;
@@ -178,9 +185,10 @@ h1 {
     filter: blur(175px);
   }
 
-  footer{
+  footer {
     z-index: 100;
   }
+
   .footer-gradient {
     position: absolute;
     width: 500px;
@@ -397,12 +405,12 @@ h1 {
     transition: all 500ms ease;
   }
 
-  .tabcontent.active{
+  .tabcontent.active {
     transform: translateY(0);
     opacity: 1;
   }
 
-  .tab-transition{
+  .tab-transition {
     @apply opa;
   }
 
@@ -466,7 +474,8 @@ h1 {
   .site-navigation {
     @apply p-0 m-0 flex justify-evenly relative top-[5px] transition-all duration-500
   }
-  .main-nav{
+
+  .main-nav {
     background-color: transparent !important;
   }
 
@@ -512,7 +521,7 @@ h1 {
   }
 
   section {
-    @apply min-h-[70vh]  max-w-[1400px] m-auto mt-32 mb-32 w-[100%] pl-4 pr-4;
+    @apply min-h-[70vh]  max-w-[1400px] m-auto mt-32  mb-32 w-[100%] pl-4 pr-4;
     height: fit-content;
   }
 
