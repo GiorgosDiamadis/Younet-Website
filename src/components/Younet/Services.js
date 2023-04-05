@@ -18,7 +18,7 @@ export default function Services({ services }) {
     const ServicesDesktop = () => {
         const [activeService, setActiveService] = useState(0)
 
-        return <div className='hidden lg:flex services-description h-[600px]  flex-col'>
+        return <div className='hidden lg:flex services-description h-[600px]  flex-col '>
             <div className='relative  flex-1 overflow-hidden'>
                 <div className='hidden lg:block'>
                     {services && services.map((service, i) => (

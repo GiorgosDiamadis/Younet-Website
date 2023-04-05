@@ -2,7 +2,7 @@
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
         <loc>http://localhost</loc>
-        <lastmod>2023-04-04T13:14:58.212Z</lastmod>
+        <lastmod>2023-04-05T12:06:00.125Z</lastmod>
       </url>
         <url>
                       <loc>http://localhost/branding-digital-strategies/</loc>
@@ -51,12 +51,12 @@
                     </url>
                 
           <url>
-                        <loc>http://localhost/posts/example-post-10-en/</loc>
-                        <lastmod>2023-04-04T10:13:42.000Z</lastmod>
+                        <loc>http://localhost/posts/%ce%b5%cf%87-20/</loc>
+                        <lastmod>2023-04-04T14:18:31.000Z</lastmod>
                       </url>
                   <url>
-                        <loc>http://localhost/posts/example-post-10/</loc>
-                        <lastmod>2023-03-31T09:00:15.000Z</lastmod>
+                        <loc>http://localhost/posts/ex-20/</loc>
+                        <lastmod>2023-04-04T14:17:16.000Z</lastmod>
                       </url>
                   <url>
                         <loc>http://localhost/posts/example-post-9/</loc>

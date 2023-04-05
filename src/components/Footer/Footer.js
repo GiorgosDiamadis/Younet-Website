@@ -15,7 +15,7 @@ const Footer = () => {
 
 
     return (
-        <footer className={'bg-dark_blue py-5 relative mt-10'}>
+        <footer className={'bg-dark_blue py-5 relative mt-10 hidden'}>
             <div className={''}>
                 <div className={'w-[95%] m-auto'}>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 place-items-center gap-10">
