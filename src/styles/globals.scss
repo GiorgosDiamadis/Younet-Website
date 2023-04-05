@@ -7,78 +7,37 @@
   box-sizing: border-box;
 }
 
-
 .timeline-container {
-  padding: 2rem;
-  padding-bottom: 400px;
-  margin: 0 auto;
-  max-width: 500px;
-
+  @apply max-w-[500px] mx-auto my-0 pb-[400px] p-8;
 }
-
 
 .top-section {
-  text-align: center;
-  padding: 4rem 0;
-  max-width: 600px;
-  margin: 0 auto;
+  @apply text-center max-w-[600px] mx-auto my-0 px-0 py-16;
+}
+.timeline {
+  @apply relative min-h-[150px];
 }
 
-.timeline {
-  position: relative;
-  min-height: 150px;
-}
 
 .line {
-  position: absolute;
-  z-index: 2;
-  left: -1px;
-  width: 2px;
-  top: 0px;
-  bottom: -50px;
-  background-color: black;
-
+  @apply absolute z-[2] w-0.5 bottom-[-50px] bg-[black] -left-px top-0 after:bottom-0;
 }
-
-.line:after {
-  bottom: 0;
-}
-
 .section {
-  display: flex;
-  opacity: 0;
-  transition: 600ms ease;
-  position: relative;
-  z-index: 1;
+  @apply flex opacity-0 transition-[600ms] duration-[ease] relative z-[1] items-center pl-2.5 rounded-2xl;
   //margin: 50px 0;
   //padding: 1rem;
-  padding-left: 10px;
-  border-radius: 1rem;
-  align-items: center;
 }
-
 
 .bead {
-  position: absolute;
-  display: block;
-  height: 1rem;
-  width: 1rem;
-  border-radius: 50%;
-  background-color: black;
-  left: 0;
-  top: 0;
-  transform: translateX(-50%);
+  @apply absolute block h-4 w-4 bg-[black] -translate-x-2/4 rounded-[50%] left-0 top-0;
 }
-
 .show-me:nth-child(n) {
-  opacity: 1;
+  @apply opacity-100;
 }
-
 h1 {
-  font-weight: 400;
-  letter-spacing: 1px;
-
+  @apply font-normal tracking-[1px];
 }
+
 
 
 @layer components {
@@ -103,10 +62,8 @@ h1 {
   }
 
   .gradient-01 {
-    background-image: linear-gradient(270deg, #6b70ff 0%, #001d48 26%, #6b70ff 39%);
-    filter: blur(154px);
+    @apply bg-[linear-gradient(270deg,#6b70ff_0%,#001d48_26%,#6b70ff_39%)] blur-[154px];
   }
-
   .hero-gradient {
     background: linear-gradient(
                     97.86deg,
@@ -115,50 +72,27 @@ h1 {
                     #a134c7 100%
     );
   }
-
   .gradient-02 {
-    position: absolute;
-    width: 200px;
-    height: 438px;
-    top: 0px;
-    right: 0px;
-
+    @apply absolute w-[200px] h-[438px] blur-[120px] right-0 top-0;
     background: #470000;
-    filter: blur(120px);
   }
+
 
   .glassmorphism {
+    @apply shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] backdrop-blur-sm border border-solid border-[rgba(255,255,255,0.18)];
     background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
   }
-
   .gradient-03 {
-    position: absolute;
-    width: 404px;
-    height: 800px;
-    left: 20%;
-    top: 5%;
-
+    @apply absolute w-[404px] h-[800px] blur-[175px] rotate-[-114.2deg] left-[20%] top-[5%];
     background: rgba(149, 66, 232, 0.35);
-    filter: blur(175px);
-    transform: rotate(-114.2deg);
   }
+
 
   .gradient-04 {
-    position: absolute;
-    width: 304px;
-    height: 100vh;
-    left: 30%;
-    top: 10%;
-
+    @apply absolute w-[304px] h-screen blur-[200px] rotate-[-53.13deg] left-[30%] top-[10%];
     background: rgba(45, 72, 152, 0.75);
-    filter: blur(200px);
-    transform: rotate(-53.13deg);
   }
-
   .gradient-05 {
     background: linear-gradient(
                     180deg,
@@ -168,36 +102,21 @@ h1 {
   }
 
   .feedback-gradient {
-    position: absolute;
-    width: 200px;
-    height: 316px;
-    left: 0px;
-    top: 0px;
-
+    @apply absolute w-[200px] h-[316px] blur-[175px] left-0 top-0;
     background: #8d39a3;
-    filter: blur(175px);
   }
-
   .footer-gradient {
-    position: absolute;
-    width: 500px;
-    height: 100px;
-    left: 37%;
-    bottom: 0;
-
+    @apply absolute w-[500px] h-[100px] blur-[150px] left-[37%] bottom-0;
     background: #65c4fa;
-    filter: blur(150px);
   }
 
   .bg-gradient-body {
-
     /*Fallback if gradeints don't work */
-    background: #001D48;
+    background: #001d48;
     /*Linear gradient... */
-    background: radial-gradient(
-                    at center, rgb(71, 0, 0), #001D48
-    );
+    background: radial-gradient(at center, rgb(71, 0, 0), #001d48);
   }
+
 
   @-webkit-keyframes AnimationName {
     0% {
@@ -252,30 +171,23 @@ h1 {
   }
 
   .text-glow {
-    text-shadow: -2px 0 5px rgb(24 151 227 / 98%), 2px 3px 5px #1baaff, 3px 0 5px #1baaff, -3px -2px 5px #1baaff !important;
+    text-shadow: -2px 0 5px rgb(24 151 227 / 98%), 2px 3px 5px #1baaff,
+    3px 0 5px #1baaff, -3px -2px 5px #1baaff !important;
   }
-
   .text-glow-blue {
+    @apply bg-clip-border text-transparent;
     background: linear-gradient(131.8deg, #04e4ff 0, #009cff 100%) !important;
-    background-clip: border-box !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: #04e4ff !important;
-
-    color: transparent !important;
-    text-shadow: 0 0 10px rgba(4, 228, 255, .5) !important;
+    text-shadow: 0 0 10px rgba(4, 228, 255, 0.5) !important;
   }
-
   .text-glow-white {
-    background: linear-gradient(93.35deg, #ffff .57%, #ffff 82.96%);
-    color: transparent;
-    background-clip: text;
+    @apply text-transparent bg-clip-text mix-blend-normal;
+    background: linear-gradient(93.35deg, #ffff 0.57%, #ffff 82.96%);
     text-fill-color: transparent;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    mix-blend-mode: normal;
     text-shadow: 0 0 15px rgb(255 255 255 / 50%);
-
-
   }
 
   .heading {
@@ -561,56 +473,27 @@ h1 {
 }
 
 .portfolio-item {
-  cursor: pointer;
+  @apply cursor-pointer;
 }
-
 .wp-content > * {
-  color: black;
+  @apply text-[black];
 }
-
 .portfolio-item-details {
-  transform-origin: left;
-
-  z-index: 12;
-
-  @apply bg-black transition-all duration-500  flex justify-start items-end absolute left-0 w-full h-full  ;
-  background-image: var(--bg-image);
-  background-repeat: no-repeat;
-  background-size: cover;
+  @apply origin-left z-[12] bg-[image:var(--bg-image)] bg-no-repeat bg-cover;
+  @apply bg-black transition-all duration-500  flex justify-start items-end absolute left-0 w-full h-full;
 }
-
 
 .portfolio-item:hover .portfolio-item-details::after {
-  background-color: rgb(1 19 67 / 60%);
+  @apply bg-[rgb(1_19_67_/_60%)];
 }
-
-
 .portfolio-item-perspective {
-  will-change: transform;
-  position: absolute;
-  z-index: 11;
-  overflow: hidden;
-  background-image: var(--bg-image);
-  width: 12px;
-  transform-origin: 100% 50%;
-  transition: all 0.5s ease-in-out;
-  height: 100%;
-  left: -12px;
-  opacity: 0;
+  @apply will-change-transform absolute z-[11] overflow-hidden bg-[image:var(--bg-image)] w-3 origin-[100%_50%] transition-all duration-[0.5s] ease-[ease-in-out] h-full opacity-0 -left-3;
 }
 
 .portfolio-item-perspective::after {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: block;
-  content: '';
-  background-color: rgb(1 19 67 / 60%);
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  @apply absolute w-full h-full block content-[''] bg-[rgb(1_19_67_/_60%)] inset-0;
 }
+
 
 @media (max-width: 800px) {
   .portfolio-item-details::after {
@@ -656,26 +539,15 @@ h1 {
 }
 
 .portfolio-item-details::after {
-
-  display: block;
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-
-  background-color: rgba(0, 0, 0, 0.50);
-  transition: background-color 500ms ease-in-out;
-
+  @apply block content-[''] absolute bg-[rgba(0,0,0,0.50)] transition-[background-color] duration-500 ease-[ease-in-out] inset-0;
 }
-
 .-z-1 {
-  z-index: -1;
+  @apply z-[-1];
 }
+
 
 .origin-0 {
-  transform-origin: 0%;
+  @apply origin-[0%];
 }
 
 input {
@@ -705,37 +577,30 @@ select:focus ~ label {
 
 
 * {
+  @apply box-border;
   font-family: HGF;
-  box-sizing: border-box;
 }
 
 html,
 body {
-  padding: 0;
-  overflow-x: hidden;
-  background-color: #001D48;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue, sans-serif;
+  @apply overflow-x-hidden bg-[#001D48] m-0 p-0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue,
+  sans-serif;
 }
 
 p {
-  line-height: 1.6;
-  margin: 1.2em 0;
-  color: white;
+  @apply leading-[1.6] text-[white] mx-0 my-[1.2em];
 }
-
 ul {
-  padding-left: 1.2em;
+  @apply pl-[1.2em];
 }
-
 a {
-  color: $color-primary;
+  @apply text-[$color-primary];
+}
+img {
+  @apply max-w-full h-auto;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
 
 input {
   &[type="text"],
@@ -747,104 +612,52 @@ input {
 }
 
 figcaption {
-  color: $color-gray-500;
-  font-size: 0.9em;
-  text-align: center;
-  font-style: italic;
-  margin-top: 0.6em;
+  @apply text-[$color-gray-500] text-[0.9em] text-center italic mt-[0.6em];
 }
 
 .sr-only {
-  display: block;
-  overflow: hidden;
-  position: absolute;
-  top: -9999px;
-  left: -9999px;
-  width: 0;
-  height: 0;
+  @apply block overflow-hidden absolute top-[-9999px] left-[-9999px] w-0 h-0;
 }
-
 
 .card {
-  opacity: .5;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  flex-basis: 300px;
-  flex-shrink: 0;
-  flex-grow: 0;
-  max-width: 100%;
-  background-color: #fff;
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .15);
-  overflow: hidden;
+  @apply opacity-50 flex flex-col relative basis-[300px] shrink-0 grow-0 max-w-full bg-white shadow-[0_5px_10px_0_rgba(0,0,0,0.15)] overflow-hidden;
 }
-
 .card-img {
-  padding-bottom: 56.25%;
-  height: 500px;
-  position: relative;
+  @apply h-[500px] relative pb-[56.25%];
 }
 
 .card-img img {
-  position: absolute;
-  width: 100%;
+  @apply absolute w-full;
 }
-
 .card-body {
-  position: absolute;
-  bottom: 1rem;
-  left: 1rem;
-  padding: 1.5rem;
+  @apply absolute p-6 left-4 bottom-4;
 }
-
 .card-title {
-  font-size: 1.25rem;
-  line-height: 1.33;
-  font-weight: 700;
+  @apply text-xl leading-[1.33] font-bold;
 }
 
 .card-title.skeleton {
-  min-height: 28px;
-  border-radius: 4px;
+  @apply min-h-[28px] rounded;
 }
-
 .card-intro {
-  margin-top: 0.75rem;
-  line-height: 1.5;
+  @apply leading-normal mt-3;
 }
-
 .card-intro.skeleton {
-  min-height: 72px;
-  border-radius: 4px;
-
-  background-color: #e1e1e1;
+  @apply min-h-[72px] rounded bg-[#e1e1e1];
 }
+
 
 .skeleton {
-  background-color: #e2e5e7;
-  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
-  background-size: 40px 100%;
-  background-repeat: no-repeat;
-  background-position: left -40px top 0;
-  animation: shine 1s ease infinite;
+  @apply bg-[#e2e5e7] bg-[linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.5),rgba(255,255,255,0))] bg-[40px_100%] bg-no-repeat bg-[left_-40px_top_0] animate-[shine_1s_ease_infinite];
 }
-
 @keyframes shine {
   to {
-    background-position: right -40px top 0;
+    @apply bg-[right_-40px_top_0];
   }
 }
 
 .container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  @apply absolute w-full flex items-center justify-center flex-wrap inset-0;
 }
+
 
