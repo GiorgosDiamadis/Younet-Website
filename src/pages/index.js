@@ -50,7 +50,7 @@ export default function Home({services, brands, projectData, posts}) {
             <DynamicServices services={services}/>
             <DynamicPortfolio projects={projectData.projects} projectCategories={projectData.categories} category={8}/>
             <DynamicBrands brands={brands}/>
-            {/*<DynamicLatestPosts posts={posts}/>*/}
+            <DynamicLatestPosts posts={posts}/>
 
             <ContactForm/>
 

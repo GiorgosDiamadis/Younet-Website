@@ -10,6 +10,7 @@ import Header from "../../components/Header";
 import SectionTitle from "../../components/SectionTitle";
 import CallToActionFramerHOC from "../../components/CallToActionFramerHOC";
 import ContactForm from "../../components/ContactForm";
+import LatestPosts from "../../components/LatestPosts";
 
 const DynamicPortfolio = dynamic(() => import('../../components/Younet/Portfolio'), {
     loading: () => 'Loading'
@@ -113,6 +114,9 @@ export default function Pipes({services, brands, projectData, posts}) {
                 </SplideSlide>
                 <SplideSlide className={'overflow-y-hidden flex flex-col items-center'}>
                     <DynamicBrands brands={brands}/>
+                </SplideSlide>
+                <SplideSlide className={'overflow-y-hidden flex flex-col items-center'}>
+                    <LatestPosts posts={posts}/>
                 </SplideSlide>
                 <SplideSlide className={'overflow-y-hidden flex flex-col items-center'}>
                     <ContactForm/>
