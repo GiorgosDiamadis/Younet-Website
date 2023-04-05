@@ -5,6 +5,12 @@ import dynamic from "next/dynamic";
 import {getBrands, getProjects, getRecentPosts, getServices} from "../../lib/posts";
 import useEffectOnce from "../../hooks/useEffectOnce";
 
+import {Splide, SplideSlide} from '@splidejs/react-splide';
+import Header from "../../components/Header";
+import SectionTitle from "../../components/SectionTitle";
+import CallToActionFramerHOC from "../../components/CallToActionFramerHOC";
+import ContactForm from "../../components/ContactForm";
+
 const DynamicPortfolio = dynamic(() => import('../../components/Younet/Portfolio'), {
     loading: () => 'Loading'
 })
@@ -76,15 +82,56 @@ export default function Pipes({services, brands, projectData, posts}) {
 
 
     return <Layout classes={'bg-gradient-body'}>
-        <div id="tab1" className="tabcontent active " style={{height: `calc(100vh)`}}>
 
-            <DynamicServices services={services}/>
+        <div className=" absolute top-0 left-0 right-0 bottom-0 h-[100vh] flex justify-center items-center">
+            <Splide aria-label="My Favorite Images" options={{
+                direction: "ttb",
+                height: "100vh",
+                wheel: true,
+                wheelSleep: 200,
+                speed: 800
+            }}>
+                <SplideSlide>
+                    <Header>
+                        <div className='header-content flex flex-col items-center overflow-y-hidden'>
+                            <SectionTitle title={'Growing Brands Online'}
+                                          subTitle={'Results-Driven Creative Digital Agency Focused On'}/>
+
+                            <CallToActionFramerHOC className={'request-quote cursor-pointer'} onClick={() => {
+                            }}>
+                                see our services
+                            </CallToActionFramerHOC>
+                        </div>
+                    </Header>
+                </SplideSlide>
+                <SplideSlide className={'overflow-y-hidden flex flex-col items-center'}>
+                    <DynamicServices services={services}/>
+                </SplideSlide>
+                <SplideSlide className={'overflow-y-hidden flex flex-col items-center'}>
+                    <DynamicPortfolio projects={projectData.projects} projectCategories={projectData.categories}
+                                      category={8}/>
+                </SplideSlide>
+                <SplideSlide className={'overflow-y-hidden flex flex-col items-center'}>
+                    <DynamicBrands brands={brands}/>
+                </SplideSlide>
+                <SplideSlide className={'overflow-y-hidden flex flex-col items-center'}>
+                    <ContactForm/>
+                </SplideSlide>
+
+                <SplideSlide className={'overflow-y-hidden flex flex-col items-center'}>
+                    <DynamicNewsletter/>
+                </SplideSlide>
+            </Splide>
         </div>
 
-        <div id="tab2" className="tabcontent " style={{height: `calc(100vh)`}}>
-            <DynamicPortfolio projects={projectData.projects} projectCategories={projectData.categories} category={8}/>
+        {/*<div id="tab1" className="tabcontent active " style={{height: `calc(100vh)`}}>*/}
 
-        </div>
+
+        {/*</div>*/}
+
+        {/*<div id="tab2" className="tabcontent " style={{height: `calc(100vh)`}}>*/}
+
+        {/*</div>*/}
     </Layout>
 }
 

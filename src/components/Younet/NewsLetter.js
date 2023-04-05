@@ -5,7 +5,7 @@ import Section from '../Section'
 import {textVariant} from '../../utils/motion'
 
 export default function NewsLetter() {
-    return <Section className={'min-h-[0px] h-[300px] mb-0'}>
+    return <Section className={' mb-0'}>
         <div
             // variants={staggerContainer}
             // initial={'hidden'}

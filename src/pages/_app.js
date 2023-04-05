@@ -7,6 +7,7 @@ import { getSiteMetadata } from 'lib/site'
 import { getAllMenus } from 'lib/menus'
 
 import 'styles/globals.scss'
+import '@splidejs/react-splide/css';
 
 
 function App({Component, pageProps = {}, metadata, recentPosts, categories, menus}) {
