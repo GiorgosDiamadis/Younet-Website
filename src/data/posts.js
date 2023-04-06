@@ -83,7 +83,24 @@ export const buildServicesQuery = (categoryId) => {
             id
             services {
               fieldGroupName
-              frontButtonLink
+              frontbuttonlink {
+                ... on Page {
+                  id
+                  slug
+                }
+                ... on Service {
+                  id
+                  slug
+                }
+                ... on Project {
+                  id
+                  slug
+                }
+                ... on Brand {
+                  id
+                  slug
+                }
+              }
               frontButtonText
               serviceFrontShortDescription
               serviceBgImage {

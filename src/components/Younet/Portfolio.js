@@ -1,8 +1,9 @@
 import SectionTitle from '../SectionTitle'
 import Section from '../Section'
-import {useEffect, useState} from 'react'
-import {getProjects} from '../../lib/posts'
+import { useEffect, useState } from 'react'
+import { getProjects } from '../../lib/posts'
 import Project from '../Project'
+import { Splide, SplideSlide } from '@splidejs/react-splide'
 
 export default function Portfolio({ projects, category, projectCategories, ...rest }) {
 
@@ -18,7 +19,7 @@ export default function Portfolio({ projects, category, projectCategories, ...re
     useEffect(() => {
 
         setWidth(window.screen.width)
-    },[])
+    }, [])
 
     useEffect(() => {
 
@@ -65,7 +66,8 @@ export default function Portfolio({ projects, category, projectCategories, ...re
                 setCurrentCategory(e.target.value)
             }}>
                 {categories && Object.keys(categories).map((category) => (
-                    <option key={categories[category].id} selected={category === currentCategory} value={category}>{categories[category].name}</option>
+                    <option key={categories[category].id} selected={category === currentCategory}
+                            value={category}>{categories[category].name}</option>
                 ))}
             </select>
         </>
@@ -86,10 +88,23 @@ export default function Portfolio({ projects, category, projectCategories, ...re
             className='portfolio-container mt-10 w-full m-auto'>
 
             {isLoading ? <Skeleton number={categories[currentCategory].count} /> : (
-                <>
-                    {initialProjects && initialProjects.map((project, i) => (
-                        <Project key={project.id} project={project} />))}
-                </>
+                <Splide aria-label='My Favorite Images' options={{
+                    direction: 'ltr',
+                    perPage: 2,
+                    width: "100%",
+                    height: 500,
+                    speed: 800
+                }}>
+                    {
+                        initialProjects && initialProjects.map(
+                            (project, i) => (
+                                <SplideSlide>
+                                    <Project key={project.id} project={project} />
+                                </SplideSlide>
+                            )
+                        )
+                    }
+                </Splide>
 
             )}
 

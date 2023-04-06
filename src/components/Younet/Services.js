@@ -4,11 +4,13 @@
 import SectionTitle from '../SectionTitle'
 import Image from 'next/image'
 import Link from 'next/link'
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 export default function Services({ services }) {
 
     const [width, setWidth] = useState()
+    const router = useRouter()
 
     useEffect(() => {
 
@@ -51,14 +53,14 @@ export default function Services({ services }) {
                                     //         initial={'hidden'}
                                     //         whileInView={'show'}
                                     //         viewport={{ once: true, amount: 0.25 }}
-                                     id={`heading-${service.id}`}
-                                            className={'service-heading '}>
+                                    id={`heading-${service.id}`}
+                                    className={'service-heading '}>
                                     <span
                                         // variants={textVariant(.1)}
-                                                 className={'text-highlighted text-5xl font-bold'}>0{i + 1}</span>
+                                        className={'text-highlighted text-5xl font-bold'}>0{i + 1}</span>
                                     <p
                                         // variants={textVariant(.15)}
-                                              className={' inline-block lg:text-2xl text-3xl font-bold'}>
+                                        className={' inline-block lg:text-2xl text-3xl font-bold'}>
                                         {service.title}
                                     </p>
                                 </div>
@@ -69,7 +71,8 @@ export default function Services({ services }) {
 
                                     {service.frontButtonLink && (
                                         <button className={'btn-primary w-full text-[16px]'}>
-                                            <Link target={'_blank'} href={service.frontButtonLink} className={'text-white'}>
+                                            <Link target={'_blank'} locale={router.locale} href={service.frontButtonLink}
+                                                  className={'text-white'}>
                                                 {service.frontButtonText}
 
                                             </Link>
@@ -101,7 +104,7 @@ export default function Services({ services }) {
                 {services && services.map((service, i) => (
                     <div key={'service-mobile-' + service.id} className='transition accordion-item'>
                         <div
-                            onTouchStart={()=>{
+                            onTouchStart={() => {
                                 setActiveService(i)
 
                             }}

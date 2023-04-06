@@ -1,13 +1,14 @@
 import Layout from 'components/Layout'
 import React from 'react'
 import dynamic from 'next/dynamic'
-import { getBrands, getProjects, getServices } from 'lib/posts'
+import { getBrands, getProjects, getRecentPosts, getServices } from 'lib/posts'
 
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import Header from 'components/Header'
 import SectionTitle from 'components/SectionTitle'
 import CallToActionFramerHOC from 'components/CallToActionFramerHOC'
 import ContactForm from 'components/ContactForm'
+import LatestPosts from '../components/LatestPosts'
 
 const DynamicPortfolio = dynamic(() => import('components/Younet/Portfolio'), {
     loading: () => 'Loading'
@@ -22,12 +23,14 @@ const DynamicNewsletter = dynamic(() => import('components/Younet/NewsLetter'), 
     loading: () => 'Loading'
 })
 
-export default function Home({ services, brands, projectData }) {
+const DynamicLatestPosts = dynamic(() => import('components/LatestPosts'), { loading: () => 'Loading' })
+
+export default function Home({ services, brands, projectData, posts }) {
 
 
-    return <Layout classes={'bg-gradient-body'}>
+    return <Layout classes={'bg-gradient-body overflow-y-hidden'}>
 
-        <div className=' absolute top-0 left-0 right-0 bottom-0 h-[100vh] flex justify-center items-center'>
+        <div className=' absolute top-0 left-0 right-0 bottom-0 h-[100vh] flex justify-center items-center homepage'>
             <Splide aria-label='My Favorite Images' options={{
                 direction: 'ttb',
                 height: '100vh',
@@ -59,9 +62,11 @@ export default function Home({ services, brands, projectData }) {
                     <DynamicBrands brands={brands} />
                 </SplideSlide>
                 <SplideSlide className={'overflow-y-hidden flex flex-col items-center'}>
+                    <DynamicLatestPosts posts={posts} />
+                </SplideSlide>
+                <SplideSlide className={'overflow-y-hidden flex flex-col items-center'}>
                     <ContactForm />
                 </SplideSlide>
-
                 <SplideSlide className={'overflow-y-hidden flex flex-col items-center'}>
                     <DynamicNewsletter />
                 </SplideSlide>
@@ -71,11 +76,13 @@ export default function Home({ services, brands, projectData }) {
     </Layout>
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }) {
 
-    const { services } = await getServices(13)
+
+    const { services } = await getServices(13, locale)
     const { brands } = await getBrands()
     const { projects, categories } = await getProjects(8)
+    const { posts } = await getRecentPosts(3)
 
     return {
         revalidate: 5,
@@ -85,7 +92,8 @@ export async function getStaticProps() {
             projectData: {
                 projects,
                 categories
-            }
+            },
+            posts
         }
     }
 }
