@@ -10,6 +10,7 @@ import useScrollPosition from '../../hooks/useScrollPosition'
 import CallToAction from '../CallToAction'
 import Burger from './Burger'
 import NavListItem from '../NavListItem'
+import { useRouter } from 'next/router'
 
 const Nav = () => {
 
@@ -22,6 +23,7 @@ const Nav = () => {
 
     const scrollPosition = useScrollPosition()
     const [width, setWidth] = useState()
+    const router = useRouter()
 
     useEffect(() => {
 
@@ -37,6 +39,7 @@ const Nav = () => {
 
 
     useEffect(() => {
+
             if (window.location.pathname === '/') {
                 if (scrollPosition >= 120) {
 
@@ -81,6 +84,14 @@ const Nav = () => {
                                     <div ref={ctaRef} className={'request-quote hidden md:block'}>Ζητηστε τιμη
                                     </div>
                                 </CallToAction>
+                                <Link href={`/el${router.asPath}`} locale={'el'}>
+                                    Ελληνικά
+                                </Link>
+
+                                <Link href={`${router.asPath}`} locale={''}>
+                                    English
+                                </Link>
+
                             </button>
                             {width > 800 ? <>
                                 <button aria-label={'Μενού'} type={'button'} className={'burger-container'}

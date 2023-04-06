@@ -44,12 +44,6 @@ export default function Post({
 
                     ))}
                 </div>
-                <div className={'flex gap-2 mt-3'}>
-                    <Image loading={'lazy'} src={author.avatar.url} width={20} height={0}
-                           className={'h-auto rounded-full'} alt={author.name} />
-                    <span className={'text-white'}>{author.name}</span>
-                </div>
-
                 <div dangerouslySetInnerHTML={{ __html: excerpt }}></div>
             </div>
         </div>
